@@ -1,0 +1,19 @@
+<h1>User Information</h1>
+<hr>
+<p>Name: <%= @user.name %>さん </p>
+<p>Favorite Genre: <%= @user.genre %></p>
+<p>Area: <%= @user.area %></p>
+<p>Icon: <%= @user.icon %></p>
+<p>Profile: <%= @user.profile %></p>
+<% if @user.user_type == "Individual" %>
+<p>Gender: <%= @user.gender %></p>
+<p>Status: <%= @user.waiting %></p>
+<p>Instrument Part: <%= @user.part %></p>
+<% else %>
+<p>Band Master: <%= @user.banmas_id %></p>
+<% end %>
+<hr>
+<p><a href="/users" class = "btn btn-primary">Back to User List</a></p>
+<% if @user.id == current_user.id %>
+  <p><a href = "/users/<%= @user.id %>/edit" class = "btn btn-success">Edit User Info</a></p>
+<% end %>

@@ -1,0 +1,22 @@
+.main-page {
+    margin-top: 50px;
+}
+
+.my-form {
+    width: 500px;
+}
+    
+.header-image {
+    background-image: url(/assets/top_image.jpeg);
+    height: 400px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.header-content {
+    font-size: 75px;
+    padding-top: 150px;
+    color: #eee;
+}

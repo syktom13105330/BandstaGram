@@ -1,0 +1,7 @@
+<h1>User List</h1>
+<hr>
+<% @users.each do |u| %>
+  <p><a href ="/users/<%= u.id %>"><%= u.name %>さん</a></p>
+  <hr>
+<% end %>
+<a href = "/" class = " btn btn-info">Back to Top</a>

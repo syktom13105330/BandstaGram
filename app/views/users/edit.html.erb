@@ -1,0 +1,26 @@
+<h1>Edit User Information</h1>
+<hr>
+<%= form_for @user do |f| %>
+  <p>name</p>
+  <%= f.text_field :name, :class => "form-control my-form" %>
+  <p>Favorite Genre</p>
+  <%= f.select :genre, ["Rock", "Pops", "Metal", "Accoustic"], :prompt => "Select" %>
+  <p>Area</p>
+  <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], :prompt => "Select" %>
+  <p>Icon</p>
+  <%= f.file_field :icon %>
+  <p>Profile</p>
+  <%= f.text_area :profile, :class => "form-control my-form" %>
+  <% if @user_type == "Individual" %>
+    <p>Gender</p>
+    <%= f.select :gender, ["Male", "Female", "None"], :prompt => "Select" %>
+    <p>Status</p>
+    <%= f.select :waiting, ["Welcome", "No Thanks"], :prompt => "Select" %>
+    <p>Instrument Part</p>
+    <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %>
+  <% end %>
+  <hr>
+  <%= f.submit "Save", :class => "btn btn-primary" %>
+<% end %>
+<hr>
+<a href = "/users/<%= @user.id %>" class = "btn btn-info">Back to User Information</a>
