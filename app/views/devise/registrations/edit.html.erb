@@ -4,8 +4,58 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, :class => "form-control my-form" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :genre %><br />
+    <%= f.select :genre, ["Rock", "Pops", "Metal", "Accoustic"], :prompt => "Select" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :area %><br />
+    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], :prompt => "Select" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :icon %><br />
+    <%= f.file_field :icon %>
+  </div>  
+
+  <div class="field">
+    <%= f.label :profile %><br />
+    <%= f.text_area :profile, :class => "form-control my-form" %>
+  </div>
+
+  <% if @user.user_type == "Individual" %>
+    <div class="field">
+      <%= f.label :gender %><br />
+      <%= f.select :gender, ["Male", "Female", "None"], :prompt => "Select" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :waiting %><br />
+      <%= f.select :waiting, ["Welcome", "No Thanks"], :prompt => "Select" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :part %><br />
+      <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %>
+    </div>
+    
+  <% else %>
+  
+    <div class="field">
+      <%= f.label :banmas_id %><br />
+      <%= f.text_field :banmas_id %>
+    </div>    
+      
+  <% end %>
+
+  <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control my-form" %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -14,7 +64,7 @@
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", :class => "form-control my-form" %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -23,21 +73,21 @@
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control my-form" %>
   </div>
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", :class => "form-control my-form" %>
   </div>
-
+  <br>
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", :class => "btn btn-primary" %>
   </div>
 <% end %>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,:class => "btn btn-danger" %></p>
 
 <%= link_to "Back", :back %>

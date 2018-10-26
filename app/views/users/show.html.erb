@@ -15,5 +15,5 @@
 <hr>
 <p><a href="/users" class = "btn btn-primary">Back to User List</a></p>
 <% if @user.id == current_user.id %>
-  <p><a href = "/users/<%= @user.id %>/edit" class = "btn btn-success">Edit User Info</a></p>
+  <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>
 <% end %>

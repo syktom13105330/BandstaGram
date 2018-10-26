@@ -2,7 +2,13 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_account_update_params, only: [:update]
+
+ 
+  def after_update_path_for(resource)
+    edit_user_registration_path
+  end
+
 
   # GET /resource/sign_up
   # def new
@@ -19,15 +25,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user.save
   end
 
-  # GET /resource/edit
+  # # GET /resource/edit
   # def edit
   #   super
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    logger.debug("--------------------------genre=#{params[:user][:genre]}")
+    logger.debug("--------------------------user_type=#{params[:user][:area]}")
+    logger.debug("--------------------------icon=#{params[:user][:icon]}")    
+    logger.debug("--------------------------profile=#{params[:user][:profile]}")    
+    logger.debug("--------------------------gender=#{params[:user][:gender]}")    
+    logger.debug("--------------------------waiting=#{params[:user][:waiting]}")    
+    logger.debug("--------------------------part=#{params[:user][:part]}")    
+    super
+    user = User.find_by(params[:id])
+    # if user.id == current_user.id
+      user.update(params.require(:user).permit(:name, :user_type, :banmas_id, :profile, :genre, :email, :password, :icon, :area, :gender, :waiting, :part))
+      # redirect_to "/users/#{user.id}/edit"
+    # else
+      # redirect_to "/" and return
+      # flash[:alert] = "You have no permission to access"
+    # end
+  end
 
   # DELETE /resource
   # def destroy
@@ -51,9 +72,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :user_type, :banmas_id, :profile, :genre, :email, :password, :icon, :area, :gender, :waiting, :part])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

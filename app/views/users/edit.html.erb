@@ -2,22 +2,22 @@
 <hr>
 <%= form_for @user do |f| %>
   <p>name</p>
-  <%= f.text_field :name, :class => "form-control my-form" %>
+  <%= f.text_field :name, :class => "form-control my-form" %><br>
   <p>Favorite Genre</p>
-  <%= f.select :genre, ["Rock", "Pops", "Metal", "Accoustic"], :prompt => "Select" %>
+  <%= f.select :genre, ["Rock", "Pops", "Metal", "Accoustic"], :prompt => "Select" %><br>
   <p>Area</p>
-  <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], :prompt => "Select" %>
+  <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], :prompt => "Select" %><br>
   <p>Icon</p>
-  <%= f.file_field :icon %>
+  <%= f.file_field :icon %><br>
   <p>Profile</p>
-  <%= f.text_area :profile, :class => "form-control my-form" %>
+  <%= f.text_area :profile, :class => "form-control my-form" %><br>
   <% if @user_type == "Individual" %>
     <p>Gender</p>
-    <%= f.select :gender, ["Male", "Female", "None"], :prompt => "Select" %>
+    <%= f.select :gender, ["Male", "Female", "None"], :prompt => "Select" %><br>
     <p>Status</p>
-    <%= f.select :waiting, ["Welcome", "No Thanks"], :prompt => "Select" %>
+    <%= f.select :waiting, ["Welcome", "No Thanks"], :prompt => "Select" %><br>
     <p>Instrument Part</p>
-    <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %>
+    <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %><br>
   <% end %>
   <hr>
   <%= f.submit "Save", :class => "btn btn-primary" %>
