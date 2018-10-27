@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_110338) do
+ActiveRecord::Schema.define(version: 2018_10_27_045917) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -31,6 +31,10 @@ ActiveRecord::Schema.define(version: 2018_10_23_110338) do
     t.string "part"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "icon_file_name"
+    t.string "icon_content_type"
+    t.bigint "icon_file_size"
+    t.datetime "icon_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
