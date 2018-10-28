@@ -31,6 +31,9 @@
       </div>
       <div class = "user-right">
         <%= link_to User.find(receive_friend).name, "/users/#{receive_friend}" %>
+        <% if @friend_status = "w" %>
+          <%= link_to("Approve", "/friends/#{receive_friend}", {method: "post"}) %>
+        <% end %>
       </div>
     </div>
   <% end %>

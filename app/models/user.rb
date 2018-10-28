@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :friend, dependent: :destroy
+  has_many :friends, dependent: :destroy
 
   # has_attached_file :icon, styles: {medium:"300x300>", thumb:"50x50>"}
   

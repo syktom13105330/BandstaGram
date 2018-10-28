@@ -1,8 +1,18 @@
 <h1>User Information</h1>
 <hr>
 
-  <%= link_to("Friend Request", "/friends", {method: "post"}) %>
-<hr>
+<% if @user.id != current_user.id %>
+  <% if @friend_status == "" %>
+    <p class = "btn btn-warning"><%= link_to("Friend Request", "/friends/#{@user.id}", {method: "post"}) %></p>
+  <% elsif @friend_status == "w" %>
+    <p class = "btn btn-warning"><%= link_to("Approve", "/friends/#{@user.id}", {method: "post"}) %></p>
+  <% elsif @friend_status == "r" %>
+    <p class = "comment">Waiting...</p>
+  <% elsif @friend_status == "f" %>
+    <p class = "comment">Already Friend!</p>
+  <% end %>  
+  <hr>
+<% end %>
   
 <img src="<%= "/user_icon/#{@user.icon}" %>"  width="100px" height="100px" style="border-radius: 20px;">
 <p>Name: <%= @user.name %>さん </p>

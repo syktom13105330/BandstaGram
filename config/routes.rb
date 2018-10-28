@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
+  post 'friends/:id' => 'friends#create'
   resources :friends
-  post 'friends/new' => 'friends#create'
+  # post 'friends/new' => 'friends#create'
   # resources :friends, :only => [:index]
   # devise_for :users
   
