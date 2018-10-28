@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  
+  resources :friends
+  post 'friends/new' => 'friends#create'
+  # resources :friends, :only => [:index]
   # devise_for :users
   
+
   devise_for :users, :controllers => {
     :registrations => 'users/registrations'
    }

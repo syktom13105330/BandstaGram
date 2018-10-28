@@ -3,7 +3,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-
  
   def after_update_path_for(resource)
     edit_user_registration_path
@@ -40,9 +39,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
     logger.debug("--------------------------waiting=#{params[:user][:waiting]}")    
     logger.debug("--------------------------part=#{params[:user][:part]}")    
     super
-    user = User.find_by(params[:id])
     # if user.id == current_user.id
-      user.update(params.require(:user).permit(:name, :user_type, :banmas_id, :profile, :genre, :email, :password, :icon, :area, :gender, :waiting, :part))
+    @user = User.find_by(id: params[:user][:id])
+    @user.genre = params[:user][:genre]
+    @user.area = params[:user][:area]
+    @user.profile = params[:user][:profile]
+    @user.gender = params[:user][:gender]
+    @user.waiting = params[:user][:waiting]
+    @user.part = params[:user][:part]
+    
+    if params[:user][:icon]
+      @user.icon = "#{@user.id}.jpg"
+      image = params[:user][:icon]
+      File.binwrite("public/user_icon/#{@user.icon}", image.read)
+    end
+    
+    if @user.save
+      # flash[:notice] = "ユーザー情報を編集しました"
+      # redirect_to("/users/#{@user.id}")
+    else
+      # render(edit_user_registration)
+    end
+    
+    
+    
+    
+    
+      # user.update(params.require(:user).permit(:name, :user_type, :banmas_id, :profile, :genre, :email, :password, :icon, :area, :gender, :waiting, :part))
       # redirect_to "/users/#{user.id}/edit"
     # else
       # redirect_to "/" and return

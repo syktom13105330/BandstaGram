@@ -1,9 +1,14 @@
 <h1>User Information</h1>
 <hr>
+
+  <%= link_to("Friend Request", "/friends", {method: "post"}) %>
+<hr>
+  
+<img src="<%= "/user_icon/#{@user.icon}" %>"  width="100px" height="100px" style="border-radius: 20px;">
 <p>Name: <%= @user.name %>さん </p>
 <p>Favorite Genre: <%= @user.genre %></p>
 <p>Area: <%= @user.area %></p>
-<p>Icon: <%= @user.icon %></p>
+<!--<p>Icon: <%= @user.icon %></p>-->
 <p>Profile: <%= @user.profile %></p>
 <% if @user.user_type == "Individual" %>
 <p>Gender: <%= @user.gender %></p>

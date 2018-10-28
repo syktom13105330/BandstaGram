@@ -1,7 +1,16 @@
 <h1>User List</h1>
 <hr>
+
 <% @users.each do |u| %>
-  <p><a href ="/users/<%= u.id %>"><%= u.name %>さん</a></p>
-  <hr>
+  <div class="users-index-item">
+    <div class = "user-left">
+      <img src="<%= "/user_icon/#{u.icon}" %>" >
+    </div>
+    <div class = "user-right">
+      <p><a href ="/users/<%= u.id %>"><%= u.name %>さん</a></p>
+    </div>
+  </div>
+  <!--<hr>-->
 <% end %>
+<br>
 <a href = "/" class = " btn btn-info">Back to Top</a>

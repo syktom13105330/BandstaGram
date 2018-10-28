@@ -1,0 +1,56 @@
+<h1>Connection List</h1>
+<br><br>
+    
+<h3>申請中</h3>
+<hr>
+<% if @request_friends == []%>
+  <div class="comment">No Sent Request</div>
+<% else %>
+  <% @request_friends.each do |request_friend| %>
+    <div class="users-index-item">
+      <div class = "user-left">
+        <img src="<%= "/user_icon/#{User.find(request_friend).icon}" %>" >
+      </div>
+      <div class = "user-right">
+        <%= link_to User.find(request_friend).name, "/users/#{request_friend}" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<br><br>
+
+<h3>承認待ち</h3>
+<hr>
+<% if @receive_friends ==[]%>
+  <div class="comment">No Request to approve</div>
+<% else %>
+  <% @receive_friends.each do |receive_friend| %>
+    <div class="users-index-item">
+      <div class="user-left">
+        <img src="<%= "/user_icon/#{User.find(receive_friend).icon}" %>" >
+      </div>
+      <div class = "user-right">
+        <%= link_to User.find(receive_friend).name, "/users/#{receive_friend}" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+  <br><br>
+  
+<h3>友達</h3>
+<hr>
+<% if @friends ==[]%>
+  <div class="comment">You don't have any connection yet</div>
+<% else %>
+  <% @friends.each do |friend| %>
+    <div class="users-index-item">
+      <div class="user-left">
+        <img src="<%= "/user_icon/#{User.find(friend).icon}" %>" >
+      </div>
+      <div class="user-right">
+        <%= link_to User.find(friend).name, "/users/#{friend}" %>
+      </div>  
+    </div>
+  <% end %>
+<% end %>
+<br><br>
