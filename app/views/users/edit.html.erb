@@ -20,7 +20,12 @@
     <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %><br>
   <% end %>
   <hr>
+  
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>
 <hr>
 <a href = "/users/<%= @user.id %>" class = "btn btn-info">Back to User Information</a>
+
+<!--【所属バンド選択】ボタンを作る？-->
+<!--クリックして→一覧表示→絞り込み→選択→JSがかく→追加-->
+<!--JSにHTMLを書かせる？　←これは一旦ヤメた-->

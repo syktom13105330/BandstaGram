@@ -11,12 +11,12 @@
 
   <div class="field">
     <%= f.label :genre %><br />
-    <%= f.select :genre, ["Rock", "Pops", "Metal", "Accoustic"], :prompt => "Select" %>
+    <%= f.select :genre, ["Rock", "Pops","Metal", "Accoustic", "Classic"], {:prompt => "Select"}, {:class => "form-control my-form"} %>
   </div>
   
   <div class="field">
     <%= f.label :area %><br />
-    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], :prompt => "Select" %>
+    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], {:prompt => "Select"}, {:class => "form-control my-form"} %>
   </div>
   
   <div class="field">
@@ -29,27 +29,27 @@
     <%= f.text_area :profile, :class => "form-control my-form" %>
   </div>
 
-  <% if @user.user_type == "Individual" %>
+  <% if @user.user_type == "i" %>
     <div class="field">
       <%= f.label :gender %><br />
-      <%= f.select :gender, ["Male", "Female", "None"], :prompt => "Select" %>
+      <%= f.select :gender, ["Male", "Female", "None"], {:prompt => "Select"}, {:class => "form-control my-form"} %>
     </div>
 
     <div class="field">
       <%= f.label :waiting %><br />
-      <%= f.select :waiting, ["Welcome", "No Thanks"], :prompt => "Select" %>
+      <%= f.select :waiting, ["Welcome", "No Thanks"], {:prompt => "Select"}, {:class => "form-control my-form"} %>
     </div>
     
     <div class="field">
       <%= f.label :part %><br />
-      <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], :prompt => "Select" %>
+      <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], {:prompt => "Select"}, {:class => "form-control my-form"} %>
     </div>
     
   <% else %>
   
     <div class="field">
       <%= f.label :banmas_id %><br />
-      <%= f.text_field :banmas_id %>
+      <%= f.text_field :banmas_id, :class => "form-control my-form" %>
     </div>    
       
   <% end %>
@@ -92,3 +92,5 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,:class => "btn btn-danger" %></p>
 
 <%= link_to "Back", :back %>
+
+<br>

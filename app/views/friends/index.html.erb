@@ -3,7 +3,7 @@
     
 <h3>申請中</h3>
 <hr>
-<% if @request_friends == []%>
+<% if @request_friends.empty? %>
   <div class="comment">No Sent Request</div>
 <% else %>
   <% @request_friends.each do |request_friend| %>
@@ -21,7 +21,7 @@
 
 <h3>承認待ち</h3>
 <hr>
-<% if @receive_friends ==[]%>
+<% if @receive_friends.empty? %>
   <div class="comment">No Request to approve</div>
 <% else %>
   <% @receive_friends.each do |receive_friend| %>
@@ -32,7 +32,7 @@
       <div class = "user-right">
         <%= link_to User.find(receive_friend).name, "/users/#{receive_friend}" %>
         <% if @friend_status = "w" %>
-          <%= link_to("Approve", "/friends/#{receive_friend}", {method: "post"}) %>
+          <%= link_to "Approve", "/friends/#{receive_friend}", method: :post, class: "btn btn-default btn-approve" %>
         <% end %>
       </div>
     </div>
@@ -42,7 +42,7 @@
   
 <h3>友達</h3>
 <hr>
-<% if @friends ==[]%>
+<% if @friends.empty? %>
   <div class="comment">You don't have any connection yet</div>
 <% else %>
   <% @friends.each do |friend| %>

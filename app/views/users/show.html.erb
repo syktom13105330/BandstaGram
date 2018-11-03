@@ -3,9 +3,9 @@
 
 <% if @user.id != current_user.id %>
   <% if @friend_status == "" %>
-    <p class = "btn btn-warning"><%= link_to("Friend Request", "/friends/#{@user.id}", {method: "post"}) %></p>
+    <p class = "btn btn-default"><%= link_to("Friend Request", "/friends/#{@user.id}", {method: "post"}) %></p>
   <% elsif @friend_status == "w" %>
-    <p class = "btn btn-warning"><%= link_to("Approve", "/friends/#{@user.id}", {method: "post"}) %></p>
+    <p class = "btn btn-default"><%= link_to("Approve", "/friends/#{@user.id}", {method: "post"}) %></p>
   <% elsif @friend_status == "r" %>
     <p class = "comment">Waiting...</p>
   <% elsif @friend_status == "f" %>
@@ -14,13 +14,13 @@
   <hr>
 <% end %>
   
-<img src="<%= "/user_icon/#{@user.icon}" %>"  width="100px" height="100px" style="border-radius: 20px;">
+<img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
 <p>Name: <%= @user.name %>さん </p>
 <p>Favorite Genre: <%= @user.genre %></p>
 <p>Area: <%= @user.area %></p>
 <!--<p>Icon: <%= @user.icon %></p>-->
 <p>Profile: <%= @user.profile %></p>
-<% if @user.user_type == "Individual" %>
+<% if @user.user_type == "i" %>
 <p>Gender: <%= @user.gender %></p>
 <p>Status: <%= @user.waiting %></p>
 <p>Instrument Part: <%= @user.part %></p>
@@ -32,3 +32,4 @@
 <% if @user.id == current_user.id %>
   <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>
 <% end %>
+

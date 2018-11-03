@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
-  
-  post 'friends/:id' => 'friends#create'
-  resources :friends
-  # post 'friends/new' => 'friends#create'
-  # resources :friends, :only => [:index]
-  # devise_for :users
-  
 
-  devise_for :users, :controllers => {
+    devise_for :users, :controllers => {
     :registrations => 'users/registrations'
    }
    
@@ -16,4 +9,13 @@ Rails.application.routes.draw do
   root "welcome#index"
   # resources :users, :only => [:show, :index, :edit, :update]
   resources :users, :only => [:show, :index]
+  
+  post 'friends/:id' => 'friends#create'
+  resources :friends
+  # post 'friends/new' => 'friends#create'
+  # resources :friends, :only => [:index]
+  # devise_for :users  
+  
+  resources :posts
+  
 end

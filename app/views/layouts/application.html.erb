@@ -25,8 +25,11 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
+              <li><a href = "/posts/new">New Post!</a></li>
+              <li><a href = "/posts">Post List</a></li>
               <li><a href = "/users">Find Friends</a></li>
               <li><a href = "/friends">Friends</a></li>
+              <li><a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"></a></li>
               <li><a href = "/users/<%= current_user.id %>"><%= current_user.name %>さん</a></li>
               <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
             <% else %>
@@ -49,6 +52,12 @@
       <% end %>
     <%= yield %>
     </div>
+    
+    <!--<footer class ="footer">-->
+    <!--  <div class = "container">-->
+    <!--    <div class = "text-muted">BandstaGram</div>-->
+    <!--  </div>-->
+    <!--</footer>-->
     
   </body>
 </html>

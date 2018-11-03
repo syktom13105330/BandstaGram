@@ -1,0 +1,15 @@
+<h1>Posts List</h1>
+<br><br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <% @posts.each do |p| %>
+          <%= link_to "posts/#{p.id}" do %>
+            <%= image_tag "/pics/#{p.file_name}", :class => "post_pic" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
