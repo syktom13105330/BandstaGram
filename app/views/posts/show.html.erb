@@ -1,8 +1,8 @@
 <h1>Post Information</h1>
 <hr>
-
-  <%= image_tag "/pics/#{@post.file_name}", :class => "show_pic" %>
-
+　<% @post_details.each do |post_detail| %>
+    <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic" %>
+  <% end %>
 <hr>
   <p><%= @post.content %></p>
   <p><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>

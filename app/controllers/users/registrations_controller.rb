@@ -3,10 +3,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :authenticate_user!
+
  
-  def after_update_path_for(resource)
-    edit_user_registration_path
-  end
+
 
 
   # GET /resource/sign_up
@@ -17,17 +17,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     logger.debug("--------------------------email=#{params[:user][:email]}")
-    logger.debug("--------------------------user_type=#{params[:user][:user_type]}")
+    logger.debug("--------------------------user_type=#{params[:user][:user_type]}")   
     super
     user = User.last
     user.user_type = params[:user][:user_type]
-    user.save
+    if user.save
+      # flash[:natice] = "successfully"
+    else
+      # flash[:natice] = "Failed to created account"
+    end
+    # super
+    # user = User.last
+    # user.user_type = params[:user][:user_type]
+    # user.save
   end
 
   # # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    logger.debug("--------------------------=========-----======edit ")
+    super
+  end
 
   # PUT /resource
   def update
@@ -109,4 +118,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  
+  protected
+ 
+    def after_sign_up_path_for(resource)
+       edit_user_registration_path
+    end
+  
+    def after_inactive_sign_up_path_for(resource)
+      edit_user_registration_path
+    end
+   
+    def after_update_path_for(resource)
+      edit_user_registration_path
+    end
+  
 end

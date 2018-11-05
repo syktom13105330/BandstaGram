@@ -1,0 +1,2 @@
+class PostDetail < ApplicationRecord
+end

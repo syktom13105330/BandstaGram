@@ -5,8 +5,7 @@
 
   <div class="field">
     <%= f.label :user_type %><br />
-    <%= f.select :user_type, [["Individual","i"],["Group","g"]], {:prompt => "Select"}, {:class => "form-control my-form"} %>
-  </div>
+    <%= f.select :user_type, [["Individual","i"],["Group","g"]], {:selected => "Individual"}, {:class => "form-control my-form"} %>  </div>
   
   <br>
 
