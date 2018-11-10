@@ -2,20 +2,27 @@
 <br><br>
 
   <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <% @posts.each do |p| %>
-         <% if PostDetail.find_by(post_id: p.id).present? %>
-          <% @count = 0 %>
-            <% @count = PostDetail.where(post_id: p.id).count  %>
-              <%= link_to "posts/#{p.id}" do %>
-                <% logger.debug("~~~~~~~~~~~~~~~~~~~~~file_name =  #{p.id}") %>
-                  <%= image_tag "/pics/#{p.id}/#{PostDetail.find_by(post_id: p.id).file_name}", :class => "post_pic" %>
-                <% end %>
-              <%= @count %>
-         <% end %>
+    <% @posts.in_groups_of(3, false).each do |group| %>
+      <div class="row">
+        <% group.each do |p| %>
+        <!--@posts.each do |p|-->
+          <div class="col-sm-6 col-md-4 count_container">
+            <div class="">
+             <% if PostDetail.find_by(post_id: p.id).present? %>
+              <% @count = 0 %>
+                <% @count = PostDetail.where(post_id: p.id).count  %>
+                  <%= link_to "posts/#{p.id}" do %>
+                    <% logger.debug("~~~~~~~~~~~~~~~~~~~~~file_name =  #{p.id}") %>
+                      <%= image_tag "/pics/#{p.id}/#{PostDetail.find_by(post_id: p.id).file_name}", :class => "post_pic img-responsive full-width" %>
+                    <% end %>
+                    <!--<div class="count">-->
+                      <span class = "count"><%= @count %></span>
+                    <!--</div>-->
+             <% end %>
+            </div>
+          </div>
         <% end %>
       </div>
-    </div>
+    <% end %>
   </div>
 

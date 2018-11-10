@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   before_action :authenticate_user!
 
@@ -21,11 +21,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     user = User.last
     user.user_type = params[:user][:user_type]
-    if user.save
-      # flash[:natice] = "successfully"
-    else
-      # flash[:natice] = "Failed to created account"
-    end
+    user.save
+    # if user.save
+    #   # flash[:natice] = "successfully"
+    # else
+    #   # flash[:natice] = "Failed to created account"
+    # end
     # super
     # user = User.last
     # user.user_type = params[:user][:user_type]
@@ -33,10 +34,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # # GET /resource/edit
-  def edit
-    logger.debug("--------------------------=========-----======edit ")
-    super
-  end
+  # def edit
+  #   logger.debug("--------------------------=========-----======edit ")
+  #   super
+  # end
 
   # PUT /resource
   def update
@@ -96,12 +97,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_type])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
@@ -118,8 +119,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  
-  protected
  
     def after_sign_up_path_for(resource)
        edit_user_registration_path
@@ -130,7 +129,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
    
     def after_update_path_for(resource)
-      edit_user_registration_path
+      user_path(resource)
     end
   
 end
