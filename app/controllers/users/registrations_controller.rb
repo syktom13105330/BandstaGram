@@ -21,6 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     user = User.last
     user.user_type = params[:user][:user_type]
+    user.icon = "default.png"
     user.save
     # if user.save
     #   # flash[:natice] = "successfully"

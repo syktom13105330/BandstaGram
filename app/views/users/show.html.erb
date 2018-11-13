@@ -1,6 +1,7 @@
 <h1>User Information</h1>
 <hr>
 
+<!--current_userから見たfriend_status-->
 <% if @user.id != current_user.id %>
   <% if @friend_status == "" %>
     <p class = "btn btn-default"><%= link_to("Friend Request", "/friends/#{@user.id}", {method: "post"}) %></p>
@@ -21,13 +22,45 @@
 <!--<p>Icon: <%= @user.icon %></p>-->
 <p>Profile: <%= @user.profile %></p>
 <% if @user.user_type == "i" %>
-<p>Gender: <%= @user.gender %></p>
-<p>Status: <%= @user.waiting %></p>
-<p>Instrument Part: <%= @user.part %></p>
+  <p>Gender: <%= @user.gender %></p>
+  <p>Status: <%= @user.waiting %></p>
+  <p>Instrument Part: <%= @user.part %></p>
 <% else %>
-<p>Band Master: <%= @user.banmas_id %></p>
+  <p>Band Master: <%= @user.banmas_id %></p>
 <% end %>
 <hr>
+
+<!--"g"のみMedia Inco(BandDetail)-->
+<% if @user.user_type == "g" %>
+  <h2>Media Inforamtion</h2>
+  <% if @band_details.empty? %>
+    <p>No Media Information</p>
+  <% else %>
+    <div class="slider">
+  　<% @band_details.each do |band_detail| %>
+    　<div class="count_like">
+    　  <!--松下さん-->
+        <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+          <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+        <% else %>
+          <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+        <% end %>
+        <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
+      </div>
+    <% end %>
+    </div> 
+  <% end %>
+    
+  
+  <% if @user.id == current_user.id %>
+    <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a></p>
+  <% end %>
+
+<hr>
+
+<% end %>
+
+
 <p><a href="/users" class = "btn btn-primary">Back to User List</a></p>
 <% if @user.id == current_user.id %>
   <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>

@@ -8,7 +8,9 @@ class User < ApplicationRecord
   
   
   has_many :friends, dependent: :destroy
-  has_many :posts
+  has_many :posts, dependent: :destroy
+  has_many :band_details, dependent: :destroy
+
 
   # has_attached_file :icon, styles: {medium:"300x300>", thumb:"50x50>"}
   

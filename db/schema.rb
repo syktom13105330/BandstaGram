@@ -10,11 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_03_134007) do
+ActiveRecord::Schema.define(version: 2018_11_11_083435) do
+
+  create_table "band_details", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "file_type"
+    t.string "file_name"
+    t.string "string"
+    t.text "file_exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friends", force: :cascade do |t|
     t.integer "follower"
     t.integer "followed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_detail_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

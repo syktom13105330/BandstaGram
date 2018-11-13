@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
-
   
   before_action :authenticate_user!
   
   def index
-    @posts = Post.all
+    @posts = Post.all.order(id: "desc")
   end
   
   def new
@@ -30,12 +29,28 @@ class PostsController < ApplicationController
              
               @post_detail = PostDetail.new(post_detail_params)
               @post_detail.post_id = post_id
-              @post_detail.file_type = "p"
-              logger.debug("--------------------------file_name=#{image}")
+              
+              # 松下さん
+              if image.inspect.include?("jpg")
+                @post_detail.file_type = "jpg"
+              elsif image.inspect.include?("jpeg")
+                @post_detail.file_type = "jpeg"
+              elsif image.inspect.include?("png")
+                @post_detail.file_type = "png"
+              elsif image.inspect.include?("mp4")
+                @post_detail.file_type = "mp4"
+              elsif image.inspect.include?("mov")
+                @post_detail.file_type = "mov"
+              elsif image.inspect.include?("m4v")
+                @post_detail.file_type = "m4v"
+              end
+              
+              # @post_detail.file_type = "p"
+              logger.debug("--------------------------file_name=#{image.inspect.include?("jpg")}")
               
               dir_path = "public/pics/#{post_id}"
               FileUtils.mkdir_p(dir_path) unless FileTest.exist?(dir_path)
-              @post_detail.file_name = "#{@post.id}-#{cnt+1}.jpg"
+              @post_detail.file_name = "#{@post.id}-#{cnt+1}.#{@post_detail.file_type}"
               image = params[:images][cnt]
               File.binwrite("public/pics/#{post_id}/#{@post_detail.file_name}", image.read)
               cnt += 1
@@ -60,9 +75,17 @@ class PostsController < ApplicationController
   end
   
   def show
-    logger.debug("============================= params[:id] = #{params[:id]}")
+    # logger.debug("============================= params[:id] = #{params[:id]}")
     @post = Post.find(params[:id])
     @post_details = PostDetail.where(post_id: params[:id])
+
+  end
+  
+  #Nov_13
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+      redirect_to posts_path
   end
   
   private 
@@ -71,7 +94,7 @@ class PostsController < ApplicationController
     end
     
     def post_detail_params
-      params.require(:post).permit(:file_name)
+      params.require(:post).permit(:file_name, :post_id)
     end
 end  ## class end
 

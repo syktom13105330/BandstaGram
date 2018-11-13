@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :only => [:show, :index]
     
   def show
+    
     @user = User.find(params[:id])
       @friend_status = ""
         # Friend.where(follower: current_user.id).each do |f|
@@ -19,7 +20,6 @@ class UsersController < ApplicationController
               @friend_status = ""
             end
           end  
-
         #   if Friend.find_by('follower = ? and followed = ?', f.followed, current_user.id) 
         #   logger.debug("--------------------- 友達　f.followed = #{f.followed}")
         #     @friend_status = "f"
@@ -35,11 +35,21 @@ class UsersController < ApplicationController
         #     @friend_status = "w"
         #   end
         # end    
+    @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
+        
+        
   end
   
   def index
     @users = User.all
   end
+  
+  # def likes
+  #   logger.debug("--------------------- Likes_user_id = #{params[:id]}")
+    
+  #   @user = User.find_by(id: params[:id])
+  #   @likes = Like.where(user_id: @user.id)
+  # end
   
   # def edit
   #   @user = User.find(params[:id])
@@ -61,5 +71,5 @@ class UsersController < ApplicationController
   #     flash[:alert] = "You have no permission to access"
   #   end
   # end
-  
-end
+    
+end #class -- end
