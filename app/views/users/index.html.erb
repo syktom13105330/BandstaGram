@@ -1,16 +1,31 @@
 <h1>User List</h1>
 <hr>
 
+<!--Nov 14-->
+<%= form_tag("/users",method:"get") do %>
+<input type="text" name="search" class ="search-form my-form">
+<input type="submit" value="search" class = " btn btn-default search-btn">
+<% end %>
+<!--Nov 14-->
+
+<hr>
+
 <% @users.each do |u| %>
   <div class="users-index-item">
     <div class = "user-left">
-      <img src="<%= "/user_icon/#{u.icon}" %>" >
+      
+      <% if u.icon.nil? %>
+        <img src="<%= "/user_icon/default_icon.png" %>">
+      <% else %>
+        <img src="<%= "/user_icon/#{u.icon}" %>" >
+      <% end %>      
+      
     </div>
     <div class = "user-right">
       <p><a href ="/users/<%= u.id %>"><%= u.name %>さん</a></p>
     </div>
   </div>
-  <!--<hr>-->
+  <hr>
 <% end %>
 <br>
 <a href = "/" class = " btn btn-info">Back to Top</a>

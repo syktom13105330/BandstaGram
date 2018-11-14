@@ -9,7 +9,11 @@
   <% @request_friends.each do |request_friend| %>
     <div class="users-index-item">
       <div class = "user-left">
-        <img src="<%= "/user_icon/#{User.find(request_friend).icon}" %>" >
+        <% if User.find(request_friend).icon.nil? %>
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% else %>  
+          <img src="<%= "/user_icon/#{User.find(request_friend).icon}" %>" >
+        <% end %>  
       </div>
       <div class = "user-right">
         <%= link_to User.find(request_friend).name, "/users/#{request_friend}" %>

@@ -6,8 +6,8 @@
   
     <div class="field">
       <%= f.label :file_name %><br />
-      <ul>
-        <li>ファイル複数選択：<%= file_field_tag "images[]", type: :file, multiple: true, :class => "my-form" %></li>
+      <ul class="file_post">
+        <li class="file_post">ファイル複数選択：<%= file_field_tag "images[]", type: :file, multiple: true, :class => "form-control my-form" %></li>
       </ul>
     </div>
   

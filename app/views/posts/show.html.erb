@@ -30,7 +30,12 @@
 
 <hr>
   <!--Nov_13-->
-  <p>投稿者：<a href = "/users/<%= @post.user.id %>"><img src="<%= "/user_icon/#{@post.user.icon}" %>"  class = "user_icon_nav"></a> <%= @post.user.name %></p>
+  <p>投稿者：<a href = "/users/<%= @post.user.id %>">
+    <% if @post.user.icon.nil? %>
+      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"></a> <%= @post.user.name %></p>
+    <% else %>    
+      <img src="<%= "/user_icon/#{@post.user.icon}" %>"  class = "user_icon_nav"></a> <%= @post.user.name %></p>
+    <% end %>
   <p>コメント：<%= @post.content %></p>
   <p>投稿日：<%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
   

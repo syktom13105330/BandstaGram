@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     user = User.last
     user.user_type = params[:user][:user_type]
-    user.icon = "default.png"
+    # user.icon = "default_icon.png"
     user.save
     # if user.save
     #   # flash[:natice] = "successfully"
@@ -102,7 +102,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_type])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_type, :icon])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

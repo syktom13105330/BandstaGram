@@ -29,7 +29,11 @@
               <li><a href = "/posts">Post List</a></li>
               <li><a href = "/users">Find Friends</a></li>
               <li><a href = "/friends">Friends</a></li>
-              <li><a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"></a></li>
+              <% if current_user.icon.nil? %>
+                <li><a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"></a></li>
+              <% else %>
+                <li><a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"></a></li>
+              <% end %>
               <li><a href = "/users/<%= current_user.id %>"><%= current_user.name %>さん</a></li>
               <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
             <% else %>

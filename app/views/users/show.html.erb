@@ -14,12 +14,17 @@
   <% end %>  
   <hr>
 <% end %>
+
+
+<% if @user.icon.nil? %>
+  <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+<% else %>
+  <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
+<% end %>
   
-<img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
 <p>Name: <%= @user.name %>さん </p>
 <p>Favorite Genre: <%= @user.genre %></p>
 <p>Area: <%= @user.area %></p>
-<!--<p>Icon: <%= @user.icon %></p>-->
 <p>Profile: <%= @user.profile %></p>
 <% if @user.user_type == "i" %>
   <p>Gender: <%= @user.gender %></p>
@@ -30,7 +35,7 @@
 <% end %>
 <hr>
 
-<!--"g"のみMedia Inco(BandDetail)-->
+<!--"g"のみMedia Info(BandDetail)-->
 <% if @user.user_type == "g" %>
   <h2>Media Inforamtion</h2>
   <% if @band_details.empty? %>
@@ -48,7 +53,11 @@
         <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
       </div>
     <% end %>
-    </div> 
+    </div>
+    <p>Comment</p>
+    <hr>
+    <p>【備忘】Comment出てこない</p>
+    <hr>
   <% end %>
     
   
