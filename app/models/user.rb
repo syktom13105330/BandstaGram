@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :friends, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :band_details, dependent: :destroy
+  has_many :belong_bands, dependent: :destroy
+  has_many :recruitments, dependent: :destroy
+  
+  # validate :band_details_number
   
   def self.search(search)
     if search
@@ -19,10 +23,15 @@ class User < ApplicationRecord
     end
   end
   
+  private
+  
+    # def band_details_number
+    #   errors.add(:band_details, "Maximam number of Media Information is 5!") if band_details.size > 5
+    # end
 
 
   # has_attached_file :icon, default_url: "/user_icon/no_image.png"
   # validate_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/  
   
   # validates_attachment :icon, content_type:{content_type:["icon.jpg", "icon.jpeg", "icon.png", "icon.gif"]}
-end
+end #end of class

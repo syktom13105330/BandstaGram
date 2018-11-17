@@ -36,8 +36,11 @@ class UsersController < ApplicationController
         #   end
         # end    
     @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
-
-        
+    @bdcomment = BandDetail.where(user_id: params[:id]).last
+    
+    @belong_bands = BelongBand.where(user_id: params[:id])
+    @bandmembers = BelongBand.where(band_id: params[:id])
+            
   end
   
   def index

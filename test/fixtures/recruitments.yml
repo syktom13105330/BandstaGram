@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  band_id: 1
+  r_info: MyText
+  expired: 2018-11-17
+  part: MyString
+  gender: MyString
+  area: MyString
+
+two:
+  band_id: 1
+  r_info: MyText
+  expired: 2018-11-17
+  part: MyString
+  gender: MyString
+  area: MyString

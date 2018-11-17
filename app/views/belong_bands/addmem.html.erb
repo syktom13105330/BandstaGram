@@ -1,0 +1,27 @@
+<h1>Add Your Member(s)!</h1>
+<br><br>
+
+<br>
+
+<% @users.each do |u| %>
+  <div class = "users-index-item">
+    <div class = "user-left">
+      
+      <% if u.icon.nil? %>
+        <img src ="<%= "/user_icon/default_icon.png" %>">
+      <% else %>
+        <img src = "<%= "/user_icon/#{u.icon}" %>">
+      <% end %>  
+    </div>
+    <div class = "user-right">
+      <p><a href = "/users/<%= u.id %>"><%= u.name %></a></p>
+    </div>
+  </div>
+<% end %>
+<!--end of do-->
+<br>
+<a href = "/posts" class = "btn btn-default">Back to Top</a>
+
+
+
+

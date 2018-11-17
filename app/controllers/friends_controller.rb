@@ -34,7 +34,7 @@ class FriendsController < ApplicationController
   end
   
   
-   def create
+  def create
       # if !Friend.find_by(follower: @current_user.id, followed: params[@user.id])
         @friend = Friend.new(
             follower: current_user.id,

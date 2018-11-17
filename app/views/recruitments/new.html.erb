@@ -1,0 +1,27 @@
+<h2>Create New Wanted</h2>
+
+<%= form_for @recruitment do |f| %>
+  <%= hidden_field :recruitment, :band_id %>
+  
+  <div class="field">
+    <%= f.label :Part %><br>
+    <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], {}, {:class => "form-control my-form"} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Location %><br>
+    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], {}, {:class => "form-control my-form"} %>
+  </div>  
+  
+  <div class="field">
+    <%= f.label :Content %><br>
+    <%= f.text_area :r_info, requierd: true, :class => "form-control my-form" %>
+  </div>
+  
+  <br>
+  <div class="actions">
+    <%= f.submit "Issue", :class => "btn btn-default" %>
+  </div>
+<% end %>
+<!--end of form-->  
+

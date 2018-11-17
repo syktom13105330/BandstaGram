@@ -15,28 +15,101 @@
   <hr>
 <% end %>
 
-
-<% if @user.icon.nil? %>
-  <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
-<% else %>
-  <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
-<% end %>
+<div class = "row">
+  <div class = "col-sm-12 col-md-6">
+    <% if @user.icon.nil? %>
+      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+    <% else %>
+      <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
+    <% end %>
+      
+    <p>Name: <%= @user.name %>さん </p>
+    <p>Favorite Genre: <%= @user.genre %></p>
+    <p>Area: <%= @user.area %></p>
+    <p>Profile: <%= @user.profile %></p>
+    <% if @user.user_type == "i" %>
+      <p>Gender: <%= @user.gender %></p>
+      <p>Status: <%= @user.waiting %></p>
+      <p>Instrument Part: <%= @user.part %></p>
+    <% else %>
+      <p>Band Master: <%= @user.banmas_id %></p>
+    <% end %>
+  </div>
   
-<p>Name: <%= @user.name %>さん </p>
-<p>Favorite Genre: <%= @user.genre %></p>
-<p>Area: <%= @user.area %></p>
-<p>Profile: <%= @user.profile %></p>
-<% if @user.user_type == "i" %>
-  <p>Gender: <%= @user.gender %></p>
-  <p>Status: <%= @user.waiting %></p>
-  <p>Instrument Part: <%= @user.part %></p>
-<% else %>
-  <p>Band Master: <%= @user.banmas_id %></p>
-<% end %>
-<hr>
+  <br>
+
+<!--"iのみBelongBand Info(BelongBand)-->
+  <div class = "col-sm-12 col-md-6">
+  <% if @user.user_type =="i" %>
+    <h2>Group(s) </h2>
+    <br>
+    <% if @belong_bands.empty? %>
+      <p>No Group Added</p>
+    <% else %>
+      <% @belong_bands.each do |bb| %>
+        <div class="users-show-item">
+          <div class = "user-left">
+            
+            <% if bb.band.icon.nil? %>
+              <img src="<%= "/user_icon/default_icon.png" %>">
+            <% else %>
+              <img src=" <%= "/user_icon/#{bb.band.icon}" %>" >
+            <% end %>      
+            
+          </div>
+          <div class = "user-right">
+            <p><a href ="/users/<%= bb.band_id %>"><%= bb.band.name %></a></p>
+          </div>
+        </div>
+      <% end %>
+      <!--end of do-->
+    <% end %>
+    <br>
+    <% if @user.id == current_user.id %>
+      <p><a href = "/belong_bands/new" class = "btn btn-default">Add your Groups</a></p>
+    <% end %>  
+  <% end %> 
+  </div>
+  
+  
+<!--"gのみBandMember Info(BelongBand)-->
+  <div class = "col-sm-12 col-md-6">
+  <% if @user.user_type =="g" %>
+    <h2>Band Member(s)</h2>
+    <br>
+    <% if @bandmembers.empty? %>
+      <p>No Member Added</p>
+    <% else %>
+      <% @bandmembers.each do |bm| %>
+        <div class="users-show-item">
+          <div class = "user-left">
+            
+            <% if bm.user.icon.nil? %>
+              <img src="<%= "/user_icon/default_icon.png" %>">
+            <% else %>
+              <img src=" <%= "/user_icon/#{bm.user.icon}" %>" >
+            <% end %>      
+            
+          </div>
+          <div class = "user-right">
+            <p><a href ="/users/<%= bm.user_id %>"><%= bm.user.name %></a></p>
+          </div>
+        </div>
+      <% end %>
+      <!--end of do-->
+    <% end %>
+    <br>
+    <% if @user.id == current_user.id %>
+      <p><a href = "/belong_bands/addmem" class = "btn btn-default">Add your Member(s)</a></p>
+    <% end %>  
+    <hr>
+  <% end %> 
+  </div>  
+</div>
 
 <!--"g"のみMedia Info(BandDetail)-->
 <% if @user.user_type == "g" %>
+
   <h2>Media Inforamtion</h2>
   <% if @band_details.empty? %>
     <p>No Media Information</p>
@@ -53,19 +126,19 @@
         <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
       </div>
     <% end %>
+    <!--end of do-->
     </div>
-    <p>Comment</p>
-    <hr>
-    <p>【備忘】Comment出てこない</p>
-    <hr>
-  <% end %>
     
-  
+    <h3>Comment</h3>
+    <hr>
+    <p><%= @bdcomment.file_exp %></p>
+    <hr>
+    
+  <% end %>
+
   <% if @user.id == current_user.id %>
     <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a></p>
   <% end %>
-
-<hr>
 
 <% end %>
 

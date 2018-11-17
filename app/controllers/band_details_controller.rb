@@ -49,6 +49,16 @@ class BandDetailsController < ApplicationController
         render new_band_detail_path
       end
     end
+
+    # Nov 15    
+    def destroy
+      @band_detail = BandDetail.find(params[:id])
+      @band_detail.destroy
+      flash[:notice] = "Media(s) sccessfully deleted!"
+        redirect_to users_path
+      
+    end
+
       
   end
   

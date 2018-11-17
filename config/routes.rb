@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   root "welcome#index"
   resources :users, :only => [:show, :index]
   post "band_details/:user_id/create" => "band_details#create"
-  # post "band_detail/user_id/destroy" => "band_details#destroy"
+  post "band_details/:user_id/destroy" => "band_details#destroy"
   resources :band_details
+  resources :belong_bands, :only => [:new, :create]
+  get "belong_bands/addmem" => "belong_bands#addmem"
  
   get "users/:id/likes" => "users#likes"
   
@@ -28,4 +30,6 @@ Rails.application.routes.draw do
   post "likes/:post_id/:post_detail_id/create" => "likes#create"
   post "likes/:post_id/:post_detail_id/destroy" => "likes#destroy"
   
+  resources :recruitments
+
 end

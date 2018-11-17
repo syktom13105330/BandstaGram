@@ -1,0 +1,28 @@
+<h1>Recruitments List</h1>
+<br><br>
+
+  <p><a href = "/recruitments/new" class = "btn btn-default">Post New Wanted!</a></p>
+
+<hr>
+
+  <div class="container">
+    <div class="row">
+      <% @recruitments.each do |r| %>
+        <div class="users-index-item">
+          <h4>Looking for <%= r.part %></h4>
+          <p>
+            <% if r.user.icon.nil? %>
+              <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
+            <% else %>
+              <img src="<%= "/user_icon/#{r.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
+            <% end %>
+          </p>
+          <p><%= r.r_info %></p>
+          <p>#<%= r.part %>  #<%= r.gender %> #<%= r.area %></p>
+          <p class="date"><small>Post Date: <%=r.created_at %>  Expire Date: <%= r.expired %></small></p>
+
+        </div>
+      <% end %>
+      <!--end of do-->
+    </div>
+  </div>

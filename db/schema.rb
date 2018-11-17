@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_11_083435) do
+ActiveRecord::Schema.define(version: 2018_11_17_082031) do
 
   create_table "band_details", force: :cascade do |t|
     t.integer "user_id"
@@ -18,6 +18,13 @@ ActiveRecord::Schema.define(version: 2018_11_11_083435) do
     t.string "file_name"
     t.string "string"
     t.text "file_exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "belong_bands", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "band_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -48,6 +55,17 @@ ActiveRecord::Schema.define(version: 2018_11_11_083435) do
     t.integer "writer_id"
     t.text "content"
     t.string "private_flag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recruitments", force: :cascade do |t|
+    t.integer "band_id"
+    t.text "r_info"
+    t.date "expired"
+    t.string "part"
+    t.string "gender"
+    t.string "area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
