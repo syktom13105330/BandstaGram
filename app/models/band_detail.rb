@@ -1,6 +1,7 @@
 class BandDetail < ApplicationRecord
     
-  belongs_to :user, optional: true
+  # belongs_to :user, optional: true
+  belongs_to :user
   validates :user_id, {presence: true}
 
   validate :check_number_of_BandDetails

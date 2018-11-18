@@ -3,7 +3,8 @@
 
 <div class="slider">
 　<% @post_details.each do |post_detail| %>
-　<div class="count_like">
+　<div class="file_item">
+　  <div class="count_like">
 　  <!--松下さん-->
 　  <% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
 　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
@@ -24,12 +25,12 @@
       <% end %>
     <% end %>
     <span class="like_detail_count"><%= Like.where(post_detail_id: post_detail.id).count %></span>
+    </div>
   </div>
   <% end %>
 </div>  
 
 <hr>
-  <!--Nov_13-->
   <p>投稿者：
     <% if @post.user.icon.nil? %>
       <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"><a href = "/users/<%= @post.user.id %>"> <%= @post.user.name %></a></p>
@@ -41,5 +42,7 @@
   
 <hr>
 <!--参考 from users#show.html.erb  -->
-  <p class = "btn btn-sm btn-default"><%= link_to("Delete this Post", "/posts/#{@post.id}", {method: "delete"}) %></p>
+  <% if @post.writer_id == current_user.id %>
+    <p class = "btn btn-sm btn-default"><%= link_to("Delete this Post", "/posts/#{@post.id}", {method: "delete"}) %></p>
+  <% end %>
 <!--参考 from registration_edit_html.erb-->

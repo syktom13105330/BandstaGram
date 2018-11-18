@@ -1,4 +1,4 @@
-<h1>Recruitments List</h1>
+<h1>Wanted List</h1>
 <br><br>
 
   <p><a href = "/recruitments/new" class = "btn btn-default">Post New Wanted!</a></p>
@@ -18,8 +18,16 @@
             <% end %>
           </p>
           <p><%= r.r_info %></p>
-          <p>#<%= r.part %>  #<%= r.gender %> #<%= r.area %></p>
-          <p class="date"><small>Post Date: <%=r.created_at %>  Expire Date: <%= r.expired %></small></p>
+          <p>
+            <span class="hash">#<%= r.part %></span>
+            <% if r.gender.present? %>
+              <span class="hash">#<%= r.gender %></span>
+            <% end %>  
+            <span class="hash">#<%= r.area %></span>
+          </p>
+          <p class="date">
+            <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
+          </p>
 
         </div>
       <% end %>

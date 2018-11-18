@@ -17,16 +17,31 @@
 
 <div class = "row">
   <div class = "col-sm-12 col-md-6">
-    <% if @user.icon.nil? %>
-      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
-    <% else %>
-      <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
-    <% end %>
-      
+    <div class ="row">
+      <div class="col-xs-4">
+        <% if @user.icon.nil? %>
+          <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+        <% else %>
+          <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
+        <% end %>
+      </div>  
+      <div class="col-xs-8">
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="number np"><%= @posts.count %></p>
+            <p class="number">posts</p>
+          </div>
+          <div class="col-xs-6">
+            <p class="number nf"><%= @nfriends.count %></p>
+            <p class="number">friends</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p>Name: <%= @user.name %>さん </p>
     <p>Favorite Genre: <%= @user.genre %></p>
-    <p>Area: <%= @user.area %></p>
-    <p>Profile: <%= @user.profile %></p>
+    <p>Location: <%= @user.area %></p>
     <% if @user.user_type == "i" %>
       <p>Gender: <%= @user.gender %></p>
       <p>Status: <%= @user.waiting %></p>
@@ -34,6 +49,10 @@
     <% else %>
       <p>Band Master: <%= @user.banmas_id %></p>
     <% end %>
+    <p class="profile">Profile: 
+    <br>
+      <%= @user.profile %>
+    </p>
   </div>
   
   <br>
@@ -41,7 +60,7 @@
 <!--"iのみBelongBand Info(BelongBand)-->
   <div class = "col-sm-12 col-md-6">
   <% if @user.user_type =="i" %>
-    <h2>Group(s) </h2>
+    <h2 class="header_right">Group(s) </h2>
     <br>
     <% if @belong_bands.empty? %>
       <p>No Group Added</p>
@@ -75,7 +94,7 @@
 <!--"gのみBandMember Info(BelongBand)-->
   <div class = "col-sm-12 col-md-6">
   <% if @user.user_type =="g" %>
-    <h2>Band Member(s)</h2>
+    <h2 class="header_right">Band Member(s)</h2>
     <br>
     <% if @bandmembers.empty? %>
       <p>No Member Added</p>
@@ -102,7 +121,6 @@
     <% if @user.id == current_user.id %>
       <p><a href = "/belong_bands/addmem" class = "btn btn-default">Add your Member(s)</a></p>
     <% end %>  
-    <hr>
   <% end %> 
   </div>  
 </div>
@@ -110,13 +128,15 @@
 <!--"g"のみMedia Info(BandDetail)-->
 <% if @user.user_type == "g" %>
 
+  <hr>
+  <br>
   <h2>Media Inforamtion</h2>
   <% if @band_details.empty? %>
     <p>No Media Information</p>
   <% else %>
     <div class="slider">
   　<% @band_details.each do |band_detail| %>
-    　<div class="count_like">
+    　<div class="file_item">
     　  <!--松下さん-->
         <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
           <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
@@ -130,14 +150,14 @@
     </div>
     
     <h3>Comment</h3>
-    <hr>
+    <br>
     <p><%= @bdcomment.file_exp %></p>
     <hr>
     
   <% end %>
 
   <% if @user.id == current_user.id %>
-    <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a></p>
+    <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>
   <% end %>
 
 <% end %>

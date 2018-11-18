@@ -60,7 +60,7 @@ class PostsController < ApplicationController
              }
           
               if save_flag
-                flash[:notice] = "success save detail"
+                flash[:notice] = "Your post saved successfully"
                 redirect_to posts_path
               else 
                 render new_post_path

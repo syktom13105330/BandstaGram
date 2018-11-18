@@ -40,6 +40,14 @@ class UsersController < ApplicationController
     
     @belong_bands = BelongBand.where(user_id: params[:id])
     @bandmembers = BelongBand.where(band_id: params[:id])
+    # Nov 18
+    @posts = Post.where(writer_id: params[:id])
+    @nfriends = [] #空にして
+      Friend.where(follower: params[:id]).each do |f| #paramsがfollowerしてるだけ引っ張って
+      if Friend.find_by('follower = ? and followed = ?', f.followed, params[:id])  #followし返してくれてるかifして
+        @nfriends.push(f.followed)  #成立してる数だけ配列にどん
+      end
+    end
             
   end
   

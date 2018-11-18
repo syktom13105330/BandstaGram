@@ -9,9 +9,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <%= favicon_link_tag('/favicon.ico') %>
-
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <!--Google Font-->
   </head>
-
   <body>
     
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -30,6 +30,7 @@
             <% if user_signed_in? %>
               <li><a href = "/posts/new">New Post!</a></li>
               <li><a href = "/posts">Post List</a></li>
+              <li><a href = "/recruitments">Wanted!</a></li>
               <li><a href = "/users">Find Friends</a></li>
               <li><a href = "/friends">Friends</a></li>
               <% if current_user.icon.nil? %>

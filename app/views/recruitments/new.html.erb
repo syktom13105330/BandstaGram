@@ -17,6 +17,13 @@
     <%= f.label :Content %><br>
     <%= f.text_area :r_info, requierd: true, :class => "form-control my-form" %>
   </div>
+  <br>
+
+<p>Select Date Box作る↓</p>  
+  <div class="field">
+    <%= f.label :ExpireDate %><br>
+    <%= f.date_field :expired, requierd: true, value: Time.now.next_month.strftime("%Y-%m-%d"), :class => "form-control my-form" %>
+  </div>
   
   <br>
   <div class="actions">

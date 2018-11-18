@@ -31,7 +31,11 @@
   <% @receive_friends.each do |receive_friend| %>
     <div class="users-index-item">
       <div class="user-left">
-        <img src="<%= "/user_icon/#{User.find(receive_friend).icon}" %>" >
+        <% if User.find(receive_friend).icon.nil? %>
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% else %>
+          <img src="<%= "/user_icon/#{User.find(receive_friend).icon}" %>" >
+        <% end %>  
       </div>
       <div class = "user-right">
         <%= link_to User.find(receive_friend).name, "/users/#{receive_friend}" %>
@@ -52,7 +56,11 @@
   <% @friends.each do |friend| %>
     <div class="users-index-item">
       <div class="user-left">
-        <img src="<%= "/user_icon/#{User.find(friend).icon}" %>" >
+        <% if User.find(friend).icon.nil? %>
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% else %>        
+          <img src="<%= "/user_icon/#{User.find(friend).icon}" %>" >
+        <% end %>  
       </div>
       <div class="user-right">
         <%= link_to User.find(friend).name, "/users/#{friend}" %>
