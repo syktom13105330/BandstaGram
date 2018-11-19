@@ -70,7 +70,29 @@ class BandDetailsController < ApplicationController
     
     
   end
+  # end of show
+  
+  def edit
+    @band_detail = BandDetail.find(params[:id])
+  end
+  
+  
+  # # updfate11/21作る
+  # def update
+  #   require 'fileutils'
 
+  #   @band_detail = BandDetail.find(params[:id])
+  #   FileUtils.rm(@band_detail.file_name) 
+  #   if params[:file_name]
+  #     @band_detail.file_name = params[:file_name]
+  #   File.binwrite("public/bands/#{@band_detail.user_id}/#{@band_detail.file_name}", image.read)
+    
+
+  #   end
+  # end
+  
+  
+  
     # Nov 15    
     def destroy
       @band_detail = BandDetail.find(params[:id])

@@ -137,12 +137,25 @@
     <div class="slider">
   　<% @band_details.each do |band_detail| %>
     　<div class="file_item">
-    　  <!--松下さん-->
-        <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
-          <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+        <% if @user.id == current_user.id %>
+        <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
+      　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>
+      　   <!--松下さん-->
+            <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+              <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+            <% else %>
+              <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+            <% end %>
+          <% end %>
+          <!--end of link do-->
         <% else %>
-          <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+          <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+            <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+          <% else %>
+            <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+          <% end %>
         <% end %>
+        
         <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
       </div>
     <% end %>
@@ -156,7 +169,8 @@
     
   <% end %>
 
-  <% if @user.id == current_user.id %>
+  <% if @user.id == current_user.id && @band_details.count < 5 %>
+  <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
     <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>
   <% end %>
 
