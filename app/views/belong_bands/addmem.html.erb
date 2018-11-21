@@ -15,6 +15,10 @@
     </div>
     <div class = "user-right">
       <p><a href = "/users/<%= u.id %>"><%= u.name %></a></p>
+      <!--<p class = "btn btn-default">< link_to("Add to Member(s)", "/belong_bands/#{u.id}/createmem", {method: "post"}) %></p>-->
+      <p class = "btn btn-default"><%= link_to("Add to Member(s)", belong_bands_createmem_path, {method: "post"}) %></p>
+
+      
     </div>
   </div>
 <% end %>

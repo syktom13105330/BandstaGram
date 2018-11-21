@@ -77,20 +77,74 @@ class BandDetailsController < ApplicationController
   end
   
   
-  # # updfate11/21作る
-  # def update
-  #   require 'fileutils'
+  def update
+    require 'fileutils'
 
-  #   @band_detail = BandDetail.find(params[:id])
-  #   FileUtils.rm(@band_detail.file_name) 
-  #   if params[:file_name]
-  #     @band_detail.file_name = params[:file_name]
-  #   File.binwrite("public/bands/#{@band_detail.user_id}/#{@band_detail.file_name}", image.read)
+    @band_detail = BandDetail.find(params[:id])
+    ##".jpg", ".jpeg", ".png",".mp4", ".mov", ".m4v"拡張子部分削除したい
     
+    @rpfile_name = @band_detail.file_name.split(".")[0] ##配列１個目だけ取り出す
+    
+    # if @band_detail.file_name.inspect.include?(".jpg")
+    #   @replace_file_name = @band_detail.file_name.delete("j-g")
+    # elsif @band_detail.file_name.inspect.include?(".jpeg")
+    #   @replace_file_name = @band_detail.file_name.delete("j-g")
+    # elsif @band_detail.file_name.inspect.include?(".png")
+    #   @replace_file_name = @band_detail.file_name.delete("p-g")
+    # elsif @band_detail.file_name.inspect.include?(".mp4")
+    #   @replace_file_name = @band_detail.file_name.delete("m-4")
+    # elsif @band_detail.file_name.inspect.include?(".mov")
+    #   @replace_file_name = @band_detail.file_name.delete("m-v")
+    # elsif @band_detail.file_name.inspect.include?(".m4v")
+    #   @replace_file_name = @band_detail.file_name.delete("m-v")
+    # end
+    
+    # if @band_detail.file_name.inspect.include?(".jpg")
+    #   @replace_file_name = @band_detail.file_name.sub(/.jpg/, "")
+    # elsif @band_detail.file_name.inspect.include?(".jpeg")
+    #   @replace_file_name = @band_detail.file_name.sub(/.jpeg/, "")
+    # elsif @band_detail.file_name.inspect.include?(".png")
+    #   @replace_file_name = @band_detail.file_name.sub(/.png/, "")
+    # elsif @band_detail.file_name.inspect.include?(".mp4")
+    #   @replace_file_name = @band_detail.file_name.sub(/.mp4/, "")
+    # elsif @band_detail.file_name.inspect.include?(".mov")
+    #   @replace_file_name = @band_detail.file_name.sub(/.mov/, "")
+    # elsif @band_detail.file_name.inspect.include?(".m4v")
+    #   @replace_file_name = @band_detail.file_name.sub(/.m4v/, "")
+    # end    
+    # @replace_file_name = @band_detail.file_name.sub!(/..*/, "")
+    
+    # @replace_file_name = @band_detail.file_name.str.sub!(/..*/m, "")  ##拡張子部分削除したい
+    # cnt = BandDetail.where(user_id: current_user.id).count ##要らないかも
 
-  #   end
-  # end
-  
+    FileUtils.rm("public/bands/#{@band_detail.user_id}/#{@band_detail.file_name}") #既存ファイル削除
+
+    if params[:band_detail][:file_name].inspect.include?("jpg") || params[:band_detail][:file_name].inspect.include?("JPG")
+      @band_detail.file_type ="jpg"
+    elsif params[:band_detail][:file_name].inspect.include?("jpeg") || params[:band_detail][:file_name].inspect.include?("JPEG")
+      @band_detail.file_type = "jpeg"
+    elsif params[:band_detail][:file_name].inspect.include?("png") || params[:band_detail][:file_name].inspect.include?("PNG")
+      @band_detail.file_type = "png"
+    elsif params[:band_detail][:file_name].inspect.include?("mp4") || params[:band_detail][:file_name].inspect.include?("MP4")
+      @band_detail.file_type = "mp4"
+    elsif params[:band_detail][:file_name].inspect.include?("mov") || params[:band_detail][:file_name].inspect.include?("MOV")
+      logger.debug("-=============================== mov ")
+      @band_detail.file_type = "mov"
+    elsif params[:band_detail][:file_name].inspect.include?("m4v") || params[:band_detail][:file_name].inspect.include?("M4V")
+      @band_detail.file_type = "m4v"
+    end
+    
+    
+      # @band_detail.file_name = "#{@band_detail.user_id}-#{cnt+1}.#{@band_detail.file_type}" ##file_name連番ではなく上書きする
+      @band_detail.file_name = "#{@rpfile_name}.#{@band_detail.file_type}"
+      image = params[:band_detail][:file_name]
+      File.binwrite("public/bands/#{@band_detail.user_id}/#{@band_detail.file_name}", image.read) ##ファイル保存する
+    
+      @band_detail.save
+      flash[:notice] = "Media(s) successfully replcaed!"
+      redirect_to user_url(id: @band_detail.user_id) ##render書かないと
+
+  end
   
   
     # Nov 15    

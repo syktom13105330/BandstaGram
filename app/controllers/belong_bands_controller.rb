@@ -30,4 +30,14 @@ class BelongBandsController < ApplicationController
     redirect_to("/users/#{params[:user_id]}")
   end
   
+  def createmem
+    @users=User.find(params[:id])
+    @belong_band = BelongBand.new(
+      user_id: params[:id],
+      band_id: current_user.id)
+      
+    @belong_band.save
+    redirect_to("/users/#{params[:user_id]}")
+  end
+  
 end

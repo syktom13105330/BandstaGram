@@ -4,6 +4,10 @@ class PostsController < ApplicationController
   
   def index
     @posts = Post.all.order(id: "desc")
+    # pds=PostDetail.where(post_id: p.id)
+    # pds.ids
+    # @tl=Like.where(post_detail_id: pds.ids).count
+    
       
   end
   

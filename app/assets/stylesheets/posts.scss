@@ -31,7 +31,7 @@
   right: 25px;
   color: white;
   background: grey;
-  opacity: 0.9;
+  opacity: 0.8;
   border-radius: 20%;
   padding: 7px;
   line-height: 1.5em;  
@@ -59,4 +59,16 @@
   height: 400px;
   overflow-y: auto;
   overflow-x: auto;
+}
+
+.total-like {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  color: white;
+  background: grey;
+  opacity: 0.8;
+  border-radius: 20%;
+  padding: 7px;
+  line-height: 1.5em;    
 }

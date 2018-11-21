@@ -7,7 +7,12 @@
   <div class="field">
     <%= f.label :file_name %><br />
     <ul class="file_post">
-      <li class="file_post">Select Files: <%= file_field_tag "images[]", type: :file, multiple: true, :class => "form-control my-form" %></li>
+      <li class="file_post">
+        <span class="btn btn-large btn-success btn-file">
+          Choose File(s)
+            <%= file_field_tag "images[]", type: :file, multiple: true, :class => "" %>
+         </span>
+      </li>
     </ul>
   </div>
 

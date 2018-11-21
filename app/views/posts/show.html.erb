@@ -15,12 +15,12 @@
       <% logger.debug("~~~~~~~~~~~~~~~~~~~~~post_detail_id =  #{post_detail.id}") %>
       <% if Like.find_by(user_id: current_user.id, post_detail_id: post_detail.id) %>
         <%= link_to("/likes/#{post_detail.post_id}/#{post_detail.id}/destroy", {method: "post"}) do %>
-          <span class="fab fa-itunes-note like-btn-unlike"></span>
+          <span class="fab fa-itunes-note like like-btn-unlike"></span>
         <% end %>  
         <!--end of link-->
       <% else %>
       <%= link_to("/likes/#{post_detail.post_id}/#{post_detail.id}/create", {method: "post"}) do %>
-        <span class="fab fa-itunes-note like-btn"></span>
+        <span class="fab fa-itunes-note like like-btn"></span>
       <% end %>
       <!--end of link-->
     <% end %>

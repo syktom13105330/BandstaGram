@@ -25,6 +25,11 @@
                   <% if @count > 1 %>
                     <span class="count far fa-images"> <%= @count %></span>
                   <% end %>
+                  <!--Total Likes Count-->
+                  <% pds=PostDetail.where(post_id: p.id) %>
+                  <% pds.ids %>
+                  <% @tl=Like.where(post_detail_id: pds.ids).count %>
+                  <span class="fab fa-itunes-note total-like"> <%= @tl %></span>
                     <!--</div>-->
              <% end %>
             </div>
