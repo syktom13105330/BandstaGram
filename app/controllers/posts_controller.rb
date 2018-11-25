@@ -36,17 +36,17 @@ class PostsController < ApplicationController
               @post_detail.post_id = post_id
               
               # 松下さん
-              if image.inspect.include?("jpg")
+              if image.inspect.include?("jpg") || image.inspect.include?("JPG")
                 @post_detail.file_type = "jpg"
-              elsif image.inspect.include?("jpeg")
+              elsif image.inspect.include?("jpeg") || image.inspect.include?("JPEG")
                 @post_detail.file_type = "jpeg"
-              elsif image.inspect.include?("png")
+              elsif image.inspect.include?("png") || image.inspect.include?("PNG")
                 @post_detail.file_type = "png"
-              elsif image.inspect.include?("mp4")
+              elsif image.inspect.include?("mp4") || image.inspect.include?("MP4")
                 @post_detail.file_type = "mp4"
-              elsif image.inspect.include?("mov")
+              elsif image.inspect.include?("mov") || image.inspect.include?("MOV")
                 @post_detail.file_type = "mov"
-              elsif image.inspect.include?("m4v")
+              elsif image.inspect.include?("m4v") || image.inspect.include?("M4V")
                 @post_detail.file_type = "m4v"
               end
               

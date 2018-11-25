@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :only => [:show, :index]
     
   def show
-    
+    ##current_userから見たfriend status表示
     @user = User.find(params[:id])
       @friend_status = ""
         # Friend.where(follower: current_user.id).each do |f|
@@ -34,13 +34,18 @@ class UsersController < ApplicationController
         #   logger.debug("--------------------- 承認待ち　f.followed = #{f.follower}")
         #     @friend_status = "w"
         #   end
-        # end    
+        # end
+    
+    ## iのみ　所属バンド表示用
+    @belong_bands = BelongBand.where(user_id: params[:id])
+    ## gのみ　バンドメンバー表示用
+    @bandmembers = BelongBand.where(band_id: params[:id])
+        
+    ##gのみ Media Information用   
     @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
     @bdcomment = BandDetail.where(user_id: params[:id]).last
     
-    @belong_bands = BelongBand.where(user_id: params[:id])
-    @bandmembers = BelongBand.where(band_id: params[:id])
-    # Nov 18
+    # Nov 18 Post Total & Friend Total Index
     @posts = Post.where(writer_id: params[:id])
     @nfriends = [] #空にして
       Friend.where(follower: params[:id]).each do |f| #paramsがfollowerしてるだけ引っ張って

@@ -25,17 +25,17 @@ class BandDetailsController < ApplicationController
         logger.debug("--------------------------band_detail_file_exp=#{params[:band_detail][:file_exp]}")
       
         # @band_detail.user_id = user_id
-          if image.inspect.include?("jpg")
+          if image.inspect.include?("jpg") || image.inspect.include?("JPG") 
             @band_detail.file_type ="jpg"
-          elsif image.inspect.include?("jpeg")
+          elsif image.inspect.include?("jpeg") || image.inspect.include?("JPEG")
             @band_detail.file_type = "jpeg"
-          elsif image.inspect.include?("png")
+          elsif image.inspect.include?("png") || image.inspect.include?("PNG")
             @band_detail.file_type = "png"
-          elsif image.inspect.include?("mp4")
+          elsif image.inspect.include?("mp4") || image.inspect.include?("MP4")
             @band_detail.file_type = "mp4"
-          elsif image.inspect.include?("mov")
+          elsif image.inspect.include?("mov") || image.inspect.include?("MOV")
             @band_detail.file_type = "mov"
-          elsif image.inspect.include?("m4v")
+          elsif image.inspect.include?("m4v") || image.inspect.include?("M4V")
             @band_detail.file_type = "m4v"
           end
           
@@ -118,6 +118,7 @@ class BandDetailsController < ApplicationController
     # cnt = BandDetail.where(user_id: current_user.id).count ##要らないかも
 
     FileUtils.rm("public/bands/#{@band_detail.user_id}/#{@band_detail.file_name}") #既存ファイル削除
+    
 
     if params[:band_detail][:file_name].inspect.include?("jpg") || params[:band_detail][:file_name].inspect.include?("JPG")
       @band_detail.file_type ="jpg"
@@ -125,6 +126,8 @@ class BandDetailsController < ApplicationController
       @band_detail.file_type = "jpeg"
     elsif params[:band_detail][:file_name].inspect.include?("png") || params[:band_detail][:file_name].inspect.include?("PNG")
       @band_detail.file_type = "png"
+      logger.debug("-=============================== png 1125 ")
+
     elsif params[:band_detail][:file_name].inspect.include?("mp4") || params[:band_detail][:file_name].inspect.include?("MP4")
       @band_detail.file_type = "mp4"
     elsif params[:band_detail][:file_name].inspect.include?("mov") || params[:band_detail][:file_name].inspect.include?("MOV")

@@ -1,22 +1,31 @@
 <h1>Add Groups!</h1>
 <br><br>
 
+<%= form_tag("/belong_bands/new",method:"get") do %>
+<input type="text" name="search" class ="search-form my-form">
+<input type="submit" value="search" class = " btn btn-default search-btn">
+<% end %>
+
 <br>
 
 <% @users.each do |u| %>
-  <div class = "users-index-item">
-    <div class = "user-left">
-      
-      <% if u.icon.nil? %>
-        <img src ="<%= "/user_icon/default_icon.png" %>">
-      <% else %>
-        <img src = "<%= "/user_icon/#{u.icon}" %>">
-      <% end %>  
+  <% if u.user_type == "g" %>
+    <div class = "users-index-item">
+      <div class = "user-left">
+        
+        <% if u.icon.nil? %>
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% else %>
+          <img src = "<%= "/user_icon/#{u.icon}" %>">
+        <% end %>  
+      </div>
+      <div class = "user-right">
+        <p><a href = "/users/<%= u.id %>"><%= u.name %></a>
+          <%= link_to("My Group", "/belong_bands/#{u.id}/create", method: :post, class: "btn btn-default btn-approve") %>
+        </p>
+      </div>
     </div>
-    <div class = "user-right">
-      <p><a href = "/users/<%= u.id %>"><%= u.name %></a></p>
-    </div>
-  </div>
+  <% end %>
 <% end %>
 <!--end of do-->
 <br>

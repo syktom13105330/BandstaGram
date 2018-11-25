@@ -18,11 +18,11 @@ class User < ApplicationRecord
   def self.search(search)
     if search
       User.where(User.arel_table[:name].matches("%#{search}%"))
-  else
+    else
       User.all
     end
   end
-  
+      
   private
   
     # def band_details_number

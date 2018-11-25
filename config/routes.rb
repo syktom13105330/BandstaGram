@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :band_details
   resources :belong_bands, :only => [:new, :create]
   get "belong_bands/addmem" => "belong_bands#addmem"
-  post "belong_bands/createmem" => "belong_bands#createmem"
+  post "belong_bands/:id/create" => "belong_bands#create"
+  post "belong_bands/:id/createmem" => "belong_bands#createmem"
+  post "belong_bands/:id/destroy" => "belong_bands#destroy"
  
   get "users/:id/likes" => "users#likes"
   

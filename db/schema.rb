@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_082031) do
+ActiveRecord::Schema.define(version: 2018_11_25_093343) do
 
   create_table "band_details", force: :cascade do |t|
     t.integer "user_id"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(version: 2018_11_17_082031) do
   create_table "friends", force: :cascade do |t|
     t.integer "follower"
     t.integer "followed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "genre_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,6 +74,7 @@ ActiveRecord::Schema.define(version: 2018_11_17_082031) do
     t.string "area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "genre"
   end
 
   create_table "users", force: :cascade do |t|
