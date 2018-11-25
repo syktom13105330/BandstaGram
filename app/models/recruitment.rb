@@ -5,7 +5,11 @@ class Recruitment < ApplicationRecord
   validates :band_id, {presence: true}
   
   def self.search(search)
-    genre = Submit.where("genre = ?", params[:genre]).pluck(:id)
+    if search
+      Recruitment.where(Recruitment.arel_table[:genre].matches("%#{search}%"))
+    else
+      Recruitment.all
+    end
   end
   
 end

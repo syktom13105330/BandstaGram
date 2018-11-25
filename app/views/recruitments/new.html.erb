@@ -2,10 +2,15 @@
 
 <%= form_for @recruitment do |f| %>
   <%= hidden_field :recruitment, :band_id %>
-  
+
   <div class="field">
     <%= f.label :Part %><br>
     <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], {}, {:class => "form-control my-form"} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Genre %><br>
+    <%= f.select :genre, ["Rock", "Pop", "Folk", "Metail", "Classic", "Alternative"], {}, {:class => "form-control my-form"} %>
   </div>
   
   <div class="field">

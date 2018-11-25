@@ -19,3 +19,14 @@
 //
 // Example:
 // @link-color: #ff0000;
+@media only screen and (min-width : 768px) {
+  // / デスクトップ表示ではホバー操作でドロップダウンを表示 /
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-item {
+      display: block;
+      margin-left: 10px;
+  }
+}

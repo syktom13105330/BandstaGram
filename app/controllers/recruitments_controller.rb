@@ -4,7 +4,9 @@ class RecruitmentsController < ApplicationController
   # postsに書いてあったからとりあえず
   
   def index
-    @recruitments = Recruitment.all.order(created_at: "desc")
+    @recruitments = Recruitment.search(params[:search])
+    # @recruitments = Recruitment.all.order(created_at: "desc")
+    @genres = Genre.all
   end
   
   def new
