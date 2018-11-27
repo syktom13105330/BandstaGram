@@ -34,5 +34,6 @@ Rails.application.routes.draw do
   post "likes/:post_id/:post_detail_id/destroy" => "likes#destroy"
   
   resources :recruitments
+  # post "recruitments/:id" => "recruitments#create"
 
 end

@@ -4,26 +4,40 @@
   <p><a href = "/recruitments/new" class = "btn btn-default">Post New Wanted <i class="fas fa-search"></i></a></p>
 
 <hr>
+
 <%= form_tag("/recruitments", method: "get") do %>
+
+  <select name="area" class="search-form">
+    <% Area.all.each do |a| %> 
+      <option value="<%= "#{a.id}" %>"><%= "#{a.view_country_and_area}" %></option>
+    <% end %>
+  </select>
+
+  <select name="part" class="search-form">
+    <% Part.all.each do |p| %> 
+      <option value="<%= "#{p.id}" %>"><%= "#{p.part_name}" %></option>
+    <% end %>
+  </select>
+  
   <select name="genre" class="search-form">
     <% Genre.all.each do |g| %> 
       <option value="<%= "#{g.id}" %>"><%= "#{g.genre_name}" %></option>
     <% end %>
   </select>
-  <!--<select name="part">-->
-    
-  <!--</select>-->
   
-  <br>
-  <input type="submit" value="search" class="btn btn-default">
+  <input type="submit" value="search" class="btn btn-warning">
+  <a href="/recruitments" class = "btn btn-default">Clear Search</a>
+
 <% end %>
+
+
 
   <br>
   <div class="container">
     <div class="row">
       <% @recruitments.each do |r| %>
         <div class="users-index-item">
-          <h4>Looking for <%= r.part %></h4>
+          <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
           <p>
             <% if r.user.icon.nil? %>
               <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
@@ -33,12 +47,12 @@
           </p>
           <p><%= r.r_info %></p>
           <p>
-            <span class="hash">#<%= r.genre %></span>            
-            <span class="hash">#<%= r.part %></span>
+            <span class="hash">#<%= Area.find(r.area.to_i).view_country_and_area %></span>
+            <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
+            <span class="hash">#<%= Part.find(r.part.to_i).part_name %></span>
             <% if r.gender.present? %>
               <span class="hash">#<%= r.gender %></span>
             <% end %>  
-            <span class="hash">#<%= r.area %></span>
           </p>
           <p class="date">
             <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
@@ -48,4 +62,6 @@
       <% end %>
       <!--end of do-->
     </div>
+    <br>
+    <p><a href="/recruitments" class = "btn btn-primary">Back to Wanted List Top</a></p>
   </div>

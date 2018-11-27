@@ -1,21 +1,22 @@
 <h2>Create New Wanted</h2>
 
 <%= form_for @recruitment do |f| %>
-  <%= hidden_field :recruitment, :band_id %>
 
   <div class="field">
     <%= f.label :Part %><br>
-    <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], {}, {:class => "form-control my-form"} %>
+    <%= f.collection_select :part, Part.all, :id, :part_name, {prompt: false}, {class: "form-control my-form"} %>
   </div>
+  
+  <!--include_blank↓とprompt↑は何が違うの〜-->
   
   <div class="field">
     <%= f.label :Genre %><br>
-    <%= f.select :genre, ["Rock", "Pop", "Folk", "Metail", "Classic", "Alternative"], {}, {:class => "form-control my-form"} %>
+    <%= f.collection_select :genre, Genre.all, :id, :genre_name, {include_blank: false}, {class: "form-control my-form"} %>
   </div>
   
   <div class="field">
     <%= f.label :Location %><br>
-    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], {}, {:class => "form-control my-form"} %>
+    <%= f.collection_select :area, Area.all, :id, :view_country_and_area, {prompt: false}, {class: "form-control my-form"} %>
   </div>  
   
   <div class="field">
@@ -24,7 +25,6 @@
   </div>
   <br>
 
-<p>Select Date Box作る↓</p>  
   <div class="field">
     <%= f.label :ExpireDate %><br>
     <%= f.date_field :expired, requierd: true, value: Time.now.next_month.strftime("%Y-%m-%d"), :class => "form-control my-form" %>

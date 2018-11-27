@@ -4,10 +4,23 @@ class RecruitmentsController < ApplicationController
   # postsに書いてあったからとりあえず
   
   def index
-    @recruitments = Recruitment.search(params[:search])
+    # @recruitment = Search::Recruitment.new
+    # @recruitment.new(params.require(rec_params))
+    # if params[:area]
+      @recruitments = Recruitment.search([params[:area],params[:part],params[:genre]])
+  
     # @recruitments = Recruitment.all.order(created_at: "desc")
-    @genres = Genre.all
+    logger.debug("--------------------- rec_search = #{params[:area]}")
+    logger.debug("--------------------- rec_search = #{params[:part]}")
+    logger.debug("--------------------- rec_search = #{params[:genre]}")
+
+    
   end
+  
+  # def search
+  #   @recruitment = Search::Recruitment.new(search_params)
+  #   @recruitments = @recruitment.matches
+  # end
   
   def new
     @recruitment = Recruitment.new
@@ -15,7 +28,6 @@ class RecruitmentsController < ApplicationController
   
   def create
     @recruitment = Recruitment.new(rec_params)
-    logger.debug("--------------------------band_id=#{params[:recruitment][:band_id]}")
     if @recruitment.save
       flash[:notice] = "Successfully posted!"
       redirect_to recruitments_path
@@ -28,7 +40,13 @@ class RecruitmentsController < ApplicationController
   
   private
     def rec_params
-      params.require(:recruitment).permit(:band_id, :r_info, :expired, :part, :gender, :area).merge(:band_id => current_user.id)
+      params.require(:recruitment).permit(:band_id, :r_info, :expired, :part, :gender, :area, :genre).merge(:band_id => current_user.id)
     end
+    
+    # def search_params
+    #   params
+    #     .require(:search_product)
+    #     .permit(Search::Recruitment::ATTRIBUTES)
+    # end
   
 end ##end of class

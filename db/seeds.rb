@@ -35,10 +35,9 @@ Friend.create(follower:1, followed:9)
 Friend.create(follower:1, followed:10)
 
 Recruitment.delete_all
-Recruitment.create(band_id:1, r_info:"Test1 from seeds", expired:"2018-12-31",part:"Gt",area:"Tokyo")
-Recruitment.create(band_id:4, r_info:"Test2 from seeds", expired:"2018-12-31",part:"Ba",area:"Osaka")
-Recruitment.create(band_id:5, r_info:"Test3 from seeds", expired:"2018-12-31",part:"Dr",area:"Fukuoka")
-
+Recruitment.create(band_id:1, r_info:"Test1 from seeds", expired:"2018-12-31",part:1 ,area:1, genre:1)
+Recruitment.create(band_id:4, r_info:"Test2 from seeds", expired:"2018-12-31",part:2 ,area:2, genre:2)
+Recruitment.create(band_id:5, r_info:"Test3 from seeds", expired:"2018-12-31",part:3 ,area:6, genre:3)
 
 BelongBand.delete_all
 BelongBand.create(user_id:2,band_id:1)
@@ -46,3 +45,38 @@ BelongBand.create(user_id:2,band_id:4)
 BelongBand.create(user_id:3,band_id:5)
 BelongBand.create(user_id:7,band_id:8)
 BelongBand.create(user_id:10,band_id:1)
+
+Part.delete_all
+Part.create(part_name:"Lead Vocals")
+Part.create(part_name:"Guitar")
+Part.create(part_name:"Bass")
+Part.create(part_name:"Drums")
+Part.create(part_name:"Keyboards")
+Part.create(part_name:"Strings")
+Part.create(part_name:"Other")
+
+Genre.delete_all
+Genre.create(genre_name:"Rock")
+Genre.create(genre_name:"Pop")
+Genre.create(genre_name:"R&B")
+Genre.create(genre_name:"Jazz")
+Genre.create(genre_name:"Metal")
+Genre.create(genre_name:"Folk")
+Genre.create(genre_name:"Classic")
+Genre.create(genre_name:"Dance")
+Genre.create(genre_name:"Anime")
+Genre.create(genre_name:"Alternative")
+
+Area.delete_all
+Area.create(c_name:"JP",a_name:"Tokyo")
+Area.create(c_name:"JP",a_name:"Osaka")
+Area.create(c_name:"JP",a_name:"Nagoya")
+Area.create(c_name:"JP",a_name:"Fukuoka")
+Area.create(c_name:"JP",a_name:"Sendai")
+Area.create(c_name:"USA")
+Area.create(c_name:"UK")
+Area.create(c_name:"Canada")
+Area.create(c_name:"Brazil")
+Area.create(c_name:"Singapore")
+Area.create(c_name:"China")
+Area.create(c_name:"South Korea")
