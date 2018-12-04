@@ -5,13 +5,24 @@
 　<% @post_details.each do |post_detail| %>
 　<div class="file_item">
 　  <div class="count_like">
-　    
-  　  <!--松下さん-->
-  　  <% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
-  　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
-  　  <% else %>
-        <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+　    <% if @post.writer_id == current_user.id %>
+      <!--ログインしてたら投稿済みのPostの差し替えリンク有効に > posts#pdedit-->
+        <%= link_to "/posts/#{post_detail.id}/pdedit" do %>
+      　  <!--松下さん-->
+        　<% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
+        　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+        　<% else %>
+              <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
+        　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+      　<% else %>
+              <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+        <% end %>
       <% end %>
+            
       <% logger.debug("~~~~~~~~~~~~~~~~~~~~~post_detail_id =  #{post_detail.id}") %>
       <% if Like.find_by(user_id: current_user.id, post_detail_id: post_detail.id) %>
         <%= link_to("/likes/#{post_detail.post_id}/#{post_detail.id}/destroy", {method: "post"}) do %>
@@ -19,11 +30,11 @@
         <% end %>  
         <!--end of link-->
       <% else %>
-      <%= link_to("/likes/#{post_detail.post_id}/#{post_detail.id}/create", {method: "post"}) do %>
-        <span class="fab fa-itunes-note like like-btn"></span>
+        <%= link_to("/likes/#{post_detail.post_id}/#{post_detail.id}/create", {method: "post"}) do %>
+          <span class="fab fa-itunes-note like like-btn"></span>
+        <% end %>
+        <!--end of link-->
       <% end %>
-      <!--end of link-->
-    <% end %>
     <span class="like_detail_count"><%= Like.where(post_detail_id: post_detail.id).count %></span>
     </div>
   </div>
@@ -44,6 +55,7 @@
 <hr>
 <!--参考 from users#show.html.erb  -->
   <% if @post.writer_id == current_user.id %>
-    <p class = "btn btn-sm btn-default"><%= link_to("Delete this Post", "/posts/#{@post.id}", {method: "delete"}) %></p>
+    <%= link_to "Edit comment", edit_post_path, class: "btn btn-sm btn-default" %>
+    <%= link_to "Delete this Post", "/posts/#{@post.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-sm btn-default" %>
   <% end %>
 <!--参考 from registration_edit_html.erb-->

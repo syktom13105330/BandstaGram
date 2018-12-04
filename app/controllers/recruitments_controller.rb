@@ -36,6 +36,33 @@ class RecruitmentsController < ApplicationController
     end
   end
   
+  def edit
+    @recruitment = Recruitment.find(params[:id])
+  end
+  
+  def update
+    @recruitment = Recruitment.find(params[:id])
+    @recruitment.area = params[:recruitment][:area]
+    @recruitment.part = params[:recruitment][:part]
+    @recruitment.genre = params[:recruitment][:genre]
+    @recruitment.r_info = params[:recruitment][:r_info]
+    @recruitment.expired = params[:recruitment][:expired]
+    
+    if @recruitment.save
+      flash[:notice] = "Your Wanted Post updated successfully"
+      redirect_to recruitments_path
+    else 
+      render edit_recruitment_path
+    end
+  end
+  
+  def destroy
+    @recruitment = Recruitment.find(params[:id])
+    logger.debug("---------------------------------r_id = #{@recruitment.id}")
+    @recruitment.destroy
+    redirect_to recruitments_path
+  end
+  
   
   
   private

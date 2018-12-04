@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   # resources :friends, :only => [:index]
   # devise_for :users  
   
+  get "posts/:id/pdedit" => "posts#pdedit"
+  post "posts/:id/pdupdate" => "posts#pdupdate"  
   resources :posts
   
   post "likes/:post_id/:post_detail_id/create" => "likes#create"

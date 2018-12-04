@@ -1,0 +1,30 @@
+<h1>You wan to replace this file?</h1>
+<br><br>
+
+<%= form_for(@post_detail, url: "/posts/#{@post_detail.id}/pdupdate", :html => { method: "post", multipart: true }) do |f| %>
+<!--<= form_for @post_detail, url: "/posts/:id", :html => { method: "post", multipart: true } do |f| %>-->
+<!--<= form_for @post_detail, :html => { multipart: true } do |f| %>-->
+<!--<= form_for(@post_detail, url: post_path(@post_detail), html: {method: "patch"}) do |f| %>-->
+<!--<= form_for @post_detail, url: {action: "pdupdate"} do |f| %>-->
+<!--<= form_for @post_detail, :html => { multipart: true } do |f| %>-->
+
+
+  <div class="field">
+    <%= f.label :file_name %><br />
+    <ul class="file_post">
+      <li class="file_post">
+        <span class="btn btn-large btn-success btn-file">
+          Choose File
+            <%= f.file_field  :file_name, {:class => ""} %>
+         </span>
+      </li>
+    </ul>
+  </div>
+
+<br>
+
+<br>
+  <div class="actions">
+    <%= f.submit "Update!", :class => "btn btn-default" %>
+  </div>
+<% end %>

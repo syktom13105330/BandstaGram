@@ -1,26 +1,31 @@
 <h1>Wanted List</h1>
 <br><br>
 
+<% if current_user.user_type == "g" %>
   <p><a href = "/recruitments/new" class = "btn btn-default">Post New Wanted <i class="fas fa-search"></i></a></p>
+<% end %>
 
 <hr>
 
 <%= form_tag("/recruitments", method: "get") do %>
 
   <select name="area" class="search-form">
-    <% Area.all.each do |a| %> 
+    <option value="">Not selected</option>
+    <% Area.all.each do |a| %>
       <option value="<%= "#{a.id}" %>"><%= "#{a.view_country_and_area}" %></option>
     <% end %>
   </select>
 
   <select name="part" class="search-form">
-    <% Part.all.each do |p| %> 
+    <option value="">Not selected</option>
+    <% Part.all.each do |p| %>
       <option value="<%= "#{p.id}" %>"><%= "#{p.part_name}" %></option>
     <% end %>
   </select>
   
   <select name="genre" class="search-form">
-    <% Genre.all.each do |g| %> 
+    <option value="">Not selected</option>
+    <% Genre.all.each do |g| %>
       <option value="<%= "#{g.id}" %>"><%= "#{g.genre_name}" %></option>
     <% end %>
   </select>
@@ -29,6 +34,7 @@
   <a href="/recruitments" class = "btn btn-default">Clear Search</a>
 
 <% end %>
+<!--end of form-->
 
 
 
@@ -48,14 +54,22 @@
           <p><%= r.r_info %></p>
           <p>
             <span class="hash">#<%= Area.find(r.area.to_i).view_country_and_area %></span>
-            <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
             <span class="hash">#<%= Part.find(r.part.to_i).part_name %></span>
+            <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
             <% if r.gender.present? %>
               <span class="hash">#<%= r.gender %></span>
             <% end %>  
           </p>
           <p class="date">
+            <% if r.band_id == current_user.id %>
+              <a href= "/recruitments/<%= "#{r.id}" %>/edit" class = "btn btn-default">Edit</a>
+            <% end %>  
             <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
+            <% if r.band_id == current_user.id %>
+              <!--<a href= "/recruitments/<= "#{r.id}" %>" class = "btn btn-default">Delete</a>-->
+              <%= link_to "Delete", "/recruitments/#{r.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-default" %>
+
+            <% end %>             
           </p>
 
         </div>

@@ -2,6 +2,8 @@ h1, .navbar-brand {
   font-family: 'Pacifico', cursive;
 }
 
+
+
 .main-page {
     margin-top: 50px;
 }
@@ -60,7 +62,7 @@ h1, .navbar-brand {
 
     
 .header-image {
-    background-image: url(/assets/top_image2.jpeg);
+    background-image: url(/top_image2.jpeg);
     width: 100%;
     height: 500px;
     object-fit: cover;
@@ -75,6 +77,7 @@ h1, .navbar-brand {
     padding-top: 150px;
     color: #fff;
     opacity: .7;
+    font-family: 'Bookman Old Style', serif;
     // font-style: italic;
     text-shadow: #ccc 1px 1px 0px, #ccc -1px 1px 0px,
     #ccc 1px -1px 0px, #ccc -1px -1px 0px;

@@ -4,11 +4,6 @@ class PostsController < ApplicationController
   
   def index
     @posts = Post.all.order(id: "desc")
-    # pds=PostDetail.where(post_id: p.id)
-    # pds.ids
-    # @tl=Like.where(post_detail_id: pds.ids).count
-    
-      
   end
   
   def new
@@ -23,7 +18,6 @@ class PostsController < ApplicationController
     
     if @post.save
         post_id = Post.last.id
-
       
           # 画像のアップロード対応
     
@@ -85,8 +79,58 @@ class PostsController < ApplicationController
     @post_details = PostDetail.where(post_id: params[:id])
 
   end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
   
-  #Nov_13
+  def update
+    @post = Post.find(params[:id])
+    @post.content = params[:post][:content]
+    if @post.save
+      flash[:notice] = "Comment successfully updated!"
+      redirect_to post_path
+    end
+  end
+  
+  def pdedit
+    @post_detail = PostDetail.find(params[:id])
+  end
+  
+  def pdupdate
+    require 'fileutils'
+    @post_detail = PostDetail.find(params[:id])
+    logger.debug("-==========================¥=¥== params[:id] = #{params[:id]}")
+    @npdfile_name = @post_detail.file_name.split(".")[0]
+    
+    FileUtils.rm("public/pics/#{@post_detail.post_id}/#{@post_detail.file_name}")
+    if params[:post_detail][:file_name].inspect.include?("jpg") || params[:post_detail][:file_name].inspect.include?("JPG")
+      @post_detail.file_type ="jpg"
+    elsif params[:post_detail][:file_name].inspect.include?("jpeg") || params[:post_detail][:file_name].inspect.include?("JPEG")
+      @post_detail.file_type = "jpeg"
+    elsif params[:post_detail][:file_name].inspect.include?("png") || params[:post_detail][:file_name].inspect.include?("PNG")
+      @post_detail.file_type = "png"
+      logger.debug("-=============================== png 1125 ")
+
+    elsif params[:post_detail][:file_name].inspect.include?("mp4") || params[:post_detail][:file_name].inspect.include?("MP4")
+      @post_detail.file_type = "mp4"
+    elsif params[:post_detail][:file_name].inspect.include?("mov") || params[:post_detail][:file_name].inspect.include?("MOV")
+      logger.debug("-=============================== mov ")
+      @post_detail.file_type = "mov"
+    elsif params[:post_detail][:file_name].inspect.include?("m4v") || params[:post_detail][:file_name].inspect.include?("M4V")
+      @post_detail.file_type = "m4v"
+    end
+    
+    @post_detail.file_name = "#{@npdfile_name}.#{@post_detail.file_type}"
+    image = params[:post_detail][:file_name]
+    File.binwrite("public/pics/#{@post_detail.post_id}/#{@post_detail.file_name}", image.read)
+    
+    @post_detail.save
+    flash[:notice] = "Post successfully replaced!"
+    redirect_to "/posts/#{@post_detail.post_id}"
+  end
+
+
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
