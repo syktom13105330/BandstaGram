@@ -6,10 +6,25 @@ class UsersController < ApplicationController
     ##current_userから見たfriend status表示
     @user = User.find(params[:id])
       @friend_status = ""
+      @mes_status = ""
         # Friend.where(follower: current_user.id).each do |f|
           if Friend.find_by('follower = ? and followed = ?', current_user.id, params[:id]) 
             if Friend.find_by('follower = ? and followed = ?', params[:id], current_user.id) 
               @friend_status = "f"
+              # 以下追加Chat用
+              if @user.id == current_user.id
+              else
+                Entry.where(user_id: current_user.id).each do |f|
+                  if Entry.find_by('room_id = ? and user_id = ?', f.room_id, params[:id])
+                    @mes_status = "opened"
+                    @mes_room = f.room_id
+                  else
+                    @mes_status = "unopened"
+                    @room = Room.new
+                    @entry = Entry.new
+                  end
+                end
+              end
             else
               @friend_status = "r"
             end    
@@ -20,21 +35,7 @@ class UsersController < ApplicationController
               @friend_status = ""
             end
           end  
-        #   if Friend.find_by('follower = ? and followed = ?', f.followed, current_user.id) 
-        #   logger.debug("--------------------- 友達　f.followed = #{f.followed}")
-        #     @friend_status = "f"
-        #   else
-        #   logger.debug("--------------------- 申請中f.followed = #{f.followed}")
-        #     @friend_status = "r"
-        #   end
-        # end
-        
-        # Friend.where(followed: current_user.id).each do |f|
-        #   if !Friend.find_by('follower = ? and followed = ?', current_user.id, f.follower) 
-        #   logger.debug("--------------------- 承認待ち　f.followed = #{f.follower}")
-        #     @friend_status = "w"
-        #   end
-        # end
+
     
     ## iのみ　所属バンド表示用
     @belong_bands = BelongBand.where(user_id: params[:id])

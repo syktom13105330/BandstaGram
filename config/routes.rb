@@ -37,5 +37,9 @@ Rails.application.routes.draw do
   
   resources :recruitments
   # post "recruitments/:id" => "recruitments#create"
+  resources :messages, :only => [:create]
+  resources :rooms, :only => [:create]
+  get "rooms/:id" => "rooms#show"
+
 
 end

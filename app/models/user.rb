@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :band_details, dependent: :destroy
   has_many :belong_bands, dependent: :destroy
   has_many :recruitments, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   
   # validate :band_details_number
   

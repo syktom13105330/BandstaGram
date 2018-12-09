@@ -80,3 +80,9 @@ Area.create(c_name:"Brazil")
 Area.create(c_name:"Singapore")
 Area.create(c_name:"China")
 Area.create(c_name:"South Korea")
+
+Room.delete_all
+Room.create
+
+Entry.delete_all
+Entry.create(user_id:1, room_id:1)

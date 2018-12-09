@@ -71,4 +71,4 @@ gem 'execjs'
 
 gem 'devise'
 
-gem 'rmagick'
+# gem 'rmagick', '~> 2.16'

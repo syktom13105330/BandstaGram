@@ -10,8 +10,20 @@
   <% elsif @friend_status == "r" %>
     <p class = "comment">Waiting...</p>
   <% elsif @friend_status == "f" %>
-    <p class = "comment">Already Friend!</p>
-  <% end %>  
+    <p class = "comment">Already Friend!
+      <!--以下DM用btn-->
+      <% if @mes_status =="opened" %>
+        <p class = "btn btn-default"><%= link_to("Open Message", "/rooms/#{@mes_room}") %></p>      
+      <% elsif @mes_status == "unopened" %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, :value => @user.id %>
+          <% end %>
+          <%= f.submit "Send Message", :class => "btn btn-default" %>
+        <% end %>
+      <% end %>
+    </p>
+  <% end %>
   <hr>
 <% end %>
 
