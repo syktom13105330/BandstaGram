@@ -15,11 +15,13 @@ class UsersController < ApplicationController
               if @user.id == current_user.id
               else
                 Entry.where(user_id: current_user.id).each do |f|
-                  if Entry.find_by('room_id = ? and user_id = ?', f.room_id, params[:id])
+                  if Entry.find_by('user_id = ? and room_id = ?', params[:id], f.room_id)
                     @mes_status = "opened"
+                      logger.debug("---------------------***** @mes_status = #{params[:id]}")
                     @mes_room = f.room_id
                   else
-                    @mes_status = "unopened"
+                    # @mes_status = "unopened"
+                      logger.debug("---------------------$$$$$ @mes_status = #{params[:id]}")
                     @room = Room.new
                     @entry = Entry.new
                   end
