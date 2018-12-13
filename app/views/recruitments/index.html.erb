@@ -40,7 +40,6 @@
 
   <br>
   <div class="container">
-    <div class="row">
       <% @recruitments.each do |r| %>
         <div class="users-index-item">
           <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
@@ -51,31 +50,40 @@
               <img src="<%= "/user_icon/#{r.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
             <% end %>
           </p>
-          <p><%= r.r_info %></p>
-          <p>
-            <span class="hash">#<%= Area.find(r.area.to_i).view_country_and_area %></span>
-            <span class="hash">#<%= Part.find(r.part.to_i).part_name %></span>
-            <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
-            <% if r.gender.present? %>
-              <span class="hash">#<%= r.gender %></span>
-            <% end %>  
-          </p>
-          <p class="date">
-            <% if r.band_id == current_user.id %>
-              <a href= "/recruitments/<%= "#{r.id}" %>/edit" class = "btn btn-default">Edit</a>
-            <% end %>  
-            <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
-            <% if r.band_id == current_user.id %>
-              <!--<a href= "/recruitments/<= "#{r.id}" %>" class = "btn btn-default">Delete</a>-->
-              <%= link_to "Delete", "/recruitments/#{r.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-default" %>
+            <div class="row">
+              <div class="col-xs-10">
+                <p class = "r_info"><%= r.r_info %></p>
+                <br>
+                <p>
+                  <span class="hash">#<%= Area.find(r.area.to_i).view_country_and_area %></span>
+                  <span class="hash">#<%= Part.find(r.part.to_i).part_name %></span>
+                  <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
+                  <% if r.gender.present? %>
+                    <span class="hash">#<%= r.gender %></span>
+                  <% end %>  
+                </p>
+              </div>
+              <div class="col-xs-2">
+                  <%= link_to "Contact", "#", class: "btn btn-success r_btn" %>
+                    <br>
+                  <% if r.band_id == current_user.id %>
+                    <a href= "/recruitments/<%= "#{r.id}" %>/edit" class = "btn btn-default r_btn">Edit</a>
+                  <% end %>
+                    <br>
+                  <% if r.band_id == current_user.id %>
+                    <!--<a href= "/recruitments/<= "#{r.id}" %>" class = "btn btn-default">Delete</a>-->
+                    <%= link_to "Delete", "/recruitments/#{r.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-danger r_btn" %>
+                  <% end %>
 
-            <% end %>             
+              </div>
+            </div>
+          <p class="date">
+            <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
           </p>
 
         </div>
       <% end %>
       <!--end of do-->
-    </div>
     <br>
     <p><a href="/recruitments" class = "btn btn-primary">Back to Wanted List Top</a></p>
   </div>

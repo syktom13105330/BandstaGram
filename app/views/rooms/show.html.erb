@@ -9,51 +9,55 @@
     <% end %>
   </div>
   <div class="col-xs-9">
-    <% if @messages.present? %>
-      <% @messages.each do |m| %>
-        <% if m.user_id == current_user.id %>
-          <h4 class="text-right">
-          <p class="alert alert-success">
-          <%= m.content %>
-          <br><br>
-          <small>
-            <strong>
-              <a href="/users/<%= m.user_id %>">
-                <% if current_user.icon.nil? %>
-                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
-                <% else %>
-                    <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
-                <% end %>
-                <%= m.user.name %> さん</a>
-            </strong>
-          </small>
-          </p>
-          </h4>
-        <% else %>
-          <h4 class="text-left">
-          <p class="alert alert-info">
-          <%= m.content %>
-          <br><br>
-          <small>
-            <strong>
-              <a href="/users/<%= m.user_id %>">
-                <% if current_user.icon.nil? %>
-                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
-                <% else %>
-                    <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
-                <% end %>
-                <%= m.user.name %>さん</a>
-            </strong>
-          </small>
-          </p>
-          </h4>
+    <div class="m_slider">
+      <% if @messages.present? %>
+        <% @messages.each do |m| %>
+          <% if m.user_id == current_user.id %>
+            <h4 class="text-right">
+              <p class="alert alert-warning">
+              <%= m.content %>
+              <br><br>
+              <small>
+                <strong>
+                  <a href="/users/<%= m.user_id %>">
+                    <% if current_user.icon.nil? %>
+                        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                    <% else %>
+                        <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                    <% end %>
+                    <%= m.user.name %> さん</a>
+                </strong>
+                <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
+              </small>
+              </p>
+            </h4>
+          <% else %>
+            <h4 class="text-left">
+            <p class="alert alert-info">
+            <%= m.content %>
+            <br><br>
+            <small>
+              <strong>
+                <a href="/users/<%= m.user_id %>">
+                  <% if current_user.icon.nil? %>
+                      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                  <% else %>
+                      <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                  <% end %>
+                  <%= m.user.name %>さん</a>
+              </strong>
+              <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
+            </small>
+            </p>
+            </h4>
+          <% end %>
         <% end %>
+      <% else %>
+        <br>
+        <h3 class="text-center">Send Something!</h3>
+        <br>
       <% end %>
-    <% else %>
-      <br>
-      <h3 class="text-center">Send Something!</h3>
-      <br>
-    <% end %>
+    </div>
     
     <hr>
     <%= form_for @message do |f| %>

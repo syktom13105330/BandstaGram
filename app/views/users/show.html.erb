@@ -1,4 +1,4 @@
-<h1>User Information</h1>
+<h1><%= @user.name %> </h1>
 <hr>
 
 <!--current_userから見たfriend_status-->
@@ -26,180 +26,242 @@
   <hr>
 <% end %>
 
-<!--user_icon + Total Post + Total Friendの部分-->
-<div class = "row">
-  <div class = "col-sm-12 col-md-6">
-    <div class ="row">
-      <div class="col-xs-4">
-        <% if @user.icon.nil? %>
-          <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
-        <% else %>
-          <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
-        <% end %>
-      </div>  
-      <div class="col-xs-8">
-        <div class="row">
-          <div class="col-xs-6">
-            <p class="number np"><%= @posts.count %></p>
-            <p class="number">posts</p>
-          </div>
-          <div class="col-xs-6">
-            <p class="number nf"><%= @nfriends.count %></p>
-            <p class="number">friends</p>
-          </div>
+  <!--user_icon + Total Post + Total Friendの部分-->
+  <div class="row">
+    <div class="col-xs-4 col-md-3">
+      <% if @user.icon.nil? %>
+        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+      <% else %>
+        <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
+      <% end %>
+    </div>
+
+    <div class="col-xs-4 col-md-3">
+      <div class="row">
+        <div class="col-xs-6">
+          <p class="number np"><%= @posts.count %></p>
+          <p class="number">posts</p>
+          <br>
+        </div>
+        <div class="col-xs-6">
+          <p class="number nf"><%= @nfriends.count %></p>
+          <p class="number">friends</p>
+          <br>
+        </div>
+      </div>
+    
+    <!--基本情報-->
+      <div class="row">
+        <div class="col-xs-12">
+          <span class="hash">#<%= @user.genre %></span>
+          <span class="hash">#<%= @user.area %></span>
+          <% if @user.user_type == "i" %>
+            <% if @user.gender.present? %>
+              <span class="hash">#<%= @user.gender %></span>
+            <% end %>
+            <% if @user.part.present? %>
+              <span class="hash">#<%= @user.part %></span>
+            <% end %>        
+          <% else %>
+            <% if @user.banmas_id.present? %>
+              <p>Band Master: <%= @user.banmas_id %></p>
+            <% end %>  
+          <% end %>
         </div>
       </div>
     </div>
+    
+    <div class="col-xs-12 col-md-6">
+      <br>
+      <div class=" profile users-profile-item">
+        <%= @user.profile %>
+      </div>  
+    </div>
+    <div class="col-xs-12">
+      <hr>
+      <br>
+    </div>  
 
-<!--基本情報-->
-    <p>Name: <%= @user.name %>さん </p>
-    <p>Favorite Genre: <%= @user.genre %></p>
-    <p>Location: <%= @user.area %></p>
-    <% if @user.user_type == "i" %>
-      <p>Gender: <%= @user.gender %></p>
-      <p>Status: <%= @user.waiting %></p>
-      <p>Instrument Part: <%= @user.part %></p>
-    <% else %>
-      <p>Band Master: <%= @user.banmas_id %></p>
-    <% end %>
-    <p class="profile">Profile: 
-    <br>
-      <%= @user.profile %>
-    </p>
-  </div>
-  
-  <br>
-
-<!--"iのみBelongBand Info(BelongBand)-->
-  <div class = "col-sm-12 col-md-6">
+          
+<div class = "row">
+  <!--"iのみBelongBand Info(BelongBand)-->
   <% if @user.user_type =="i" %>
-    <h2 class="header_right">Group(s) </h2>
-    <br>
-    <% if @belong_bands.empty? %>
-      <p>No Group Added</p>
-    <% else %>
-      <% @belong_bands.each do |bb| %>
-        <div class="users-show-item">
-          <div class = "user-left">
-            
-            <% if bb.band.icon.nil? %>
-              <img src="<%= "/user_icon/default_icon.png" %>">
-            <% else %>
-              <img src=" <%= "/user_icon/#{bb.band.icon}" %>" >
-            <% end %>      
-            
+    <div class = "col-sm-12 col-md-6">
+      <h2 class="header_right">Group(s) </h2>
+      <br>
+      <% if @belong_bands.empty? %>
+        <p>No Group Added</p>
+      <% else %>
+        <% @belong_bands.each do |bb| %>
+          <div class="users-show-item">
+            <div class = "user-left">
+              
+              <% if bb.band.icon.nil? %>
+                <img src="<%= "/user_icon/default_icon.png" %>">
+              <% else %>
+                <img src=" <%= "/user_icon/#{bb.band.icon}" %>" >
+              <% end %>      
+              
+            </div>
+            <div class = "user-right">
+              <p><a href ="/users/<%= bb.band_id %>"><%= bb.band.name %></a>
+                <% if @user.id == current_user.id %>
+                  <%= link_to("×","/belong_bands/#{bb.id}/destroy", method: :post, class: "btn btn-default btn-approve") %>
+                <% end %>
+              </p>
+            </div>
           </div>
-          <div class = "user-right">
-            <p><a href ="/users/<%= bb.band_id %>"><%= bb.band.name %></a>
-              <% if @user.id == current_user.id %>
-                <%= link_to("×","/belong_bands/#{bb.id}/destroy", method: :post, class: "btn btn-default btn-approve") %>
-              <% end %>
-            </p>
-          </div>
-        </div>
+        <% end %>
+        <!--end of do-->
       <% end %>
-      <!--end of do-->
-    <% end %>
-    <br>
-    <% if @user.id == current_user.id %>
-      <p><a href = "/belong_bands/new" class = "btn btn-default">Add your Groups</a></p>
-    <% end %>  
-  <% end %> 
-  </div>
+      <br>
+      <% if @user.id == current_user.id %>
+        <p><a href = "/belong_bands/new" class = "btn btn-default">Add your Groups</a></p>
+      <% end %>  
+    <% end %> 
+    </div>
   
   
 <!--"gのみBandMember Info(BelongBand)-->
-  <div class = "col-sm-12 col-md-6">
   <% if @user.user_type =="g" %>
-    <h2 class="header_right">Band Member(s)</h2>
-    <br>
-    <% if @bandmembers.empty? %>
-      <p>No Member Added</p>
-    <% else %>
-      <% @bandmembers.each do |bm| %>
-        <div class="users-show-item">
-          <div class = "user-left">
-            
-            <% if bm.user.icon.nil? %>
-              <img src="<%= "/user_icon/default_icon.png" %>">
-            <% else %>
-              <img src=" <%= "/user_icon/#{bm.user.icon}" %>" >
-            <% end %>      
-            
+    <div class = "col-sm-12 col-md-6">
+      <h2 class="header_right">Band Member(s)</h2>
+      <br>
+      <% if @bandmembers.empty? %>
+        <p>No Member Added</p>
+      <% else %>
+        <% @bandmembers.each do |bm| %>
+          <div class="users-show-item">
+            <div class = "user-left">
+              
+              <% if bm.user.icon.nil? %>
+                <img src="<%= "/user_icon/default_icon.png" %>">
+              <% else %>
+                <img src=" <%= "/user_icon/#{bm.user.icon}" %>" >
+              <% end %>      
+              
+            </div>
+            <div class = "user-right">
+              <p><a href ="/users/<%= bm.user_id %>"><%= bm.user.name %></a>
+                <% if @user.id == current_user.id %>
+                  <%= link_to("×","/belong_bands/#{bm.id}/destroy", method: :post, class: "btn btn-default btn-approve") %>
+                <% end %>
+              </p>
+            </div>
           </div>
-          <div class = "user-right">
-            <p><a href ="/users/<%= bm.user_id %>"><%= bm.user.name %></a>
-              <% if @user.id == current_user.id %>
-                <%= link_to("×","/belong_bands/#{bm.id}/destroy", method: :post, class: "btn btn-default btn-approve") %>
-              <% end %>
-            </p>
-          </div>
-        </div>
+        <% end %>
+        <!--end of do-->
       <% end %>
-      <!--end of do-->
-    <% end %>
-    <br>
-    <% if @user.id == current_user.id %>
-      <p><a href = "/belong_bands/addmem" class = "btn btn-default">Add your Member(s)</a></p>
-    <% end %>  
+      <br>
+      <% if @user.id == current_user.id %>
+        <p><a href = "/belong_bands/addmem" class = "btn btn-default">Add your Member(s)</a></p>
+      <% end %>
+      <br>
+    </div>
+  
+    <!--Recruitement追加するならここ-->
+    <div class = "col-sm-12 col-md-6">
+      <h2 class="header_right">Active Wanted</h2>
+      <br>
+      <% if @recruitments.empty? %>
+        <p>No Wanted Post</p>
+      <% else %>
+        <% @recruitments.each do |r| %>
+          <div class="users-index-item">
+            <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
+              <div class="row">
+                <div class="col-xs-10">
+                  <p class = "r_info r_info_slider"><%= r.r_info %></p>
+                  <br>
+                  <p>
+                    <span class="hash">#<%= Area.find(r.area.to_i).view_country_and_area %></span>
+                    <span class="hash">#<%= Part.find(r.part.to_i).part_name %></span>
+                    <span class="hash">#<%= Genre.find(r.genre.to_i).genre_name %></span>            
+                    <% if r.gender.present? %>
+                      <span class="hash">#<%= r.gender %></span>
+                    <% end %>  
+                  </p>
+                </div>
+                <div class="col-xs-2">
+                    <% if r.band_id == current_user.id %>
+                        <!--<a href= "/recruitments/<%= "#{r.id}" %>/edit" class = "btn btn-default r_btn">Edit</a>-->
+                        <%= link_to "Edit", "/recruitments/#{r.id}/edit", class: "btn btn-default  btn-sm r_btn" %>
+                    <% end %>
+                      <br>
+                    <% if r.band_id == current_user.id %>
+                      <!--<a href= "/recruitments/<= "#{r.id}" %>" class = "btn btn-default">Delete</a>-->
+                        <%= link_to "Delete", "/recruitments/#{r.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-danger btn-sm r_btn" %>
+                    <% end %>
+                </div>
+              </div>
+            <p class="date">
+              <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
+            </p>
+  
+          </div>
+        <% end %>      
+      <% end %>
+    </div>  
+  <br>
+    
   <% end %> 
-  </div>  
 </div>
 
-<!--"g"のみMedia Info(BandDetail)-->
-<% if @user.user_type == "g" %>
-
-  <hr>
-  <br>
-  <h2>Media Inforamtion</h2>
-  <% if @band_details.empty? %>
-    <p>No Media Information</p>
-  <% else %>
-    <div class="slider">
-  　<% @band_details.each do |band_detail| %>
-    　<div class="file_item">
-        <% if @user.id == current_user.id %>
-        <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
-      　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>
-      　   <!--松下さん-->
+  <!--"g"のみMedia Info(BandDetail)-->
+  <% if @user.user_type == "g" %>
+  
+    <hr>
+    <h2>Media Inforamtion</h2>
+    <% if @band_details.empty? %>
+      <p>No Media Information</p>
+    <% else %>
+      <div class="slider">
+    　<% @band_details.each do |band_detail| %>
+      　<div class="file_item">
+          <% if @user.id == current_user.id %>
+          <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
+        　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>
+        　   <!--松下さん-->
+              <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+                <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
+              <% else %>
+                <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+              <% end %>
+            <% end %>
+            <!--end of link do-->
+          <% else %>
             <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
               <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
             <% else %>
               <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
             <% end %>
           <% end %>
-          <!--end of link do-->
-        <% else %>
-          <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
-            <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
-          <% else %>
-            <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
-          <% end %>
-        <% end %>
-        
-        <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
+          
+          <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
+        </div>
+      <% end %>
+      <!--end of do-->
       </div>
+      
+      <h3>Comment</h3>
+      <br>
+      <p><%= @bdcomment.file_exp %></p>
+      
     <% end %>
-    <!--end of do-->
-    </div>
-    
-    <h3>Comment</h3>
-    <br>
-    <p><%= @bdcomment.file_exp %></p>
-    <hr>
-    
+  
+    <% if @user.id == current_user.id && @band_details.count < 5 %>
+    <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
+      <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>
+    <% end %>
+      <hr>
   <% end %>
-
-  <% if @user.id == current_user.id && @band_details.count < 5 %>
-  <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
-    <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>
-  <% end %>
-
-<% end %>
-
-
-<p><a href="/users" class = "btn btn-primary">Back to User List</a></p>
-<% if @user.id == current_user.id %>
-  <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>
-<% end %>
-
+  
+  
+    <p>
+      <a href="/users" class = "btn btn-primary">Back to User List</a>
+    </p>
+    <% if @user.id == current_user.id %>
+      <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>
+    <% end %>
+ 
+  </div>

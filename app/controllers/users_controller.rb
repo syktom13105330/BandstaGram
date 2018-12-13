@@ -12,19 +12,25 @@ class UsersController < ApplicationController
             if Friend.find_by('follower = ? and followed = ?', params[:id], current_user.id) 
               @friend_status = "f"
               # 以下追加Chat用
-              if @user.id == current_user.id
-              else
-                Entry.where(user_id: current_user.id).each do |f|
-                  if Entry.find_by('user_id = ? and room_id = ?', params[:id], f.room_id)
-                    @mes_status = "opened"
-                      logger.debug("---------------------***** @mes_status = #{params[:id]}")
-                    @mes_room = f.room_id
-                  else
-                    # @mes_status = "unopened"
-                      logger.debug("---------------------$$$$$ @mes_status = #{params[:id]}")
-                    @room = Room.new
-                    @entry = Entry.new
-                  end
+              if @user.id != current_user.id
+                if Entry.find_by(user_id: current_user.id)
+                    Entry.where(user_id: current_user.id).each do |f|
+                      if Entry.find_by('user_id = ? and room_id = ?', params[:id], f.room_id)
+                        @mes_status = "opened"
+                          logger.debug("---------------------***** @mes_status = #{params[:id]}")
+                        @mes_room = f.room_id
+                      else
+                        # Entryテーブル内に自分と相手のが無い場合
+                        # @mes_status = "unopened"
+                        @room = Room.new
+                        @entry = Entry.new
+                      end
+                    end
+                else
+                  logger.debug("---------------------¥¥¥¥¥¥¥¥¥¥¥ = #{params[:id]}")
+                  # Entryに自分のレコードが１件もない場合
+                  @room = Room.new
+                  @entry = Entry.new
                 end
               end
             else
@@ -47,15 +53,18 @@ class UsersController < ApplicationController
     ##gのみ Media Information用   
     @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
     @bdcomment = BandDetail.where(user_id: params[:id]).last
-    
-    # Nov 18 Post Total & Friend Total Index
+
+    ##gのみ Recruitment表示用   
+    @recruitments = Recruitment.where(band_id: params[:id])
+
+    #Post Total & Friend Total Index
     @posts = Post.where(writer_id: params[:id])
     @nfriends = [] #空にして
       Friend.where(follower: params[:id]).each do |f| #paramsがfollowerしてるだけ引っ張って
       if Friend.find_by('follower = ? and followed = ?', f.followed, params[:id])  #followし返してくれてるかifして
         @nfriends.push(f.followed)  #成立してる数だけ配列にどん
       end
-    end
+      end
             
   end
   

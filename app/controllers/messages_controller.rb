@@ -3,7 +3,13 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!, :only => [:create]
     
   def create
-    @message = Message.create(mes_params)
+    @message = Message.new(mes_params)
+    if @message.save
+      redirect_to "/rooms/#{@message.room_id}"
+    else
+      flash[:notice] = "Couldn't send the Message"
+      render "/rooms/#{@message.room_id}"
+    end
   end
   
   private 
