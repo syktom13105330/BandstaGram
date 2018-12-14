@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Bandstagram</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -40,9 +41,17 @@
             </div>
           </li>            
               
-          <li>
+          <li class="counter">
+                        <!--未読件数-->
+            <% counter = 0 %>
+            <% Recruitment.where(band_id: current_user.id).each do |recruitment| %>
+            <%  counter = counter + AppMessage.where(recruitment_id: recruitment.id).where(status: "a").count %>
+            <% end %>
             <a href = "/recruitments">
               Wanted
+              <span class="badge badge-light">
+              <%= counter %>
+              </span>
               <i class="fas fa-search"></i>
             </a>
           </li>

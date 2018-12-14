@@ -39,9 +39,9 @@ class PostsController < ApplicationController
               elsif image.inspect.include?("mp4") || image.inspect.include?("MP4")
                 @post_detail.file_type = "mp4"
               elsif image.inspect.include?("mov") || image.inspect.include?("MOV")
-                @post_detail.file_type = "mov"
+                @post_detail.file_type = "webm"
               elsif image.inspect.include?("m4v") || image.inspect.include?("M4V")
-                @post_detail.file_type = "m4v"
+                @post_detail.file_type = "webm"
               end
               
               # @post_detail.file_type = "p"

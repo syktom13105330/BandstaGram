@@ -34,12 +34,16 @@ Rails.application.routes.draw do
   
   post "likes/:post_id/:post_detail_id/create" => "likes#create"
   post "likes/:post_id/:post_detail_id/destroy" => "likes#destroy"
-  
+
+  get "app_messages/:recruitment_id/new" => "app_messages#new"
+  resources :app_messages
   resources :recruitments
   # post "recruitments/:id" => "recruitments#create"
   resources :messages, :only => [:create]
+  resources :rec_messages, :only => [:create]
   resources :rooms, :only => [:create]
   get "rooms/:id" => "rooms#show"
-
+  resources :rec_rooms, :only => [:create]
+  get "rec_rooms/:id" => "rec_rooms#show"
 
 end

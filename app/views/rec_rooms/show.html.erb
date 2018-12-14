@@ -1,0 +1,72 @@
+<br>
+<div class="row">
+  <div class="col-xs-3 text-center">
+
+  <hr>
+    <h4>Members</h4>
+    <% @rec_entries.each do |re| %>
+      <h5><strong><a href="/users/<%= re.user_id %>"><%= re.user.name %> さん</a></strong></h5>
+    <% end %>
+  </div>
+  <div class="col-xs-9">
+    <div class="m_slider">
+      <% if @rec_messages.present? %>
+        <% @rec_messages.each do |rm| %>
+          <% if rm.user_id == current_user.id %>
+            <h4 class="text-right">
+              <p class="alert alert-warning">
+              <%= rm.content %>
+              <br><br>
+              <small>
+                <strong>
+                  <a href="/users/<%= rm.user_id %>">
+                    <% if current_user.icon.nil? %>
+                        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                    <% else %>
+                        <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                    <% end %>
+                    <%= rm.user.name %> さん</a>
+                </strong>
+                <%= rm.created_at.strftime('%Y/%m/%d %H:%M') %>
+              </small>
+              </p>
+            </h4>
+          <% else %>
+            <h4 class="text-left">
+            <p class="alert alert-info">
+            <%= rm.content %>
+            <br><br>
+            <small>
+              <strong>
+                <a href="/users/<%= rm.user_id %>">
+                  <% if current_user.icon.nil? %>
+                      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                  <% else %>
+                      <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                  <% end %>
+                  <%= rm.user.name %>さん</a>
+              </strong>
+              <%= rm.created_at.strftime('%Y/%m/%d %H:%M') %>
+            </small>
+            </p>
+            </h4>
+          <% end %>
+        <% end %>
+      <% else %>
+        <br>
+        <h3 class="text-center">Send Something!</h3>
+        <br>
+      <% end %>
+    </div>
+    
+    <hr>
+    <%= form_for @rec_message do |f| %>
+      <%= f.text_field :content, :class => "form-control", :placeholder => "Say something" %>
+      <%= f.hidden_field :rec_room_id, :value => @rec_room.id %>
+      <br>
+      <div class="text-center">
+        <%= f.submit "Post", :class => "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>  
+</div>

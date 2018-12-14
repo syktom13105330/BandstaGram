@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_09_144035) do
+ActiveRecord::Schema.define(version: 2018_12_14_105915) do
+
+  create_table "app_messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "recruitment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+  end
 
   create_table "areas", force: :cascade do |t|
     t.string "c_name"
@@ -89,6 +98,26 @@ ActiveRecord::Schema.define(version: 2018_12_09_144035) do
     t.integer "writer_id"
     t.text "content"
     t.string "private_flag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rec_entries", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "rec_room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rec_messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "rec_room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rec_rooms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,12 @@
+<br>
+
+<h2>Apply to the position!</h2>
+<br>
+<%= form_for @app_message do |f| %>
+  <%= f.text_area :content, :class => "form-control my-form", :placeholder => "Say something to describe yourself" %>
+  <%= f.hidden_field :recruitment_id, :value => params[:recruitment_id] %>
+  <br>
+  <!--<div class="text-center">-->
+    <%= f.submit "Apply", :class => "btn btn-primary" %>
+  <!--</div>-->
+<% end %>

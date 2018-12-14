@@ -1,0 +1,2 @@
+module RecMessasgesHelper
+end
