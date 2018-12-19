@@ -45,9 +45,14 @@ class RecRoomsController < ApplicationController
     end
     
     def checked_message
-      if RecMessage.user_id != current_user.id
-        RecMessage.where("status = ?", "d" ).update_all(status: "c")
-      end
+      @rec_messages = @rec_room.rec_messages.each do |rm|
+        if rm.user_id != current_user.id
+          if rm.status == "d"
+            rm.update(status: "c")
+          # rm.where("status = ?", "d" ).update_all(status: "c")
+          end
+        end
+      end  
     end
     
 end
