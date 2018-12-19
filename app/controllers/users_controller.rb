@@ -11,7 +11,7 @@ class UsersController < ApplicationController
           if Friend.find_by('follower = ? and followed = ?', current_user.id, params[:id]) 
             if Friend.find_by('follower = ? and followed = ?', params[:id], current_user.id) 
               @friend_status = "f"
-              # 以下追加Chat用
+              # 以下DM(Apply)用
               if @user.id != current_user.id
                 if Entry.find_by(user_id: current_user.id)
                     Entry.where(user_id: current_user.id).each do |f|
@@ -54,8 +54,12 @@ class UsersController < ApplicationController
     @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
     @bdcomment = BandDetail.where(user_id: params[:id]).last
 
-    ##gのみ Recruitment表示用   
-    @recruitments = Recruitment.where(band_id: params[:id])
+    ##Recruitment表示用   
+    @recruitments = Recruitment.all.order(id: "desc")
+    @rec_entries = RecEntry.where(user_id: params[:id])
+
+    ##iのみ AppMessage表示用   
+    @app_messages = AppMessage.where(user_id: params[:id]).order(id: "desc")
 
     #Post Total & Friend Total Index
     @posts = Post.where(writer_id: params[:id])

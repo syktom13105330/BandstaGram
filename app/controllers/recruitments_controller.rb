@@ -1,10 +1,9 @@
 class RecruitmentsController < ApplicationController
   
   before_action :authenticate_user!
-  after_action :checked_application, :only => [:show] 
-  
-  # postsに書いてあったからとりあえず
-  
+  before_action :ensure_correct_user, {only: [:show, :edit, :update, :destroy]}
+  after_action :checked_application, {only: [:show]} 
+
   def index
     # @recruitment = Search::Recruitment.new
     # @recruitment.new(params.require(rec_params))
@@ -14,6 +13,7 @@ class RecruitmentsController < ApplicationController
     # if @recruitment.band_id != current_user.id
       @rec_room = RecRoom.new
     # end
+      @app_message = AppMessage.new
 
   
     # @recruitments = Recruitment.all.order(created_at: "desc")
@@ -27,8 +27,9 @@ class RecruitmentsController < ApplicationController
   def show
     @recruitment = Recruitment.find(params[:id])
     @app_messages = AppMessage.where(recruitment_id: params[:id])
+    @rec_entries = RecEntry.where(recruitment_id: params[:id])
     @rec_room = RecRoom.new
-    
+    @rec_entry = RecEntry.new
   end
   
   # def search
@@ -86,13 +87,14 @@ class RecruitmentsController < ApplicationController
     
     def checked_application
       AppMessage.where("status = ?", "a").update_all(status: "c")
-      
-      
     end
-    # def search_params
-    #   params
-    #     .require(:search_product)
-    #     .permit(Search::Recruitment::ATTRIBUTES)
-    # end
-  
+    
+    def ensure_correct_user
+      @recruitment = Recruitment.find(params[:id])
+      if @recruitment.band_id != current_user.id
+        flash[:notice] = "You have no authority to access"
+        redirect_to("/users/#{current_user.id}")
+      end
+    end
+    
 end ##end of class

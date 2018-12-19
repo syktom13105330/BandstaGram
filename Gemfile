@@ -71,4 +71,8 @@ gem 'execjs'
 
 gem 'devise'
 
+gem 'jquery-rails'
+gem 'popper_js'
+
+
 # gem 'rmagick', '~> 2.16'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_14_105915) do
+ActiveRecord::Schema.define(version: 2018_12_19_174847) do
 
   create_table "app_messages", force: :cascade do |t|
     t.text "content"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 2018_12_14_105915) do
     t.integer "rec_room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recruitment_id"
   end
 
   create_table "rec_messages", force: :cascade do |t|
@@ -115,11 +116,13 @@ ActiveRecord::Schema.define(version: 2018_12_14_105915) do
     t.integer "rec_room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "rec_rooms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recruitment_id"
   end
 
   create_table "recruitments", force: :cascade do |t|

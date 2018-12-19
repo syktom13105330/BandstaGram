@@ -4,9 +4,23 @@
 
   <hr>
     <h4>Members</h4>
+    <br>
     <% @rec_entries.each do |re| %>
-      <h5><strong><a href="/users/<%= re.user_id %>"><%= re.user.name %> さん</a></strong></h5>
+      <% if re.user.icon.nil? %>
+        <h5><img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= re.user_id %>"><%= re.user.name %></a></strong></h5>
+      <% else %>
+        <h5><img src="<%= "/user_icon/#{re.user.icon}" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= re.user_id %>"><%= re.user.name %></a></strong></h5>
+      <% end %>
     <% end %>
+    <div class="rec_room_space">
+    </div>  
+    
+      <% if @rec_room.recruitment.band_id == current_user.id %>
+        <%= link_to "Back to Wanted Info", "/recruitments/#{@rec_room.recruitment_id}", class: "btn btn-default" %>
+      <% else %>
+        <%= link_to "Back to Mypage", "/users/#{current_user.id}", class: "btn btn-default" %>
+      <% end %>
+    
   </div>
   <div class="col-xs-9">
     <div class="m_slider">
@@ -14,7 +28,7 @@
         <% @rec_messages.each do |rm| %>
           <% if rm.user_id == current_user.id %>
             <h4 class="text-right">
-              <p class="alert alert-warning">
+              <p class="alert alert-success chat">
               <%= rm.content %>
               <br><br>
               <small>
@@ -25,7 +39,7 @@
                     <% else %>
                         <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
                     <% end %>
-                    <%= rm.user.name %> さん</a>
+                    <%= rm.user.name %></a>
                 </strong>
                 <%= rm.created_at.strftime('%Y/%m/%d %H:%M') %>
               </small>
@@ -33,7 +47,7 @@
             </h4>
           <% else %>
             <h4 class="text-left">
-            <p class="alert alert-info">
+            <p class="alert alert-info chat">
             <%= rm.content %>
             <br><br>
             <small>
@@ -44,7 +58,7 @@
                   <% else %>
                       <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
                   <% end %>
-                  <%= rm.user.name %>さん</a>
+                  <%= rm.user.name %></a>
               </strong>
               <%= rm.created_at.strftime('%Y/%m/%d %H:%M') %>
             </small>

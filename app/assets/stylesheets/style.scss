@@ -2,7 +2,18 @@ h1,h2,h3,h4, .navbar-brand {
   font-family: 'Pacifico', cursive;
 }
 
+.fa-comment-alt {
+    height: 20px;
+    position: relative;
+}
 
+.nav-badge {
+    // height: 10px;
+    position: absolute;
+    top: 5px;
+    left: 100px;
+    
+}
 
 .main-page {
     margin-top: 50px;
@@ -102,6 +113,10 @@ h1,h2,h3,h4, .navbar-brand {
     list-style: none;
 }
 
+.chat {
+    font-family: 'Raleway', sans-serif;
+
+}
 
 
 // footer

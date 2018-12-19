@@ -6,11 +6,11 @@
 .post_pic {
   // position: absolute;
 
-  width: 100%;
+  width: 390px;
   // padding-bottom: 100%;
-  // height: 100%;
-  max-width: 100%;
-  min-height: 370px;
+  height: 390px;
+  // max-width: 100%;
+  // min-height: 370px;
   // min-height: 100%;
   border-radius: 10px;
   // top: 50%;
@@ -71,4 +71,11 @@
   border-radius: 20%;
   padding: 7px;
   line-height: 1.5em;    
+}
+
+.replacepreview {
+  width: 50%;
+  height: 50%;
+  border-radius: 10px;
+  object-fit: cover;
 }

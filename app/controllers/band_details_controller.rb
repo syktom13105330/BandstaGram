@@ -1,5 +1,8 @@
 class BandDetailsController < ApplicationController
-
+  
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  
   def new
     @band_detail = BandDetail.new
   end
@@ -159,14 +162,17 @@ class BandDetailsController < ApplicationController
       
     end
 
-      
-
-  
   private
     def band_detail_params
       params.require(:band_detail).permit(:user_id, :file_type, :file_name, :file_exp).merge(:user_id => current_user.id)
     end
     
-
+    def ensure_correct_user
+      @band_detail = BandDetail.find(id: params[:id])
+      if @band_detail.user_id != current_user.id
+        flash[:notice] = "You have no authority to access"
+        redirect_to("/users")
+      end
+    end
 
 end

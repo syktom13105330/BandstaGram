@@ -1,5 +1,7 @@
 <h1>You wan to replace this file?</h1>
 <br><br>
+<% @filename = @post_detail.file_name.split(".")[0] %>
+<img src="<%= "/pics/#{@post_detail.post_id}/#{@filename}.#{@post_detail.file_type}" %>" class="replacepreview">
 
 <%= form_for(@post_detail, url: "/posts/#{@post_detail.id}/pdupdate", :html => { method: "post", multipart: true }) do |f| %>
 <!--<= form_for @post_detail, url: "/posts/:id", :html => { method: "post", multipart: true } do |f| %>-->
@@ -7,7 +9,7 @@
 <!--<= form_for(@post_detail, url: post_path(@post_detail), html: {method: "patch"}) do |f| %>-->
 <!--<= form_for @post_detail, url: {action: "pdupdate"} do |f| %>-->
 <!--<= form_for @post_detail, :html => { multipart: true } do |f| %>-->
-
+<br>
 
   <div class="field">
     <%= f.label :file_name %><br />

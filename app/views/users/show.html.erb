@@ -11,7 +11,7 @@
     <p class = "comment">Waiting...</p>
   <% elsif @friend_status == "f" %>
     <p class = "comment">Already Friend!</p>
-      <!--以下DM用btn-->
+      <!--以下chat用btn-->
       <% if @mes_status =="opened" %>
         <p class = "btn btn-default"><%= link_to("Open Message", "/rooms/#{@mes_room}") %></p>      
       <% else %>
@@ -116,15 +116,69 @@
       <br>
       <% if @user.id == current_user.id %>
         <p><a href = "/belong_bands/new" class = "btn btn-default">Add your Groups</a></p>
-      <% end %>  
-    <% end %> 
-    </div>
+      <% end %>
+    </div>  
+      
+    <!--【WIP】"iのみAppMessage（応募済一覧）【WIP】-->
+    <% if @user.id == current_user.id %>
+      <div class = "col-sm-12 col-md-6">
+        <h2 class="header_right">Applied List</h2>
+        <br>
+        <% if @app_messages.empty? %>
+          <p>You've not applied to any Wanted</p>
+        
+        <% else %>
+          <% @app_messages.each do |apm| %>
+            <div class="users-index-item r_badge_parent">
+              <div class = "row">
+                <div class = "col-xs-5">
+                  <h4>Looking for <%= Part.find(apm.recruitment.part.to_i).part_name %></h4>
+                </div> 
+                <div class = "col-xs-3">
+                  <% if apm.recruitment.user.icon.nil? %>
+                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
+                  <% else %>
+                    <img src="<%= "/user_icon/#{apm.recruitment.user.icon}" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
+                  <% end %>
+                </div>
+                <div class = "col-xs-4">
+                  <% if @rec_entries.find_by(recruitment_id: apm.recruitment_id) %>
+                    <% @abc = RecEntry.find_by(recruitment_id: apm.recruitment_id, user_id: current_user.id) %>
+                      <%= link_to("Chat Open","/rec_rooms/#{@abc.rec_room_id}",  class: "btn btn-default r_btn") %>
+                  <% end %>
+                </div>
+              </div>
+                      
+              
+              <!--未読件数-->
+                <!--<i class="far fa-comments r_budge_icon"></i>-->
+                <!--<span class="badge r_badge"><= AppMessage.where(recruitment_id: r.id).where(status: "a").count %></span>-->
   
+              <p class = "r_info r_info_slider"><%= apm.recruitment.r_info %></p>
+              <div class = "row">
+                <div class = "col-xs-8">
+                  <p class="date">
+                    <small>Post Date: <%=apm.created_at.strftime('%Y-%m-%d %H:%M') %></small>
+                  </p>
+                </div>
+                <div class = "col-xs-4">
+                  <%= link_to "Cancel", "/app_messages/#{apm.id}/destroy", class: "btn btn-warning r_btn", method: :delete %>
+                </div>
+              </div>  
+            </div>
+          <% end %>      
+        <% end %>
+        <br>
+        <p><a href = "/recruitments" class = "btn btn-default">Go to Wanted List</a></p>
+      </div>
+    <% end %>  
+  <% end %> 
+</div>
   
 <!--"gのみBandMember Info(BelongBand)-->
   <% if @user.user_type =="g" %>
     <div class = "col-sm-12 col-md-6">
-      <h2 class="header_right">Band Member(s)</h2>
+      <h2 class="header_right">Band Member</h2>
       <br>
       <% if @bandmembers.empty? %>
         <p>No Member Added</p>
@@ -158,22 +212,30 @@
       <br>
     </div>
   
-    <!--Recruitement追加するならここ-->
+    <!--Active Recruitement（gのみ）-->
     <div class = "col-sm-12 col-md-6">
       <h2 class="header_right">Active Wanted</h2>
       <br>
-      <% if @recruitments.empty? %>
+      <% if @recruitments.where(band_id: params[:id]).empty? %>
+
         <p>No Wanted Post</p>
       <% else %>
-        <% @recruitments.each do |r| %>
-          <div class="users-index-item">
+        <% @recruitments.where(band_id: params[:id]).each do |r| %>
+          <div class="users-index-item r_badge_parent">
             
             <h4>
+            <% if @user.id == current_user.id %>
               <%= link_to "/recruitments/#{r.id}/" do %>
                 Looking for <%= Part.find(r.part.to_i).part_name %>
+              <!--未読件数-->
+                <i class="far fa-comment-alt r_budge_icon"></i>
+                <span class="badge r_badge"><%= AppMessage.where(recruitment_id: r.id).where(status: "a").count %></span>
               <% end %>
+            <% else %>
+                Looking for <%= Part.find(r.part.to_i).part_name %>
+              <% end %>  
             </h4>
-            
+
               <div class="row">
                 <div class="col-xs-10">
                   <p class = "r_info r_info_slider"><%= r.r_info %></p>
@@ -196,6 +258,7 @@
                     <% if r.band_id == current_user.id %>
                       <!--<a href= "/recruitments/<= "#{r.id}" %>" class = "btn btn-default">Delete</a>-->
                         <%= link_to "Delete", "/recruitments/#{r.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-danger btn-sm r_btn" %>
+
                     <% end %>
                 </div>
               </div>

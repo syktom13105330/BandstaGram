@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   
   before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:edit, :pdedit, :update, :pdupdate, :destroy]}
   
   def index
     @posts = Post.all.order(id: "desc")
@@ -145,6 +146,16 @@ class PostsController < ApplicationController
     def post_detail_params
       params.require(:post).permit(:file_name, :post_id)
     end
+    
+    def ensure_correct_user
+      @post = Post.find(id: params[:id])
+      if @post.writer_id != current_user.id
+        flash[:notice] = "You have no authority to access"
+        redirect_to("/posts")
+      end
+    end
+    
+    
 end  ## class end
 
 

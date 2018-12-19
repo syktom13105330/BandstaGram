@@ -2,76 +2,127 @@
 <br><br>
   <br>
   <div class="container">
-      <div class="users-index-item">
-        <h4>Looking for <%= Part.find(@recruitment.part.to_i).part_name %></h4>
-        <p>
-          <% if @recruitment.user.icon.nil? %>
-            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav">
-              <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
-          <% else %>
-            <img src="<%= "/user_icon/#{@recruitment.user.icon}" %>" class = "user_icon_nav">
-              <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
-          <% end %>
-        </p>
-          <div class="row">
-            <div class="col-xs-12 col-sm-10">
-              <p class = "r_info"><%= @recruitment.r_info %></p>
-              <br>
-              <p>
-                <span class="hash">#<%= Area.find(@recruitment.area.to_i).view_country_and_area %></span>
-                <span class="hash">#<%= Part.find(@recruitment.part.to_i).part_name %></span>
-                <span class="hash">#<%= Genre.find(@recruitment.genre.to_i).genre_name %></span>            
-                <% if @recruitment.gender.present? %>
-                  <span class="hash">#<%= @recruitment.gender %></span>
-                <% end %>  
-              </p>
-            </div>
-            <!--Chat用-->
-            <div class="col-xs-12 col-sm-2">
-              <% if @recruitment.band_id == current_user.id %>
-                <a href= "/recruitments/<%= "#{@recruitment.id}" %>/edit" class = "btn btn-default r_btn">Edit</a>
-              <% end %>
-              <% if @recruitment.band_id == current_user.id %>
-                <%= link_to "Delete", "/recruitments/#{@recruitment.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-danger r_btn" %>
-              <% end %>
-            </div>
+    <div class="users-index-item">
+      <h4>Looking for <%= Part.find(@recruitment.part.to_i).part_name %></h4>
+      <p>
+        <% if @recruitment.user.icon.nil? %>
+          <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav">
+            <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
+        <% else %>
+          <img src="<%= "/user_icon/#{@recruitment.user.icon}" %>" class = "user_icon_nav">
+            <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
+        <% end %>
+      </p>
+        <div class="row">
+          <div class="col-xs-12 col-sm-10">
+            <p class = "r_info"><%= @recruitment.r_info %></p>
+            <br>
+            <p>
+              <span class="hash">#<%= Area.find(@recruitment.area.to_i).view_country_and_area %></span>
+              <span class="hash">#<%= Part.find(@recruitment.part.to_i).part_name %></span>
+              <span class="hash">#<%= Genre.find(@recruitment.genre.to_i).genre_name %></span>            
+              <% if @recruitment.gender.present? %>
+                <span class="hash">#<%= @recruitment.gender %></span>
+              <% end %>  
+            </p>
           </div>
-        <p class="date">
-          <small>Post Date: <%= @recruitment.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= @recruitment.expired%></small>
-        </p>
-  
-      </div>
+          <div class="col-xs-12 col-sm-2">
+            <% if @recruitment.band_id == current_user.id %>
+              <a href= "/recruitments/<%= "#{@recruitment.id}" %>/edit" class = "btn btn-default r_btn">Edit</a>
+            <% end %>
+            <% if @recruitment.band_id == current_user.id %>
+              <%= link_to "Delete", "/recruitments/#{@recruitment.id}", method: :delete, data: { confirm: 'Are you sure you want to delte this item?' }, class: "btn btn-danger r_btn" %>
+            <% end %>
+          </div>
+        </div>
+      <p class="date">
+        <small>Post Date: <%= @recruitment.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= @recruitment.expired%></small>
+      </p>
+    </div>
+    
     <br>
     <h3>People who applied to this position</h3>
     <br>
-      <% @app_messages.each do |apm| %>
-        <div class="users-index-item">
-          <p>
-            <% if apm.user.icon.nil? %>
-              <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
-            <% else %>
-              <img src="<%= "/user_icon/#{apm.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
-            <% end %>
-          </p>
-          <div class="row">
-            <div class="col-xs-12 col-sm-10">
-              <p class = "r_info">
-                <%= apm.content %>
-              </p>  
-            </div>
-            <div class="col-xs-12 col-sm-2">
-              <% if @recruitment.band_id == current_user.id %>
+    <% @app_messages.each do |apm| %>
+      <div class="users-index-item">
+        <p>
+          <% if apm.user.icon.nil? %>
+            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
+          <% else %>
+            <img src="<%= "/user_icon/#{apm.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
+          <% end %>
+        </p>
+        <div class="row">
+          <div class="col-xs-12 col-sm-10">
+            <p class = "r_info">
+              <%= apm.content %>
+            </p> 
+          </div>
+          <!--Chat用-->
+          <div class="col-xs-12 col-sm-2">
+            <% if @rec_entries.find_by(user_id: current_user.id) %>
+              <% if @rec_entries.find_by(user_id: apm.user_id) %>
+                 <% @theroom = @rec_entries.find_by(user_id: apm.user_id) %>
+                  <%= link_to("Open Chat", "/rec_rooms/#{@theroom.rec_room_id}", class: "btn btn-default") %>
+              <% else %>
+                <!--# @recentryテーブル内に相手がいない場合-->
                 <%= form_for @rec_room do |f| %>
-                  <%= f.submit "Send Message", :class => "btn btn-warning r_btn" %>
+                  <%= f.hidden_field :recruitment_id, :value => params[:id] %>
+                  <%= fields_for @rec_entry do |e| %>
+                    <%= e.hidden_field :user_id, :value => apm.user_id %>
+                    <%= e.hidden_field :recruitment_id, :value => params[:id] %>
+                  <% end %>
+                  <%= f.submit "Start Chat", :class => "btn btn-warning r_btn" %>
                 <% end %>
               <% end %>  
-            </div>
+            <% else %>
+              <!--@rec_entryに自分のレコードが１件もない場合-->
+              <%= form_for @rec_room do |f| %>
+                <%= f.hidden_field :recruitment_id, :value => params[:id] %>
+                <%= fields_for @rec_entry do |e| %>
+                  <%= e.hidden_field :user_id, :value => apm.user_id %>
+                  <%= e.hidden_field :recruitment_id, :value => params[:id] %>
+                <% end %>
+                <%= f.submit "Start Chat", :class => "btn btn-warning r_btn" %>
+              <% end %>
+            <% end %>
           </div>
         </div>
-      <% end %>
-      <br>
+      </div>
+    <% end %>
+    <br>
     <p><a href="/recruitments" class = "btn btn-primary">Back to Wanted List Top</a></p>
-  </div>
-  
-  
-  
+  </div>            
+          
+          
+          
+          
+          
+       
+            
+  <!--< if RecEntry.find_by(user_id: current_user.id) %>-->
+  <!--  <RecEntry.where(user_id: current_user.id).each do |re| %>-->
+  <!--    < if RecEntry.find_by('user_id = ? and rec_room_id = ?', apm.user_id, re.rec_room_id) %>-->
+  <!--      <= link_to("Open Chat", "/rec_rooms/#{re.rec_room_id}", class: "btn btn-default") %>-->
+  <!--    < else %>-->       
+          
+          
+  <!--        <div class="col-xs-12 col-sm-2">-->
+  <!--          < if @rec_mes_status =="opened" %>-->
+  <!--            <p class = "btn btn-default"><= link_to("Open Chat", "/rec_rooms/#{@rec_mes_room}") %></p>     -->
+  <!--          < else %>-->
+            <!--< if @recruitment.band_id == current_user.id %>-->
+  <!--            <= form_for @rec_room do |f| %>-->
+  <!--              <= fields_for @rec_entry do |e| %>-->
+  <!--                <= e.hidden_field :user_id, :value => apm.user_id %>-->
+  <!--              < end %>-->
+  <!--              <= f.submit "Start Chat", :class => "btn btn-warning r_btn" %>-->
+  <!--            < end %>-->
+  <!--          < end %> -->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  < end %>-->
+  <!--  <br>-->
+  <!--  <p><a href="/recruitments" class = "btn btn-primary">Back to Wanted List Top</a></p>-->
+  <!--</div>  -->

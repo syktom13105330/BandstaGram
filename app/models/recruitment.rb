@@ -8,6 +8,8 @@ class Recruitment < ApplicationRecord
   belongs_to :user, class_name: "User", foreign_key: "band_id"
   validates :band_id, {presence: true}
   has_many :app_messages
+  has_many :rec_rooms
+  has_many :rec_entries
 
 
   def self.search(search)

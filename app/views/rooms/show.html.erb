@@ -14,7 +14,7 @@
         <% @messages.each do |m| %>
           <% if m.user_id == current_user.id %>
             <h4 class="text-right">
-              <p class="alert alert-warning">
+              <p class="alert alert-warning chat">
               <%= m.content %>
               <br><br>
               <small>
@@ -33,7 +33,7 @@
             </h4>
           <% else %>
             <h4 class="text-left">
-            <p class="alert alert-info">
+            <p class="alert alert-info chat">
             <%= m.content %>
             <br><br>
             <small>

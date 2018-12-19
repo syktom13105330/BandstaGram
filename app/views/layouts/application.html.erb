@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <%= favicon_link_tag('/favicon.ico') %>
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <!--Google Font-->
   </head>
   <body>
@@ -30,57 +31,87 @@
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
             
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Post
-            <i class="fas fa-camera-retro"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/posts/new">New Post!</a>
-              <a class="dropdown-item" href="/posts">Posts List</a>
-            </div>
-          </li>            
-              
-          <li class="counter">
-                        <!--未読件数-->
-            <% counter = 0 %>
-            <% Recruitment.where(band_id: current_user.id).each do |recruitment| %>
-            <%  counter = counter + AppMessage.where(recruitment_id: recruitment.id).where(status: "a").count %>
-            <% end %>
-            <a href = "/recruitments">
-              Wanted
-              <span class="badge badge-light">
-              <%= counter %>
-              </span>
-              <i class="fas fa-search"></i>
-            </a>
-          </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Post
+                <i class="fas fa-camera-retro"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/posts/new">New Post!</a>
+                  <a class="dropdown-item" href="/posts">Posts List</a>
+                </div>
+              </li>            
                   
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Friends
-              <i class="fas fa-user-friends"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/friends">Friend status</a>
-              <a class="dropdown-item" href="/users">User list</a>
-            </div>
-          </li>
+              <li>
+                <a href = "/recruitments">
+                  Wanted
+                  <i class="fas fa-search"></i>
+                </a>
+              </li>
+                      
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Friends
+                  <i class="fas fa-user-friends"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/friends">Friend status</a>
+                  <a class="dropdown-item" href="/users">User list</a>
+                </div>
+              </li>
 
+              <!--AppMessageの未読件数（gのみ）-->
+              <% counter = 0 %>
+              <% Recruitment.where(band_id: current_user.id).each do |recruitment| %>
+              <%  counter = counter + AppMessage.where(recruitment_id: recruitment.id).where(status: "a").count %>
+              <% end %>
               <% if current_user.icon.nil? %>
                 <li>
-                  <a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <%= current_user.name %>さん</a>
+                  <a href = "/users/<%= current_user.id %>"><%= current_user.name %> <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                  <% if current_user.user_type == "g" %>
+                    <!--<i class="far fa-envelope"></i>-->
+                    <i class="far fa-comment-alt"></i>
+                    <span class="badge nav-badge"><%= counter %></span>
+                  <% end %>  
+                  </a>
                 </li>
               <% else %>
                 <li>
-                  <a href = "/users/<%= current_user.id %>"><img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"> <%= current_user.name %>さん</a>
+                  <a href = "/users/<%= current_user.id %>"><%= current_user.name %> <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                  <% if current_user.user_type == "g" %>
+                    <!--<i class="far fa-envelope"></i>-->
+                    <i class="far fa-comment-alt"></i>
+                    <span class="badge nav-badge"><%= counter %></span>
+                  <% end %>  
+                  </a>
                 </li>
               <% end %>
-                  
-                <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+              
+              <!--RecMessageの未読件数-->
+              <% rmcounter = 0 %>
+                <% @myrooms = RecEntry.where(user_id: current_user.id) %>
+                <% @myrooms.each do |mr| %>
+                  <% RecMessage.where(rec_room_id: mr.rec_room_id).each do |mm| %>
+                    <% if mm.user_id != current_user.id %>
+                      <%  rmcounter = rmcounter + RecMessage.where(rec_room_id: mm.rec_room_id).where(status: "d").count %>
+                    <% end %>
+                  <% end %>
+                <% end %>  
+                <li>
+                  <a href = "#">
+                    <i class="far fa-comments-alt"></i>
+                    <span class="badge nav-ms-badge"><%= rmcounter %></span>
+                  </a>
+                </li>
+
+                <li><%= link_to  destroy_user_session_path, :method => :delete do %>
+                  Sign out <i class="fas fa-sign-out-alt"></i>
+                  <% end %>
+                </li>
+
             <% else %>
-              <li><a href = "/users/sign_up">Sign up</a></li>
-              <li><a href = "/users/sign_in">Sign in</a></li>
+              <li><a href = "/users/sign_up">Sign up <i class="fas fa-user-plus"></i></a></li>
+              <li><a href = "/users/sign_in">Sign in <i class="fas fa-sign-in-alt"></i></a></li>
             <% end %>
           </ul>
         </div>

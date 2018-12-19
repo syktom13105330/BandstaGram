@@ -1,5 +1,8 @@
 class BelongBandsController < ApplicationController
   
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:destroy]}
+  
   def index
   end
   
@@ -55,8 +58,14 @@ class BelongBandsController < ApplicationController
   
   end
   
-  def destroy_mem
+  private
     
-  end
+    def ensure_correct_user
+      @belong_band = BelongBand.find(id: params[:id])
+      if @belong_band.user_id != current_user.id
+        flash[:notice] = "You have no authority to access"
+        redirect_to("/users/#{current_user.id}")
+      end
+    end  
   
 end

@@ -1,7 +1,7 @@
 <h1>Friend Status</h1>
 <br><br>
     
-<h3>申請中</h3>
+<h3>Friend Requests you sent</h3>
 <hr>
 <% if @request_friends.empty? %>
   <div class="comment">No Sent Request</div>
@@ -23,7 +23,7 @@
 <% end %>
 <br><br>
 
-<h3>承認待ち</h3>
+<h3>Friend Requests to approve</h3>
 <hr>
 <% if @receive_friends.empty? %>
   <div class="comment">No Request to approve</div>
@@ -48,7 +48,7 @@
 <% end %>
   <br><br>
   
-<h3>友達</h3>
+<h3>Friends List</h3>
 <hr>
 <% if @friends.empty? %>
   <div class="comment">You don't have any connection yet</div>
