@@ -14,6 +14,7 @@ class RecruitmentsController < ApplicationController
       @rec_room = RecRoom.new
     # end
       @app_message = AppMessage.new
+      @rec_entries = RecEntry.where(user_id: current_user.id)
 
   
     # @recruitments = Recruitment.all.order(created_at: "desc")

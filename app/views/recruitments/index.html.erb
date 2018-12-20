@@ -67,7 +67,15 @@
           <div class="col-xs-12 col-sm-2">
              <% if r.band_id != current_user.id  %>
                <% if AppMessage.where(recruitment_id: r.id).where(user_id: current_user.id).present? %>
-                  <%= link_to "Cancel", "/app_messages/#{r.id}/destroy", class: "btn btn-warning r_btn", method: "delete" %>
+               
+                <% if @rec_entries.find_by(recruitment_id: r.id).present? %>
+                    <% @abc = RecEntry.find_by(recruitment_id: r.id, user_id: current_user.id) %>
+                    <!--chatroom作成済みなら既存roomへのリンク-->
+                      <%= link_to("Chat Open","/rec_rooms/#{@abc.rec_room_id}",  class: "btn btn-default r_btn") %>
+                <% else %>
+                    <!--chatroom作成前（募集側がchat開始する前）だったらCancelボタン表示-->
+                    <%= link_to "Cancel", "/app_messages/#{r.id}/destroy", class: "btn btn-warning r_btn", method: :delete %>
+                  <% end %> 
                <% else %>
                   <%= link_to "Apply", "/app_messages/#{r.id}/new", class: "btn btn-success r_btn" %>
                <% end %>
