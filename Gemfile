@@ -75,4 +75,4 @@ gem 'jquery-rails'
 gem 'popper_js'
 
 
-# gem 'rmagick', '~> 2.16'
+gem 'rmagick', '~> 2.16'
