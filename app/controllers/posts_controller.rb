@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   
   before_action :authenticate_user!
-  before_action :ensure_correct_user, {only: [:edit, :pdedit, :update, :pdupdate, :destroy]}
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  before_action :ensure_correct_user2, {only: [:pdedit, :pdupdate]}
   
   def index
     @posts = Post.all.order(id: "desc")
@@ -148,13 +149,20 @@ class PostsController < ApplicationController
     end
     
     def ensure_correct_user
-      @post = Post.find(id: params[:id])
+      @post = Post.find(params[:id])
       if @post.writer_id != current_user.id
         flash[:notice] = "You have no authority to access"
         redirect_to("/posts")
       end
     end
     
+    def ensure_correct_user2
+      @post_detail = PostDetail.find(params[:id])
+      if @post_detail.post.writer_id != current_user.id
+        flash[:notice] = "You have no authority to access"
+        redirect_to("/posts")
+      end
+    end
     
 end  ## class end
 

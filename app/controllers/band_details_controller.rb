@@ -37,9 +37,9 @@ class BandDetailsController < ApplicationController
           elsif image.inspect.include?("mp4") || image.inspect.include?("MP4")
             @band_detail.file_type = "mp4"
           elsif image.inspect.include?("mov") || image.inspect.include?("MOV")
-            @band_detail.file_type = "mov"
+            @band_detail.file_type = "webm"
           elsif image.inspect.include?("m4v") || image.inspect.include?("M4V")
-            @band_detail.file_type = "m4v"
+            @band_detail.file_type = "webm"
           end
           
           dir_path = "public/bands/#{@band_detail.user_id}"
@@ -135,9 +135,9 @@ class BandDetailsController < ApplicationController
       @band_detail.file_type = "mp4"
     elsif params[:band_detail][:file_name].inspect.include?("mov") || params[:band_detail][:file_name].inspect.include?("MOV")
       logger.debug("-=============================== mov ")
-      @band_detail.file_type = "mov"
+      @band_detail.file_type = "webm"
     elsif params[:band_detail][:file_name].inspect.include?("m4v") || params[:band_detail][:file_name].inspect.include?("M4V")
-      @band_detail.file_type = "m4v"
+      @band_detail.file_type = "webm"
     end
     
     
@@ -168,7 +168,7 @@ class BandDetailsController < ApplicationController
     end
     
     def ensure_correct_user
-      @band_detail = BandDetail.find(id: params[:id])
+      @band_detail = BandDetail.find(params[:id])
       if @band_detail.user_id != current_user.id
         flash[:notice] = "You have no authority to access"
         redirect_to("/users")

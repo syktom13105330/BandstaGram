@@ -53,14 +53,14 @@
     <!--基本情報-->
       <div class="row">
         <div class="col-xs-12">
-          <span class="hash">#<%= @user.genre %></span>
-          <span class="hash">#<%= @user.area %></span>
+          <span class="hash">#<%= Genre.find(@user.genre.to_i).genre_name %></span>
+          <span class="hash">#<%= Area.find(@user.area.to_i).view_country_and_area %></span>
           <% if @user.user_type == "i" %>
             <% if @user.gender.present? %>
               <span class="hash">#<%= @user.gender %></span>
             <% end %>
             <% if @user.part.present? %>
-              <span class="hash">#<%= @user.part %></span>
+              <span class="hash">#<%= Part.find(@user.part.to_i).part_name %></span>
             <% end %>        
           <% else %>
             <% if @user.banmas_id.present? %>
@@ -77,10 +77,12 @@
         <%= @user.profile %>
       </div>  
     </div>
+
     <div class="col-xs-12">
       <hr>
       <br>
-    </div>  
+    </div>
+  </div>
 
 <div class = "row">
   <!--"iのみBelongBand Info(BelongBand)-->
@@ -295,7 +297,7 @@
           <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
         　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>
         　   <!--松下さん-->
-              <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+              <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>
                 <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
               <% else %>
                 <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
@@ -303,7 +305,7 @@
             <% end %>
             <!--end of link do-->
           <% else %>
-            <% if band_detail.file_type == "mp4" || band_detail.file_type == "mov" || band_detail.file_type == "mov" || band_detail.file_type == "m4v" %>
+            <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>
               <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
             <% else %>
               <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>

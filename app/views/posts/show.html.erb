@@ -9,14 +9,15 @@
       <!--ログインしてたら投稿済みのPostの差し替えリンク有効に > posts#pdedit-->
         <%= link_to "/posts/#{post_detail.id}/pdedit" do %>
       　  <!--松下さん-->
-        　<% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
+        　<% if post_detail.file_type == "mp4" || post_detail.file_type == "webm" || post_detail.file_type == "m4v" %>
         　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
         　<% else %>
               <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic img-responsive full-width" %>
           <% end %>
         <% end %>
+        <!--end of do-->
       <% else %>
-        <% if post_detail.file_type == "mp4" || post_detail.file_type == "mov" || post_detail.file_type == "mov" || post_detail.file_type == "m4v" %>
+        <% if post_detail.file_type == "mp4" || post_detail.file_type == "webm" || post_detail.file_type == "m4v" %>
         　    <%= video_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
       　<% else %>
               <%= image_tag "/pics/#{post_detail.post_id}/#{post_detail.file_name}", :class => "show_pic img-responsive full-width" %>
@@ -43,14 +44,14 @@
 </div>  
 
 <hr>
-  <p>投稿者：
+  <p>Writer: 
     <% if @post.user.icon.nil? %>
       <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"><a href = "/users/<%= @post.user.id %>"> <%= @post.user.name %></a></p>
     <% else %>    
       <img src="<%= "/user_icon/#{@post.user.icon}" %>"  class = "user_icon_nav"><a href = "/users/<%= @post.user.id %>"> <%= @post.user.name %></a></p>
     <% end %>
-  <p>コメント：<%= @post.content %></p>
-  <p>投稿日：<%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+  <p>Comment: <%= @post.content %></p>
+  <p>Posted Date: <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
   
 <hr>
 <!--参考 from users#show.html.erb  -->

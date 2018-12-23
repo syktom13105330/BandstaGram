@@ -1,6 +1,13 @@
 <h1>You wan to replace this file?</h1>
 <br><br>
 
+  <% @filename = @band_detail.file_name.split(".")[0] %>
+  <% if @band_detail.file_type == "mp4" || @band_detail.file_type == "webm" || @band_detail.file_type == "m4v" %>
+    <%= video_tag "/bands/#{@band_detail.user_id}/#{@filename}.#{@band_detail.file_type}", autoplay: true, muted: true, loop: true, :class => "replacevideopreview" %>
+  <% else %>
+    <%= image_tag "/bands/#{@band_detail.user_id}/#{@filename}.#{@band_detail.file_type}", :class => "replacepreview" %>
+  <% end %>  
+
   <%= form_for @band_detail, :html => { multipart: true } do |f| %>
   
   

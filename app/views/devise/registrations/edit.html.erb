@@ -10,13 +10,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :genre %><br />
-    <%= f.select :genre, ["Rock", "Pops","Metal", "Accoustic", "Classic"], {}, {:class => "form-control my-form"} %>
+    <%= f.label :Genre %><br>
+    <%= f.collection_select :genre, Genre.all, :id, :genre_name, {include_blank: false}, {class: "form-control my-form"} %>
   </div>
+  <!--<div class="field">-->
+  <!--  <= f.label :genre %><br />-->
+  <!--  <= f.select :genre, ["Rock", "Pops","Metal", "Accoustic", "Classic"], {}, {:class => "form-control my-form"} %>-->
+  <!--</div>-->
   
   <div class="field">
-    <%= f.label :area %><br />
-    <%= f.select :area, ["Tokyo", "Osaka", "Nagoya", "Fukuoka"], {}, {:class => "form-control my-form"} %>
+    <%= f.label :Location %><br />
+    <%= f.collection_select :area, Area.all, :id, :view_country_and_area, {include_blank: false}, {class: "form-control my-form"} %>
   </div>
   
   <div class="field">
@@ -44,8 +48,8 @@
     </div>
     
     <div class="field">
-      <%= f.label :part %><br />
-      <%= f.select :part, ["Gt", "Bass", "Dr", "Vo", "Key", "Others"], {}, {:class => "form-control my-form"} %>
+      <%= f.label :Part %><br />
+      <%= f.collection_select :part, Part.all, :id, :part_name, {prompt: false}, {class: "form-control my-form"} %>
     </div>
     
   <% else %>
