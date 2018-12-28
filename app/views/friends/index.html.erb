@@ -1,29 +1,7 @@
 <h1>Friend Status</h1>
 <br><br>
-    
-<h3>Friend Requests you sent</h3>
-<hr>
-<% if @request_friends.empty? %>
-  <div class="comment">No Sent Request</div>
-<% else %>
-  <% @request_friends.each do |request_friend| %>
-    <div class="users-index-item">
-      <div class = "user-left">
-        <% if User.find(request_friend).icon.nil? %>
-          <img src ="<%= "/user_icon/default_icon.png" %>">
-        <% else %>  
-          <img src="<%= "/user_icon/#{User.find(request_friend).icon}" %>" >
-        <% end %>  
-      </div>
-      <div class = "user-right">
-        <%= link_to User.find(request_friend).name, "/users/#{request_friend}" %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
-<br><br>
 
-<h3>Friend Requests to approve</h3>
+<h3>Friend Requests to approve <i class="fas fa-user-plus"></i> <span class="badge nav-badge"><%= @receive_friends.count %></span></h3>
 <hr>
 <% if @receive_friends.empty? %>
   <div class="comment">No Request to approve</div>
@@ -46,8 +24,30 @@
     </div>
   <% end %>
 <% end %>
-  <br><br>
-  
+<br><br>
+
+<h3>Friend Requests you sent</h3>
+<hr>
+<% if @request_friends.empty? %>
+  <div class="comment">No Sent Request</div>
+<% else %>
+  <% @request_friends.each do |request_friend| %>
+    <div class="users-index-item">
+      <div class = "user-left">
+        <% if User.find(request_friend).icon.nil? %>
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% else %>  
+          <img src="<%= "/user_icon/#{User.find(request_friend).icon}" %>" >
+        <% end %>  
+      </div>
+      <div class = "user-right">
+        <%= link_to User.find(request_friend).name, "/users/#{request_friend}" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<br><br>
+
 <h3>Friends List</h3>
 <hr>
 <% if @friends.empty? %>

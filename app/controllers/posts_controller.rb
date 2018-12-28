@@ -48,7 +48,6 @@ class PostsController < ApplicationController
               
               # @post_detail.file_type = "p"
               logger.debug("--------------------------file_name=#{image.inspect.include?("jpg")}")
-              
               dir_path = "public/pics/#{post_id}"
               FileUtils.mkdir_p(dir_path) unless FileTest.exist?(dir_path)
               @post_detail.file_name = "#{@post.id}-#{cnt+1}.#{@post_detail.file_type}"
@@ -79,6 +78,20 @@ class PostsController < ApplicationController
     # logger.debug("============================= params[:id] = #{params[:id]}")
     @post = Post.find(params[:id])
     @post_details = PostDetail.where(post_id: params[:id])
+    
+    # image_original = File.open("public/pics/#{@post.id}/#{@post_detail.file_name}").read
+    # rmagick_image = Magick::Image.from_blob(image_original).first
+    # rmagick_image.auto_orient!
+    # rmagick_image.strip!
+    # image_rotated = rmagick_image.to_blob
+                      
+                # rmagick_image = Magick::Image.from_blob(image).shift
+                # rmagick_image.auto_orient!
+                # rmagick_image.strip!
+                # image_rotated = rmagick_image.to_blob
+    
+    
+    
 
   end
 

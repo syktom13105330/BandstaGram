@@ -15,7 +15,7 @@
 //= require jquery
 //= require popper
 //= require turbolinks
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require_tree .
 
 // var obj = document.getElementById("message");

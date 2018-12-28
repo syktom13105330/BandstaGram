@@ -1,0 +1,153 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.users-index-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  display: table;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.users-show-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  // display: table;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.user-left img {
+  width: 50px;
+  height: 50px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.user-left {
+  float: left;
+  width: 10%;
+}
+
+.user-right {
+  width: 90%;
+  padding-left: 25px;
+  text-align: left;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+// width="50px" height="50px" style="border-radius: 25px";
+
+.user_icon {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 10px auto;
+  object-fit: cover;
+
+}
+// width="100px" height="100px" style="border-radius: 20px;"
+.user_icon_nav {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  object-fit: cover;
+    
+}
+
+.profile {
+  overflow-wrap: break-word;
+  
+}
+
+.users-profile-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  // display: table;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 2px;
+}
+
+
+.header_right {
+  margin-top: 0;
+}
+
+.nf, .np {
+  font-size: 60px;
+  font-style: bold;
+  font-family: 'Pacifico', cursive;
+  margin-bottom: 0;
+  // display: inline-block;
+}
+
+.number {
+  text-align: center;
+  color: gray;
+
+  
+}
+
+.show_pic:hover {
+  opacity: .8;
+  
+}
+
+.file_item a {
+  text-decoration: none;
+}
+
+.Basic_info {
+  margin-bottom: 0;
+}
+
+.r_info_slider {
+  white-space: pre-line;
+  height: 70px;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-bottom:10px;
+}
+
+.r_badge_parent {
+  position: relative;
+}
+
+.r_budge_icon {
+  position: absolute;
+  top: 32px;
+  left: 290px;
+}
+
+.r_badge {
+  margin: 0 auto 10px;
+  position: absolute;
+  top: 20px;
+  left: 300px;
+}
+
+.rec_btn {
+  margin: 0 10px 2px;
+  display: inline-block;
+  width: 60px;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.title-btn {
+  margin-top: 5px;
+}

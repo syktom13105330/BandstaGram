@@ -64,8 +64,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'therubyracer'
-gem 'less-rails', git: 'https://github.com/MustafaZain/less-rails'
-gem 'twitter-bootstrap-rails'
+# gem 'less-rails', git: 'https://github.com/MustafaZain/less-rails'
+# gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.4'
 gem 'sprockets', '3.7.2'
 gem 'execjs'
 
@@ -76,3 +77,4 @@ gem 'popper_js'
 
 
 gem 'rmagick', '~> 2.16'
+
