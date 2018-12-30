@@ -46,7 +46,17 @@ class Recruitment < ApplicationRecord
      end   
   end
 
-  
+  # Dec 29 add
+  scope :expired_between, -> from, to {
+    if from.present? && to.present?
+      where(expired: from..to)
+    elsif from.present?
+      where('expired >= ?', from)
+    elsif to.present?
+      where('expired <= ?', to)
+    end
+  }
+
   # def self.search(search)
   #   if search[0].present?
   #           logger.debug("=~=~=~=~=~=~=~=~=~=~=~=~=~2 ")

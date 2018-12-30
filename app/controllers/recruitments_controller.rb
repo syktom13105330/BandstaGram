@@ -8,7 +8,9 @@ class RecruitmentsController < ApplicationController
     # @recruitment = Search::Recruitment.new
     # @recruitment.new(params.require(rec_params))
     # if params[:area]
-      @recruitments = Recruitment.search([params[:area],params[:part],params[:genre]])
+      # @recruitments = Recruitment.search([params[:area],params[:part],params[:genre]])
+      @recruitments = Recruitment.expired_between(Date.today, nil).search([params[:area],params[:part],params[:genre]])
+      # Employee.birth_between('2000/01/01', nil         ) #=> from以降を検索
       
     # if @recruitment.band_id != current_user.id
       @rec_room = RecRoom.new
