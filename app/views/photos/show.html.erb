@@ -1,0 +1,45 @@
+<div class="container">
+  <br>
+  <div class="slider-box">
+    <% if @photo.images? %>
+  　  <% cnt = 0 %>
+  　  <% @photo.images.each do |image| %>
+      　<div class="photo_item count_good">
+      　   <% ext = image.file.extension.downcase %><br>
+      　   <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
+          　 <!--<= link_to "/photos/edit_image/#{@photo.id}/#{cnt}" do %>-->
+            <%= link_to "/photos/image_show/#{@photo.id}/#{cnt}" do %>
+              <%=  image_tag(image.url, :class => "show_pics img-responsive") %>
+            <% end %>  
+      　   <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
+            <%= link_to "/photos/image_show/#{@photo.id}/#{cnt}" do %>
+              <%= video_tag(image.url, :autoplay => true, :muted => true, loop: true, :class => "show_pics img-responsive") %>
+            <% end %>
+      　   <% end %>
+      　   <!--Good-->
+          <% if Good.find_by(user_id: current_user.id, photo_id: @photo.id, image_no: cnt) %>
+            <%= link_to("/goods/#{@photo.id}/#{cnt}/destroy", {method: "delete"}) do %>
+              <span class="fab fa-itunes-note good good-btn-unlike"></span>
+            <% end %>
+          <% else %>
+            <%= link_to("/goods/#{@photo.id}/#{cnt}/create", {method: "post"}) do %>
+              <span class="fab fa-itunes-note good good-btn"></span>
+            <% end %>
+          <% end %>
+          <span class="good_detail_count"><%= Good.where(photo_id: @photo.id, image_no: cnt).count %></span>
+      　   <% cnt += 1 %>
+    　   </div>
+  　　<% end %>
+  　<% else %>
+  　　<%= image_tag 'noimage.gif' %>
+  　<% end %>
+  </div>
+  <p><%= @photo.content %></p>
+  <h4><small>Posted by <%= @photo.user.name %> @ <%= @photo.created_at.strftime('%Y /%m/ %d/ %H:%M') %></small></h4>
+  <br>
+  <% if @photo.user_id == current_user.id %>
+    <%= link_to "Edit comment", edit_photo_path, class: "btn btn-sm btn-default" %>
+    <%= link_to "Delete this Post", "/photos/#{@photo.id}", method: :delete, data: { confirm: 'Are you sure you want to DELETE this item?' }, class: "btn btn-sm btn-default" %>
+  <% end %>  
+</div>
+

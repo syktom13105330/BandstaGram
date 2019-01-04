@@ -1,0 +1,10 @@
+<%= form_for @question, :html => { multipart: true } do |f| %>
+
+<ul>
+    <li>ファイル複数選択：<%= file_field_tag "images[]", type: :file, multiple: true %></li>
+</ul>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

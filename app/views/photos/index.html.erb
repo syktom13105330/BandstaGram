@@ -1,0 +1,30 @@
+<h1>Top Page</h1>
+<br>
+
+<div class = "container">
+  <div class="row">
+      <% @photos.each do |p| %>
+        <div class=" col-xs-12 col-sm-6 col-md-4 countcontainer">
+          <% ext = p.images[0].file.extension.downcase %>
+          <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
+            <%= link_to photo_path(p.id) do %>
+              <%= image_tag(p.images[0].url, :class => "photo_pic img-responsive") %>
+            <% end %> 　
+          <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
+            <%= link_to photo_path(p.id) do %>
+              <%= video_tag(p.images[0].url, :autoplay => true, :muted => true, loop: true, :class => "photo_pic img-responsive") %>
+            <% end %>
+          <% end %>
+          <!--imgcounter-->
+          <% @imgcount = 0 %>
+          <% @imgcount = p.images.count %>
+          <% if @imgcount > 1 %>
+            <span class="imgcount far fa-images"> <%= @imgcount %></span>
+          <% end %>
+          <!--Total Goods Counter-->
+          <% @TG=Good.where(photo_id: p.id).count %>
+            <span class="fab fa-itunes-note total-good"> <%= @TG %></span>
+      　</div>   
+      <% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<h1>Add Media</h1>
+<br>
+
+<%= form_for @medium do |f| %>
+
+  <div class="field">
+    <%= f.label :intro, "Comment" %>
+    <%= f.text_field :content, :class => "form-control my-form"%>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :image, "Medium / Media" %>
+    <%= f.file_field :images, multiple: true %>
+  </div>
+  <br>
+  
+  <div class="actions">
+    <%= f.submit "Post!", :class => "btn btn-default" %>
+  </div>
+<% end %>

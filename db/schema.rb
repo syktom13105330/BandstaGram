@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_19_174847) do
+ActiveRecord::Schema.define(version: 2019_01_03_172418) do
 
   create_table "app_messages", force: :cascade do |t|
     t.text "content"
@@ -28,12 +28,27 @@ ActiveRecord::Schema.define(version: 2018_12_19_174847) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "band_details", force: :cascade do |t|
     t.integer "user_id"
     t.string "file_type"
     t.string "file_name"
     t.string "string"
     t.text "file_exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "band_photos", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "intro"
+    t.json "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,9 +80,25 @@ ActiveRecord::Schema.define(version: 2018_12_19_174847) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "goods", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "photo_id"
+    t.integer "image_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_detail_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "intro"
+    t.json "media"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -86,12 +117,40 @@ ActiveRecord::Schema.define(version: 2018_12_19_174847) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "content"
+    t.json "images"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "post_details", force: :cascade do |t|
     t.integer "post_id"
     t.string "file_type"
     t.string "file_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "post_images", force: :cascade do |t|
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "posts", force: :cascade do |t|

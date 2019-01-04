@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
-  
+
   def create
     require 'fileutils'
     # logger.debug("--------------------------file_name=#{params[:post][:file_name]}")
@@ -89,11 +89,9 @@ class PostsController < ApplicationController
                 # rmagick_image.auto_orient!
                 # rmagick_image.strip!
                 # image_rotated = rmagick_image.to_blob
-    
-    
-    
 
   end
+  
 
   def edit
     @post = Post.find(params[:id])

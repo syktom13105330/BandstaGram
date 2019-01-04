@@ -35,9 +35,9 @@ Friend.create(follower:1, followed:9)
 Friend.create(follower:1, followed:10)
 
 Recruitment.delete_all
-Recruitment.create(band_id:1, r_info:"Test1 from seeds", expired:"2018-12-31",part:"1" ,area:"1", genre:"1")
-Recruitment.create(band_id:4, r_info:"Test2 from seeds", expired:"2018-12-31",part:"2" ,area:"2", genre:"2")
-Recruitment.create(band_id:5, r_info:"Test3 from seeds", expired:"2018-12-31",part:"3" ,area:"6", genre:"3")
+Recruitment.create(band_id:1, r_info:"Test1 from seeds", expired:"2019-12-31",part:"1" ,area:"1", genre:"1")
+Recruitment.create(band_id:4, r_info:"Test2 from seeds", expired:"2019-3-31",part:"2" ,area:"2", genre:"2")
+Recruitment.create(band_id:5, r_info:"Test3 from seeds", expired:"2019-5-31",part:"3" ,area:"6", genre:"3")
 
 BelongBand.delete_all
 BelongBand.create(user_id:2,band_id:1)

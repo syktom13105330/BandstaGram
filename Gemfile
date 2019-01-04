@@ -67,6 +67,8 @@ gem 'therubyracer'
 # gem 'less-rails', git: 'https://github.com/MustafaZain/less-rails'
 # gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass', '~> 3.4'
+# gem 'bootstrap', '~> 4.1.1'
+
 gem 'sprockets', '3.7.2'
 gem 'execjs'
 
@@ -75,6 +77,11 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'popper_js'
 
-
+# for image uploader with AWS S3
+gem 'carrierwave'
+gem 'fog-aws'
 gem 'rmagick', '~> 2.16'
+
+gem 'aws-sdk'
+
 

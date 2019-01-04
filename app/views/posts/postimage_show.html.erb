@@ -1,0 +1,10 @@
+<% unless @post.post_images.empty? %>
+    <p>画像です</p>
+    <ul>
+      <% @post.post_images.each do |pimg| %>
+          <li id="post_image_<%= pimg.id %>">
+            <%= image_tag pimg.image.url %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

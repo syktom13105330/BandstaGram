@@ -53,6 +53,7 @@ class UsersController < ApplicationController
     ##gのみ Media Information用   
     @band_details = BandDetail.where(user_id: params[:id]).order(id: "desc")
     @bdcomment = BandDetail.where(user_id: params[:id]).last
+    @band_photo = BandPhoto.find_by(user_id: params[:id])
 
     ##Recruitment表示用   
     @recruitments = Recruitment.all.order(id: "desc")

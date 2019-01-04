@@ -1,0 +1,16 @@
+<h1>Edit Comment</h1>
+<br><br>
+
+<%= form_for @band_photo, :html => { multipart: true } do |f| %>
+<br>
+
+  <div class="field">
+    <%= f.label :intro, "Comment" %><br />
+    <%= f.text_area :intro, :class => "form-control my-form" %>
+  </div>  
+
+<br>
+  <div class="actions">
+    <%= f.submit "Update!", :class => "btn btn-default" %>
+  </div>
+<% end%>

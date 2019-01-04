@@ -1,0 +1,10 @@
+<div class="container">  
+  <% ext = @band_photo.images[@cnt].file.extension.downcase %><br>
+    <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
+      <%=  image_tag(@band_photo.images[@cnt].url, :class => "image_show_pic img-responsive") %>
+    <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
+      <%= video_tag(@band_photo.images[@cnt].url, :autoplay => true, :muted => true, loop: true, :class => "image_show_pic img-responsive") %>
+    <% end %> 
+    <h4><small>Posted By: <%= @band_photo.user.name %> @ <%= @band_photo.created_at.strftime('%Y /%m/ %d/ %H:%M')%></small></h4>
+
+</div>

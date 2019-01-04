@@ -1,0 +1,4 @@
+bucket: 'bucket-name'
+access_key_id: 'AKIAIKLBBEAQOBAFVDRQ'
+secret_access_key: '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'
+s3_host_name: 's3-ap-northeast-1.amazonaws.com'

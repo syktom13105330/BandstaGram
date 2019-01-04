@@ -1,0 +1,76 @@
+// Place all the styles related to the photos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.photo_pic {
+  width: 390px;
+  height: 390px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.countcontainer {
+  position: relative;
+}
+
+.imgcount {
+  position: absolute;
+  bottom: 35px;
+  right: 25px;
+  color: white;
+  background: grey;
+  opacity: 0.8;
+  border-radius: 20%;
+  padding: 7px;
+  line-height: 1.5em;  
+}
+
+.photo_item {
+  position: relative;
+  display: inline-block;
+  width: 360px;
+}
+
+.total-good {
+  position: absolute;
+  bottom: 35px;
+  left: 25px;
+  color: white;
+  background: grey;
+  opacity: 0.8;
+  border-radius: 20%;
+  padding: 7px;
+  line-height: 1.5em;    
+}
+
+.slider-box {
+  white-space: nowrap;
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.show_pics {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 10px;
+  object-fit: cover;  
+}
+
+.image_show_pic {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.countcontainer a {
+  text-decoration: none;
+}
+
+.countcontainer a:hover {
+  opacity: .8;
+  
+}

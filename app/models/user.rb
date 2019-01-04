@@ -9,7 +9,9 @@ class User < ApplicationRecord
   
   has_many :friends, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :photos, dependent: :destroy
   has_many :band_details, dependent: :destroy
+  has_many :media, dependent: :destroy
   has_many :belong_bands, dependent: :destroy
   has_many :recruitments, dependent: :destroy
   has_many :messages, dependent: :destroy

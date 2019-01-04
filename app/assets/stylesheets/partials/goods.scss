@@ -1,0 +1,38 @@
+// Place all the styles related to the goods controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.good-btn {
+  font-size: 20px;
+  color: #8899a6;
+}
+
+.good-btn-unlike {
+  font-size: 20px;
+  color: #32ccb6;
+  // color: #ff2581;
+}
+
+.count_good {
+  position: relative;
+}
+
+.good {
+  cursor: pointer;
+  position: absolute;
+  bottom: -310px;
+  left: 20px;
+  z-index: 2;  
+}
+
+.good_detail_count {
+  border-radius: 50%;
+  padding: 0 7px;
+  opacity: 0.9;
+  background: grey;
+  color: white;
+  position: absolute;
+  bottom: -310px;
+  left: 40px;
+  z-index: 2;
+}

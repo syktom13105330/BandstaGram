@@ -277,63 +277,112 @@
   <% end %> 
 </div>
 
+  <!--Jan 4 w/BandPhoto-->
   <!--"g"のみMedia Info(BandDetail)-->
   <% if @user.user_type == "g" %>
   
     <hr>
     <h2>Media Inforamtion</h2>
     <br>
-    <% if @band_details.empty? %>
-      <p>No Media Information</p>
-    <% else %>
-      <div class="slider">
-    　<% @band_details.each do |band_detail| %>
-      　<div class="file_item">
-          <% if @user.id == current_user.id %>
-          <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
-        　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>
-        　   <!--松下さん-->
-              <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>
-                <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
-              <% else %>
-                <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
+    <% if @band_photo.present? %>
+
+      <div class="slider-box">
+        <% cnt = 0 %>
+      　<% @band_photo.images.each do |bp| %>
+        　<div class="photo_item count_good">
+        　   <% ext = bp.file.extension.downcase %><br>
+        　   <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
+            　 <!--<= link_to "/photos/edit_image/#{@photo.id}/#{cnt}" do %>-->
+              <%= link_to "/band_photos/#{@band_photo.id}/#{cnt}" do %>
+                <%=  image_tag(bp.url, :class => "show_pics img-responsive") %>
+              <% end %>  
+        　   <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
+              <%= link_to "/band_photos/#{@band_photo.id}/#{cnt}" do %>
+                <%= video_tag(bp.url, :autoplay => true, :muted => true, loop: true, :class => "show_pics img-responsive") %>
               <% end %>
-            <% end %>
-            <!--end of link do-->
-          <% else %>
-            <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>
-              <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>
-            <% else %>
-              <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>
-            <% end %>
-          <% end %>
-          
-          <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>
-        </div>
-      <% end %>
-      <!--end of do-->
+        　   <% end %>
+          </div>
+          <% cnt += 1 %>
+        <% end %>
+        <!--end of do-->
       </div>
-      
-      <h3>Comment</h3>
-      <br>
-      <p><%= @bdcomment.file_exp %></p>
-      
+      <p><%= @band_photo.intro %></p>
+      <h4><small>Posted by <%= @band_photo.user.name %> @ <%= @band_photo.created_at.strftime('%Y /%m/ %d/ %H:%M') %></small></h4>
+      <% if @user.id == current_user.id %>
+        <%= link_to "Edit comment", edit_band_photo_path, class: "btn btn-sm btn-default" %>
+        <%= link_to "Delete Media", "/band_photos/#{@user.id}", method: :delete, data: { confirm: 'Are you sure you want to DELETE your Medium/Media?' }, class: "btn btn-sm btn-default" %>
+      <% end %>
+    <% else %>  
+      <p>No Media Information</p>
+      <% if @user.id == current_user.id %>
+      <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
+      <p><a href = "/band_photos/new" class = "btn btn-default">Add Media</a> <small>*Up to 5-File</small></p>
+      <% end %>
     <% end %>
-  
-    <% if @user.id == current_user.id && @band_details.count < 5 %>
-    <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
-      <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>
-    <% end %>
-      <hr>
   <% end %>
-  
-  
+
+  <hr>
     <p>
       <a href="/users" class = "btn btn-primary">Back to User List</a>
     </p>
     <% if @user.id == current_user.id %>
       <p><a href = "/users/edit" class = "btn btn-success">Edit User Info</a></p>
     <% end %>
- 
   </div>
   </div>
+  
+  
+  
+  
+  
+  
+  <!--OLD BandDetail-->
+  <!--"g"のみMedia Info(BandDetail)-->
+  <!--<% if @user.user_type == "g" %>-->
+  
+  <!--  <hr>-->
+  <!--  <h2>Media Inforamtion</h2>-->
+  <!--  <br>-->
+  <!--  <% if @band_details.empty? %>-->
+  <!--    <p>No Media Information</p>-->
+  <!--  <% else %>-->
+  <!--    <div class="slider">-->
+  <!--  　<% @band_details.each do |band_detail| %>-->
+  <!--    　<div class="file_item">-->
+  <!--        <% if @user.id == current_user.id %>-->
+          <!--ログインしてたら投稿済みのBand Mediaの差し替えリンク有効に > band_details#edit-->
+  <!--      　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>-->
+        　   <!--松下さん-->
+  <!--            <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>-->
+  <!--              <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>-->
+  <!--            <% else %>-->
+  <!--              <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>-->
+  <!--            <% end %>-->
+  <!--          <% end %>-->
+            <!--end of link do-->
+  <!--        <% else %>-->
+  <!--          <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>-->
+  <!--            <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>-->
+  <!--          <% else %>-->
+  <!--            <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>-->
+  <!--          <% end %>-->
+  <!--        <% end %>-->
+          
+  <!--        <% logger.debug("~~~~~~~~~~~~~~~~~~~~~band_detail_id =  #{band_detail.id}") %>-->
+  <!--      </div>-->
+  <!--    <% end %>-->
+      <!--end of do-->
+  <!--    </div>-->
+      
+  <!--    <h3>Comment</h3>-->
+  <!--    <br>-->
+  <!--    <p><%= @bdcomment.file_exp %></p>-->
+      
+  <!--  <% end %>-->
+  
+  <!--  <% if @user.id == current_user.id && @band_details.count < 5 %>-->
+    <!--ログインしてて、Band Mediaが最大４つまでの時しかAdd Btn表示しない-->
+  <!--    <p><a href = "/band_details/new" class = "btn btn-default">Add Media Info</a> <small>*Up to 5-File</small></p>-->
+  <!--  <% end %>-->
+  <!--    <hr>-->
+  <!--<% end %>  -->
