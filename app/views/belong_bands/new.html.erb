@@ -13,10 +13,11 @@
     <div class = "users-index-item">
       <div class = "user-left">
         
-        <% if u.icon.nil? %>
-          <img src ="<%= "/user_icon/default_icon.png" %>">
+        <% if u.images.present? %>
+          <%=  image_tag(u.images[0].url) %>
         <% else %>
-          <img src = "<%= "/user_icon/#{u.icon}" %>">
+          <img src ="<%= "/user_icon/default_icon.png" %>">
+          <!--<img src = "<= "/user_icon/#{u.icon}" %>">-->
         <% end %>  
       </div>
       <div class = "user-right">

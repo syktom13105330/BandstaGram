@@ -5,11 +5,12 @@
     <div class="users-index-item">
       <h4>Looking for <%= Part.find(@recruitment.part.to_i).part_name %></h4>
       <p>
-        <% if @recruitment.user.icon.nil? %>
-          <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav">
+        <% if @recruitment.user.images.present? %>
+          <%=  image_tag(@recruitment.user.images[0].url, :class => "user_icon_nav") %>
+          <!--<img src="<= "/user_icon/#{@recruitment.user.icon}" %>" class = "user_icon_nav">-->
             <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
         <% else %>
-          <img src="<%= "/user_icon/#{@recruitment.user.icon}" %>" class = "user_icon_nav">
+          <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav">
             <%= link_to "#{@recruitment.user.name}", "/users/#{@recruitment.band_id}" %>
         <% end %>
       </p>
@@ -46,10 +47,14 @@
     <% @app_messages.each do |apm| %>
       <div class="users-index-item">
         <p>
-          <% if apm.user.icon.nil? %>
-            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
+          <% if apm.user.images.present? %>
+            <%= link_to "/users/#{apm.user.id}" do %>
+              <%=  image_tag(apm.user.images[0].url, :class => "user_icon_nav") %>
+              <%= apm.user.name %>
+            <% end %>  
           <% else %>
-            <img src="<%= "/user_icon/#{apm.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
+            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>
+            <!--<img src="<%= "/user_icon/#{apm.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= apm.user.id %>"> <%= apm.user.name %></a>-->
           <% end %>
         </p>
         <div class="row">

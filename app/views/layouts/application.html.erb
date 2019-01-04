@@ -94,14 +94,20 @@
               </li>
 
               <!--user.icon-->
-              <% if current_user.icon.nil? %>
+              <% if current_user.images.present? %>
+                <li>
+                <%= link_to "/users/#{current_user.id}" do %>
+                  <%= current_user.name %> 
+                  <%=  image_tag(current_user.images[0].url, :class => "user_icon_nav") %>
+                <% end %> 
+                </li>
+              <% else %>
                 <li>
                   <a href = "/users/<%= current_user.id %>"><%= current_user.name %> <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"></a>
                 </li>              
-              <% else %>
-                <li>
-                  <a href = "/users/<%= current_user.id %>"><%= current_user.name %> <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"></a>
-                </li>
+                <!--<li>-->
+                <!--  <a href = "/users/<= current_user.id %>"><= current_user.name %> <img src="<= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav"></a>-->
+                <!--</li>-->
               <% end %>
               
               <!--RecMessageの未読件数-->

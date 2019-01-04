@@ -44,10 +44,13 @@
       <div class="users-index-item">
         <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
         <p>
-          <% if r.user.icon.nil? %>
-            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
+          <% if r.user.images.present? %>
+            <%= link_to "/users/ #{r.user.id}" do %>
+              <%=  image_tag(r.user.images[0].url, :class => "user_icon_nav") %>
+            <% end %>
           <% else %>
-            <img src="<%= "/user_icon/#{r.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
+            <img src="<%= "/user_icon/default_icon.png" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>
+            <!--<img src="<= "/user_icon/#{r.user.icon}" %>" class = "user_icon_nav"><a href = "/users/<%= r.user.id %>"> <%= r.user.name %></a>-->
           <% end %>
         </p>
         <div class="row">

@@ -5,7 +5,16 @@
   <hr>
     <h4>Members</h4>
     <% @entries.each do |e| %>
-      <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.name %> さん</a></strong></h5>
+      <% if e.user.images.present? %>
+        <%= link_to "/users/#{e.user_id}" do %>
+          <h5><strong>
+            <%= image_tag(e.user.images[0].url, :class => "user_icon_nav") %> 
+            <%= e.user.name %>
+          </strong></h5>
+        <% end %>
+      <% else %>
+        <h5><img src="<%= "/user_icon/default_icon.png" %>" class="user_icon_nav"><strong><a href="/users/<%= e.user.id %>"> <%= e.user.name %></a></strong></h5>
+      <% end %>
     <% end %>
   </div>
   <div class="col-xs-9">
@@ -20,12 +29,13 @@
               <small>
                 <strong>
                   <a href="/users/<%= m.user_id %>">
-                    <% if current_user.icon.nil? %>
-                        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                    <% if current_user.images.present? %>
+                      <%=  image_tag(current_user.images[0].url, :class => "user_icon_nav") %>
                     <% else %>
-                        <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                        <!--<img src="<= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">-->
                     <% end %>
-                    <%= m.user.name %> さん</a>
+                    <%= m.user.name %></a>
                 </strong>
                 <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
               </small>
@@ -39,12 +49,13 @@
             <small>
               <strong>
                 <a href="/users/<%= m.user_id %>">
-                  <% if current_user.icon.nil? %>
-                      <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                  <% if m.user.images.present? %>
+                    <%=  image_tag(m.user.images[0].url, :class => "user_icon_nav") %>
                   <% else %>
-                      <img src="<%= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">
+                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav">
+                      <!--<img src="<= "/user_icon/#{current_user.icon}" %>"  class = "user_icon_nav">-->
                   <% end %>
-                  <%= m.user.name %>さん</a>
+                  <%= m.user.name %></a>
               </strong>
               <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
             </small>

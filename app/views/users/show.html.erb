@@ -28,10 +28,11 @@
   <!--Block 1 user_icon + Total Post + Total Friendの部分-->
   <div class="row">
     <div class="col-xs-4 col-md-3">
-      <% if @user.icon.nil? %>
-        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+      <% if @user.images.present? %>
+        <%= image_tag(@user.images[0].url, :class => "user_icon") %>
       <% else %>
-        <img src="<%= "/user_icon/#{@user.icon}" %>"  class = "user_icon">
+        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+        <!--<img src="<= "/user_icon/#{@user.icon}" %>"  class = "user_icon">-->
       <% end %>
     </div>
 
@@ -95,10 +96,11 @@
             <div class="users-show-item">
               <div class = "user-left">
                 
-                <% if bb.band.icon.nil? %>
-                  <img src="<%= "/user_icon/default_icon.png" %>">
+                <% if bb.band.images.present? %>
+                  <%=  image_tag(bb.band.images[0].url) %>
                 <% else %>
-                  <img src=" <%= "/user_icon/#{bb.band.icon}" %>" >
+                  <img src="<%= "/user_icon/default_icon.png" %>">
+                  <!--<img src=" <= "/user_icon/#{bb.band.icon}" %>" >-->
                 <% end %>      
                 
               </div>
@@ -155,10 +157,11 @@
                   </div>
                 </div>
                 <p>
-                  <% if apm.recruitment.user.icon.nil? %>
-                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
+                  <% if apm.recruitment.user.images.present? %>
+                    <%=  image_tag(apm.recruitment.user.images[0].url, :class => "user_icon_nav") %> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
                   <% else %>
-                    <img src="<%= "/user_icon/#{apm.recruitment.user.icon}" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
+                    <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
+                    <!--<img src="<= "/user_icon/#{apm.recruitment.user.icon}" %>"  class = "user_icon_nav"> -->
                   <% end %>
                 </p>
                 <p class = "r_info r_info_slider"><%= apm.recruitment.r_info %></p>
@@ -187,10 +190,11 @@
           <div class="users-show-item">
             <div class = "user-left">
               
-              <% if bm.user.icon.nil? %>
-                <img src="<%= "/user_icon/default_icon.png" %>">
+              <% if bm.user.images.present? %>
+                <%=  image_tag(bm.user.images[0].url) %>
               <% else %>
-                <img src=" <%= "/user_icon/#{bm.user.icon}" %>" >
+                <img src="<%= "/user_icon/default_icon.png" %>">
+                <!--<img src=" <= "/user_icon/#{bm.user.icon}" %>" >-->
               <% end %>      
               
             </div>

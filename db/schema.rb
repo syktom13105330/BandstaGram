@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_03_172418) do
+ActiveRecord::Schema.define(version: 2019_01_04_033742) do
 
   create_table "app_messages", force: :cascade do |t|
     t.text "content"
@@ -224,6 +224,7 @@ ActiveRecord::Schema.define(version: 2019_01_03_172418) do
     t.string "icon_content_type"
     t.bigint "icon_file_size"
     t.datetime "icon_updated_at"
+    t.json "images"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
