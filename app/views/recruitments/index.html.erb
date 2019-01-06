@@ -87,7 +87,14 @@
           </div>
         </div>
         <p class="date">
-          <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %>  Expire Date: <%= r.expired%></small>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <small>Post Date: <%=r.created_at.strftime('%Y-%m-%d %H:%M') %></small>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <small>Expire Date: <%= r.expired%></small>
+            </div>
+          </div>
         </p>
 
       </div>

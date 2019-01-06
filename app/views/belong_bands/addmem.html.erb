@@ -1,4 +1,4 @@
-<h1>Add Your Member(s)!</h1>
+<h1>Add Your Member!</h1>
 <br><br>
 
 <%= form_tag("/belong_bands/addmem",method:"get") do %>
@@ -22,8 +22,11 @@
       </div>
       <div class = "user-right">
         <p><a href = "/users/<%= u.id %>"><%= u.name %></a>
-          <!--<p class = "btn btn-default">< link_to("Add to Member(s)", "/belong_bands/#{u.id}/createmem", {method: "post"}) %></p>-->
+        <% if BelongBand.find_by(user_id: u.id, band_id: current_user.id) %>
+          <span class="badge badge-secondary">Member</button>
+        <% else %>  
           <%= link_to("Add", "/belong_bands/#{u.id}/createmem", method: :post, class: "btn btn-default btn-approve") %>
+        <% end %>  
         </p>
       </div>
     </div>

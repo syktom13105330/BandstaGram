@@ -22,7 +22,11 @@
       </div>
       <div class = "user-right">
         <p><a href = "/users/<%= u.id %>"><%= u.name %></a>
-          <%= link_to("My Group", "/belong_bands/#{u.id}/create", method: :post, class: "btn btn-default btn-approve") %>
+          <% if BelongBand.find_by(user_id: current_user.id, band_id: u.id) %>
+            <span class="badge badge-secondary">Member</span>
+          <% else %>  
+            <%= link_to("My Group", "/belong_bands/#{u.id}/create", method: :post, class: "btn btn-default btn-approve") %>
+          <% end %>  
         </p>
       </div>
     </div>
