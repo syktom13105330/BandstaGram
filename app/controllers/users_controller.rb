@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     @app_messages = AppMessage.where(user_id: params[:id]).order(id: "desc")
 
     #Post Total & Friend Total Index
-    @posts = Post.where(writer_id: params[:id])
+    @posts = Photo.where(user_id: params[:id])
     @nfriends = [] #空にして
       Friend.where(follower: params[:id]).each do |f| #paramsがfollowerしてるだけ引っ張って
       if Friend.find_by('follower = ? and followed = ?', f.followed, params[:id])  #followし返してくれてるかifして
