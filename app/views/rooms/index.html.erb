@@ -1,0 +1,92 @@
+<!--Jan_12-->
+
+<h1>Message List</h1>
+<br><br>
+
+<div class="container">
+  <!--(Friend)Message-->
+  <% if @entries.where(user_id: current_user.id).empty? %>
+    <p>No Friend Chat</p>
+  <% else %>
+    <% @entries.where(user_id: current_user.id). each do |en| %>
+      <% fmcounter = 0 %>
+      <% Room.where(id: en.room_id).each do |re| %>
+        <% fmcounter = fmcounter + Message.where(room_id: re.id).where.not(user_id: current_user.id).where(status: "n").count %>
+        <% re.entries.each do |aite| %>
+          <% if aite.user_id != current_user.id %> 
+  
+            <div class="users-index-item" >
+              <div class = "user-left">
+                  <% if aite.user.images.present? %>
+                    <%= image_tag(aite.user.images[0].url) %>
+                  <% else %>
+                    <img src="<%= "/user_icon/default_icon.png" %>">
+                  <% end %>  
+              </div>
+              <div class = "user-right">
+                <p>
+                <div class = "col-xs-7 col-sm-10">
+                  <%= link_to("#{aite.user.name}", "/rooms/#{aite.room_id}") %>
+                </div>
+                <div class = "col-xs-5 col-sm-2">
+                  <i class="far fa-comments"></i>
+                  <spam class="badge"><%= fmcounter %></spam>
+                </div>  
+                </p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>  
+      <% end %>  
+    <% end %>
+  <% end %>  
+<br>
+<hr>
+
+<!--RecMessage-->
+<br>
+<h1>Wanted Message</h1>
+<br><br>
+
+  <% if @rec_entries.where(user_id: current_user.id).empty? %>
+    <p>No Wanted Chat</p>
+  <% else %>
+    <% @rec_entries.where(user_id: current_user.id). each do |ren| %>
+      <% rmcounter = 0 %>
+      <% RecRoom.where(id: ren.rec_room_id).each do |rre| %>
+        <% rmcounter = rmcounter + RecMessage.where(rec_room_id: rre.id).where.not(user_id: current_user.id).where(status: "d").count %>
+        <% rre.rec_entries.each do |r_aite| %>
+          <% if r_aite.user_id != current_user.id %> 
+  
+            <div class="users-index-item" >
+              <div class = "user-left">
+                  <% if r_aite.user.images.present? %>
+                    <%= image_tag(r_aite.user.images[0].url) %>
+                  <% else %>
+                    <img src="<%= "/user_icon/default_icon.png" %>">
+                  <% end %>  
+              </div>
+              <div class = "user-right">
+                <p>
+                <div class = "col-xs-12 col-sm-5">
+                  <%= link_to("#{r_aite.user.name}", "/rec_rooms/#{r_aite.rec_room_id}") %>
+                </div>
+                <div class = "col-xs-7 col-sm-5">
+                   <small class="part"><%= Part.find(ren.recruitment.part.to_i).part_name %></small>
+                </div>
+                <div class = "col-xs-5 col-sm-2">
+                  <i class="far fa-comments"></i>
+                  <spam class="badge"><%= rmcounter %></spam>
+                </div>  
+                </p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>  
+      <% end %>  
+    <% end %>
+  <% end %>  
+<br>
+
+<!--end of main container-->
+</div>

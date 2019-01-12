@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_033742) do
+ActiveRecord::Schema.define(version: 2019_01_12_034155) do
 
   create_table "app_messages", force: :cascade do |t|
     t.text "content"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_01_04_033742) do
     t.integer "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "parts", force: :cascade do |t|

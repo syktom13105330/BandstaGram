@@ -110,15 +110,21 @@
                 <!--</li>-->
               <% end %>
               
+              <!--RecMessageの未読件数 + FriendMessageの未読件数-->
               <!--RecMessageの未読件数-->
               <% rmcounter = 0 %>
               <% RecEntry.where(user_id: current_user.id).each do |rm| %>
                 <% rmcounter = rmcounter + RecMessage.where(rec_room_id: rm.rec_room_id).where.not(user_id: current_user.id).where(status: "d").count %>
               <% end %>
+              <!--(Friend)Messageの未読件数-->
+              <% fmcounter = 0 %>
+              <% Entry.where(user_id: current_user.id).each do |fe| %>
+                <% fmcounter = fmcounter + Message.where(room_id: fe.room_id).where.not(user_id: current_user.id).where(status: "n").count %>
+              <% end %>
               <li>
-                <a href = "/users/<%= current_user.id %>">
+                <a href = "/rooms">
                   <i class="far fa-comments"></i>
-                  <span class="badge"><%= rmcounter %></span>
+                  <span class="badge"><%= rmcounter + fmcounter %></span>
                 </a>
               </li>
 

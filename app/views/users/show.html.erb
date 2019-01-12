@@ -87,7 +87,7 @@
   <div class = "row">
     <!--"iのみBelongBand Info(BelongBand)-->
     <% if @user.user_type =="i" %>
-      <div class = "col-xs-12 col-md-6">
+      <div class = "col-xs-12 col-md-6" style=margin-bottom:20px;>
         <h2 class="header_right">Group </h2>
         <br>
         <% if @belong_bands.empty? %>
@@ -120,8 +120,8 @@
         <% if @user.id == current_user.id %>
           <p><a href = "/belong_bands/new" class = "btn btn-default">Add your Groups</a></p>
         <% end %>
-      </div>  
-        
+      </div>
+
       <!--Applied Recruitment （iのみ）-->
       <% if @user.id == current_user.id %>
         <div class = "col-xs-12 col-md-6">
@@ -133,10 +133,10 @@
             <% @app_messages.each do |apm| %>
               <div class="users-index-item">
                 <div class = "row ">
-                  <div class = "col-xs-7">
+                  <div class = "col-xs-9 col-sm-7">
                     <h4>Looking for <%= Part.find(apm.recruitment.part.to_i).part_name %></h4>
                   </div>
-                  <div class = "col-xs-2 title">
+                  <div class = "col-xs-3 col-sm-2 title">
                     <!--RecMessage未読件数-->
                     <i class="far fa-comments"></i>
                     <% rmcounter = 0 %>
@@ -146,7 +146,7 @@
                     <span class="badge"><%= rmcounter %></span>
                   </div> 
   
-                  <div class = "col-xs-3 title-btn">
+                  <div class = "col-xs-12 col-sm-3 title-btn">
                     <% if @rec_entries.find_by(recruitment_id: apm.recruitment_id) %>
                       <% @abc = RecEntry.find_by(recruitment_id: apm.recruitment_id, user_id: current_user.id) %>
                       <!--chatroom作成済みなら既存roomへのリンク-->
@@ -157,7 +157,7 @@
                     <% end %>  
                   </div>
                 </div>
-                <p>
+                <p style=margin-top:20px; >
                   <% if apm.recruitment.user.images.present? %>
                     <%=  image_tag(apm.recruitment.user.images[0].url, :class => "user_icon_nav") %> <strong><a href="/users/<%= apm.recruitment.user.id %>"><%= apm.recruitment.user.name %></a></strong>
                   <% else %>

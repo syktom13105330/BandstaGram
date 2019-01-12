@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   resources :recruitments
   resources :messages, :only => [:create]
   resources :rec_messages, :only => [:create]
-  resources :rooms, :only => [:create]
+  resources :rooms, :only => [:create, :index]
   get "rooms/:id" => "rooms#show"
   resources :rec_rooms, :only => [:create]
   get "rec_rooms/:id" => "rec_rooms#show"

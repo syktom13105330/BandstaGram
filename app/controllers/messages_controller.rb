@@ -4,6 +4,8 @@ class MessagesController < ApplicationController
     
   def create
     @message = Message.new(mes_params)
+    # メッセージステータス（未読）
+    @message.status = "n"
     if @message.save
       redirect_to "/rooms/#{@message.room_id}"
     else
