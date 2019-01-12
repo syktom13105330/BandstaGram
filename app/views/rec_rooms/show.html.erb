@@ -1,10 +1,8 @@
 <br>
 <div class="row">
-  <div class="col-xs-3 text-center">
+  <div class="col-xs-12 col-md-3 text-center">
 
-  <hr>
     <h4>Members</h4>
-    <br>
     <% @rec_entries.each do |re| %>
       <% if re.user.images.present? %>
         <%= link_to "/users/#{re.user_id}" do %>
@@ -15,20 +13,10 @@
         <% end %>  
       <% else %>
         <h5><img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_nav"> <strong><a href="/users/<%= re.user_id %>"><%= re.user.name %></a></strong></h5>
-        <!--<h5><img src="<= "/user_icon/#{re.user.icon}" %>"  class = "user_icon_nav"> <strong><a href="/users/<= re.user_id %>"><= re.user.name %></a></strong></h5>-->
       <% end %>
     <% end %>
-    <div class="rec_room_space">
-    </div>  
-    
-      <% if @rec_room.recruitment.band_id == current_user.id %>
-        <%= link_to "Back to Wanted Info", "/recruitments/#{@rec_room.recruitment_id}", class: "btn btn-default" %>
-      <% else %>
-        <%= link_to "Back to Mypage", "/users/#{current_user.id}", class: "btn btn-default" %>
-      <% end %>
-    
   </div>
-  <div class="col-xs-9">
+  <div class="col-xs-12 col-md-9">
     <div class="m_slider">
       <% if @rec_messages.present? %>
         <% @rec_messages.each do |rm| %>
@@ -90,5 +78,14 @@
         <%= f.submit "Post", :class => "btn btn-primary" %>
       </div>
     <% end %>
+    <div class="col-xs-12 text-center">
+    <br>
+      <% if @rec_room.recruitment.band_id == current_user.id %>
+        <%= link_to "Back to Wanted Info", "/recruitments/#{@rec_room.recruitment_id}", class: "btn btn-default" %>
+      <% else %>
+        <%= link_to "Back to Mypage", "/users/#{current_user.id}", class: "btn btn-default" %>
+      <% end %>
+    </div>    
   </div>  
+    
 </div>

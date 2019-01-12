@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
   
   def show
     @room = Room.find(params[:id])
-    @messages = @room.messages
+    @messages = @room.messages.order(id: "desc")
     @message = Message.new
     @entries = @room.entries
   end

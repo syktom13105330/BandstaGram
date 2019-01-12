@@ -19,7 +19,7 @@ class RecRoomsController < ApplicationController
   def show
   
     @rec_room = RecRoom.find(params[:id])
-    @rec_messages = @rec_room.rec_messages
+    @rec_messages = @rec_room.rec_messages.order(id: "desc")
     @rec_message = RecMessage.new
     @rec_entries = @rec_room.rec_entries
 
