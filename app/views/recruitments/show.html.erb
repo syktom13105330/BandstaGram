@@ -69,12 +69,12 @@
               <% if @rec_entries.find_by(user_id: apm.user_id) %>
                  <% @theroom = @rec_entries.find_by(user_id: apm.user_id) %>
                    <!--RecMessage未読件数-->
-                  <i class="far fa-comments"></i>
-                  <% rmcounter = 0 %>
-                  <% RecEntry.where(user_id: apm.user_id).each do |rm| %>
-                    <% rmcounter = rmcounter + RecMessage.where(rec_room_id: rm.rec_room_id).where.not(user_id: current_user.id).where(status: "d").count %>
-                  <% end %>
-                  <span class="badge"><%= rmcounter %></span>
+                  <!--<i class="far fa-comments"></i>-->
+                  <!--< rmcounter = 0 %>-->
+                  <!--< RecEntry.where(user_id: apm.user_id).each do |rm| %>-->
+                  <!--  < rmcounter = rmcounter + RecMessage.where(rec_room_id: rm.rec_room_id).where.not(user_id: current_user.id).where(status: "d").count %>-->
+                  <!--< end %>-->
+                  <!--<span class="badge"><%= rmcounter %></span>-->
                   <%= link_to("Open Chat", "/rec_rooms/#{@theroom.rec_room_id}", class: "btn btn-default") %>
               <% else %>
                 <!--# @recentryテーブル内に相手がいない場合-->

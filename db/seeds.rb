@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.delete_all
-User.create(email:"1@gmail.com", password: 111111, name: "Band1", user_type: "g", profile: "Hi", genre: "1", area: "1")
-User.create(email:"2@gmail.com", password: 222222, name: "User2", user_type: "i", profile: "Hey", genre: "5", area: "2", part: "1")
+User.create(email:"1@gmail.com", password: 111111, name: "Band1", user_type: "g", profile: "Hi, This is Band1! Feel free to contact us!", genre: "1", area: "1")
+User.create(email:"2@gmail.com", password: 222222, name: "User2", user_type: "i", profile: "Hey, this is User2. Look foraward to playing with you!", genre: "5", area: "2", part: "1")
 User.create(email:"3@gmail.com", password: 333333, name: "User3", user_type: "i", profile: "This is User3", genre: "1", area: "3", part: "2")
 User.create(email:"4@gmail.com", password: 444444, name: "Band4", user_type: "g", profile: "This is Band4", genre: "7", area: "4")
 User.create(email:"5@gmail.com", password: 555555, name: "Band5", user_type: "g", profile: "Hi", genre: "1", area: "5")
@@ -17,6 +17,19 @@ User.create(email:"7@gmail.com", password: 777777, name: "User7", user_type: "i"
 User.create(email:"8@gmail.com", password: 888888, name: "Band8", user_type: "g", profile: "This is Band8", genre: "10", area: "8")
 User.create(email:"9@gmail.com", password: 999999, name: "User9", user_type: "i", profile: "Hey", genre: "2", area: "9", part: "1")
 User.create(email:"10@gmail.com", password: 101010, name: "User10", user_type: "i", profile: "Hey", genre: "3", area: "10", part: "2")
+
+
+cnt = User.first.id
+User.all.count.times do
+    User.find(cnt).update(profile: "Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
+     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
+     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
+     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
+     Hi, This is #{User.find(cnt).name}! Feel free to contact me!")
+     cnt +=1
+end
+
+
 
 Friend.delete_all
 Friend.create(follower:1, followed:3)
