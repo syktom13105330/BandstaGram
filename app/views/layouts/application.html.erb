@@ -72,22 +72,17 @@
                   <i class="fas fa-user-friends"></i>
                   <!--Friend Request受信数-->
                   <% @receive_friends = [] %>
+                  <% frcounter = 0 %>
                   <% Friend.where(followed: current_user.id).each do |f| %>
                     <% if !Friend.find_by('follower = ? and followed = ?', current_user.id, f.follower) %>
-                	    <span class="badge nav-badge"><%= @receive_friends.push(f.follower).count %></span>
+                	    <% frcounter = @receive_friends.push(f.follower).count %>
                     <% end %>
                   <% end %>
+            	    <span class="badge nav-badge"><%= frcounter %></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/friends">Friend status
-                    <!--Friend Request受信数-->
-                    <% @receive_friends = [] %>
-                    <% Friend.where(followed: current_user.id).each do |f| %>
-                      <% if !Friend.find_by('follower = ? and followed = ?', current_user.id, f.follower) %>
-                  	    <span class="badge nav-badge"><%= @receive_friends.push(f.follower).count %></span>
-                      <% end %>
-                    <% end %>      
-                    
+              	    <span class="badge nav-badge"><%= frcounter %></span>
                   </a>
                   <a class="dropdown-item" href="/users">User list</a>
                 </div>
