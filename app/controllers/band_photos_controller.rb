@@ -9,11 +9,11 @@ class BandPhotosController < ApplicationController
   
   def create
     @band_photo = BandPhoto.new(band_photo_params)
-    if @band_photo.images.count < 6
-      @band_photo.save
+    # if @band_photo.images.count < 6
+    if @band_photo.save
       redirect_to user_url(id: @band_photo.user_id)
     else
-      flash[:notice] = "Up to 5 files!"
+      # flash[:notice] = "Up to 5 files!"
       render new_band_photo_path
     end
   end

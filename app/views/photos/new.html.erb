@@ -2,7 +2,15 @@
 <br>
 
 <%= form_for @photo do |f| %>
-
+  <% if @photo.errors.any? %>
+    <div class = "alert alert-danger">
+      <ul>
+        <% @photo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>  
+  <% end %>
   <div class="field">
     <%= f.label :content, "Comment" %>
     <%= f.text_field :content, :class => "form-control my-form"%>
