@@ -61,10 +61,12 @@ class BelongBandsController < ApplicationController
   private
     
     def ensure_correct_user
-      @belong_band = BelongBand.find(id: params[:id])
+      @belong_band = BelongBand.find(params[:id])
       if @belong_band.user_id != current_user.id
-        flash[:notice] = "You have no authority to access"
-        redirect_to("/users/#{current_user.id}")
+        if  @belong_band.band_id != current_user.id
+          flash[:notice] = "You have no authority to access"
+          redirect_to("/users/#{current_user.id}")
+        end  
       end
     end  
   
