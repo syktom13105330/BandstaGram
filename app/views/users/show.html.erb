@@ -28,12 +28,19 @@
   <!--Block 1 user_icon + Total Post + Total Friendの部分-->
   <div class="row">
     <div class="col-xs-4 col-md-3">
-      <% if @user.images.present? %>
-        <%= image_tag(@user.images[0].url, :class => "user_icon") %>
+      <% if @user.user_type == "g" %>
+        <% if @user.images.present? %>
+          <%= image_tag(@user.images[0].url, :class => "user_icon_g") %>
+        <% else %>
+          <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon_g">
+        <% end %>
       <% else %>
-        <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
-        <!--<img src="<= "/user_icon/#{@user.icon}" %>"  class = "user_icon">-->
-      <% end %>
+        <% if @user.images.present? %>
+          <%= image_tag(@user.images[0].url, :class => "user_icon") %>
+        <% else %>
+          <img src="<%= "/user_icon/default_icon.png" %>"  class = "user_icon">
+        <% end %>
+      <% end %>  
     </div>
 
     <div class="col-xs-4 col-md-3">
@@ -95,16 +102,23 @@
         <% else %>
           <% @belong_bands.each do |bb| %>
             <div class="users-show-item">
-              <div class = "user-left">
-                
-                <% if bb.band.images.present? %>
-                  <%=  image_tag(bb.band.images[0].url) %>
-                <% else %>
-                  <img src="<%= "/user_icon/default_icon.png" %>">
-                  <!--<img src=" <= "/user_icon/#{bb.band.icon}" %>" >-->
-                <% end %>      
-                
-              </div>
+              <% if bb.band.user_type == "g" %>
+                <div class = "user-left type_g">
+                  <% if bb.band.images.present? %>
+                    <%=  image_tag(bb.band.images[0].url) %>
+                  <% else %>
+                    <img src="<%= "/user_icon/default_icon.png" %>">
+                  <% end %>      
+                </div>
+              <% else %>
+                <div class = "user-left">
+                  <% if bb.band.images.present? %>
+                    <%=  image_tag(bb.band.images[0].url) %>
+                  <% else %>
+                    <img src="<%= "/user_icon/default_icon.png" %>">
+                  <% end %>      
+                </div>
+              <% end %>              
               <div class = "user-right">
                 <p><a href ="/users/<%= bb.band_id %>"><%= bb.band.name %></a>
                   <% if @user.id == current_user.id %>
@@ -190,16 +204,23 @@
       <% else %>
         <% @bandmembers.each do |bm| %>
           <div class="users-show-item">
-            <div class = "user-left">
-              
-              <% if bm.user.images.present? %>
-                <%=  image_tag(bm.user.images[0].url) %>
-              <% else %>
-                <img src="<%= "/user_icon/default_icon.png" %>">
-                <!--<img src=" <= "/user_icon/#{bm.user.icon}" %>" >-->
-              <% end %>      
-              
-            </div>
+            <% if bm.user.user_type == "g" %>
+              <div class = "user-left type_g">
+                <% if bm.user.images.present? %>
+                  <%=  image_tag(bm.user.images[0].url) %>
+                <% else %>
+                  <img src="<%= "/user_icon/default_icon.png" %>">
+                <% end %>      
+              </div>
+            <% else %>
+              <div class = "user-left">
+                <% if bm.user.images.present? %>
+                  <%=  image_tag(bm.user.images[0].url) %>
+                <% else %>
+                  <img src="<%= "/user_icon/default_icon.png" %>">
+                <% end %>      
+              </div>
+            <% end %>
             <div class = "user-right">
               <p><a href ="/users/<%= bm.user_id %>"><%= bm.user.name %></a>
                 <% if @user.id == current_user.id %>

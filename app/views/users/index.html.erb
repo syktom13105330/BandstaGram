@@ -1,29 +1,35 @@
 <h1>User List</h1>
 <hr>
 
-<!--Nov 14-->
 <%= form_tag("/users",method:"get") do %>
 <input type="text" name="search" class ="search-form my-form">
 <input type="submit" value="search" class = " btn btn-default search-btn">
 <% end %>
-<!--Nov 14-->
 
 <hr>
 
 <% @users.each do |u| %>
   <div class="users-index-item">
-    <div class = "user-left">
-      
-      <% if u.images.present? %>
-        <%=  image_tag(u.images[0].url) %>
-      <% else %>
-        <img src="<%= "/user_icon/default_icon.png" %>">
-        <!--<img src="<= "/user_icon/#{u.icon}" %>" >-->
-      <% end %>      
-      
-    </div>
+    <% if u.user_type == "g" %>
+      <div class = "user-left type_g">
+        <% if u.images.present? %>
+          <%=  image_tag(u.images[0].url) %>
+        <% else %>
+          <img src="<%= "/user_icon/default_icon.png" %>">
+        <% end %>      
+      </div>
+    <% else %>
+      <div class = "user-left">
+        <% if u.images.present? %>
+          <%=  image_tag(u.images[0].url) %>
+        <% else %>
+          <img src="<%= "/user_icon/default_icon.png" %>">
+          <!--<img src="<= "/user_icon/#{u.icon}" %>" >-->
+        <% end %>      
+      </div>
+    <% end %>    
     <div class = "user-right">
-      <p><a href ="/users/<%= u.id %>"><%= u.name %>さん</a></p>
+      <p><a href ="/users/<%= u.id %>"><%= u.name %></a></p>
     </div>
   </div>
 

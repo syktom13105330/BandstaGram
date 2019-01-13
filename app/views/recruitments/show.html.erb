@@ -74,7 +74,7 @@
                   <!--< RecEntry.where(user_id: apm.user_id).each do |rm| %>-->
                   <!--  < rmcounter = rmcounter + RecMessage.where(rec_room_id: rm.rec_room_id).where.not(user_id: current_user.id).where(status: "d").count %>-->
                   <!--< end %>-->
-                  <!--<span class="badge"><%= rmcounter %></span>-->
+                  <!--<span class="badge"><= rmcounter %></span>-->
                   <%= link_to("Open Chat", "/rec_rooms/#{@theroom.rec_room_id}", class: "btn btn-default") %>
               <% else %>
                 <!--# @recentryテーブル内に相手がいない場合-->

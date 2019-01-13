@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .users-index-item {
   padding: 20px 30px;
   background-color: white;
@@ -28,6 +29,16 @@
   width: 50px;
   height: 50px;
   border-radius: 40%;
+  border: 0.2rem solid white;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.type_g img {
+  width: 50px;
+  height: 50px;
+  border-radius: 40%;
+  border: 0.2rem solid #ffd700;
   box-shadow: 0 2px 6px #c1ced7;
   object-fit: cover;
 }
@@ -45,12 +56,21 @@
   vertical-align: middle;
 }
 
-// width="50px" height="50px" style="border-radius: 25px";
+.user_icon_g {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 0.2rem solid #ffd700;
+  margin: 10px auto;
+  object-fit: cover;
+
+}
 
 .user_icon {
   width: 100%;
   height: auto;
   border-radius: 10px;
+  border: 0.2rem solid white;
   margin: 10px auto;
   object-fit: cover;
 

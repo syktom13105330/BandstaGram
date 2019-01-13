@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.delete_all
-User.create(email:"1@gmail.com", password: 111111, name: "Band1", user_type: "g", profile: "Hi, This is Band1! Feel free to contact us!", genre: "1", area: "1")
-User.create(email:"2@gmail.com", password: 222222, name: "User2", user_type: "i", profile: "Hey, this is User2. Look foraward to playing with you!", genre: "5", area: "2", part: "1")
+User.create(email:"1@gmail.com", password: 111111, name: "Band1", user_type: "g", profile: "Hi", genre: "1", area: "1")
+User.create(email:"2@gmail.com", password: 222222, name: "User2", user_type: "i", profile: "Hey", genre: "5", area: "2", part: "1")
 User.create(email:"3@gmail.com", password: 333333, name: "User3", user_type: "i", profile: "This is User3", genre: "1", area: "3", part: "2")
 User.create(email:"4@gmail.com", password: 444444, name: "Band4", user_type: "g", profile: "This is Band4", genre: "7", area: "4")
 User.create(email:"5@gmail.com", password: 555555, name: "Band5", user_type: "g", profile: "Hi", genre: "1", area: "5")
@@ -19,14 +19,13 @@ User.create(email:"9@gmail.com", password: 999999, name: "User9", user_type: "i"
 User.create(email:"10@gmail.com", password: 101010, name: "User10", user_type: "i", profile: "Hey", genre: "3", area: "10", part: "2")
 
 
-cnt = User.first.id
-User.all.count.times do
-    User.find(cnt).update(profile: "Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
-     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
-     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
-     Hi, This is #{User.find(cnt).name}! Feel free to contact me! 
-     Hi, This is #{User.find(cnt).name}! Feel free to contact me!")
-     cnt +=1
+users = User.all
+users.each do |user|
+    User.find(user.id).update(profile: "Hi, This is #{user.name}! Feel free to contact me! 
+     Hi, This is #{user.name}! Feel free to contact me! 
+     Hi, This is #{user.name}! Feel free to contact me! 
+     Hi, This is #{user.name}! Feel free to contact me! 
+     Hi, This is #{user.name}! Feel free to contact me!")
 end
 
 
@@ -48,9 +47,9 @@ Friend.create(follower:1, followed:9)
 Friend.create(follower:1, followed:10)
 
 Recruitment.delete_all
-Recruitment.create(band_id:1, r_info:"Test1 from seeds", expired:"2019-12-31",part:"1" ,area:"1", genre:"1")
-Recruitment.create(band_id:4, r_info:"Test2 from seeds", expired:"2019-3-31",part:"2" ,area:"2", genre:"2")
-Recruitment.create(band_id:5, r_info:"Test3 from seeds", expired:"2019-5-31",part:"3" ,area:"6", genre:"3")
+Recruitment.create(band_id:1, r_info:"Test1 from seeds. Vo.募集中です。バンドで歌いたい人、デモあればぜひ送って下さい。", expired:"2019-12-31",part:"1" ,area:"1", genre:"1")
+Recruitment.create(band_id:4, r_info:"Test2 from seeds. ポップスバンドでギタリスト募集中です。月１ペースでスタジオ入れる方、気軽に応募して下さい。", expired:"2019-3-31",part:"2" ,area:"2", genre:"2")
+Recruitment.create(band_id:5, r_info:"Test3 from seeds. If you love playing bass, feel free to contact us!!", expired:"2019-5-31",part:"3" ,area:"6", genre:"3")
 
 BelongBand.delete_all
 BelongBand.create(user_id:2,band_id:1)

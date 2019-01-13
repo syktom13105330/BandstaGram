@@ -13,12 +13,20 @@
   font-family: 'Pacifico', cursive;
 }
 
+.open_room_link a:hover {
+  text-decoration: none;
+}
+
 @media (max-width: 720px) {
 
 .m_slider {
   height: 200px;
   overflow-y: auto;
   overflow-x: auto;
+}
+
+.chat {
+  font-size: 50%;
 }
 
 }

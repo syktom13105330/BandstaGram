@@ -8,14 +8,25 @@
 <% else %>
   <% @receive_friends.each do |receive_friend| %>
     <div class="users-index-item">
-      <div class="user-left">
-        <% if User.find(receive_friend).images.present? %>
-          <%=  image_tag(User.find(receive_friend).images[0].url) %>
-        <% else %>
-          <img src ="<%= "/user_icon/default_icon.png" %>">
-          <!--<img src="<= "/user_icon/#{User.find(receive_friend).icon}" %>" >-->
-        <% end %>  
-      </div>
+      <% if User.find(receive_friend).user_type == "g" %>
+        <div class="user-left type_g">
+          <% if User.find(receive_friend).images.present? %>
+            <%=  image_tag(User.find(receive_friend).images[0].url) %>
+          <% else %>
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(receive_friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% else %>
+        <div class="user-left">
+          <% if User.find(receive_friend).images.present? %>
+            <%=  image_tag(User.find(receive_friend).images[0].url) %>
+          <% else %>
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(receive_friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% end %>  
       <div class = "user-right">
         <%= link_to User.find(receive_friend).name, "/users/#{receive_friend}" %>
         <% if @friend_status = "w" %>
@@ -34,14 +45,25 @@
 <% else %>
   <% @request_friends.each do |request_friend| %>
     <div class="users-index-item">
+      <% if User.find(request_friend).user_type == "g" %>
+        <div class = "user-left type_g">
+          <% if User.find(request_friend).images.present? %>
+            <%=  image_tag(User.find(request_friend).images[0].url) %>
+          <% else %>  
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(request_friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% else %>
       <div class = "user-left">
-        <% if User.find(request_friend).images.present? %>
-          <%=  image_tag(User.find(request_friend).images[0].url) %>
-        <% else %>  
-          <img src ="<%= "/user_icon/default_icon.png" %>">
-          <!--<img src="<= "/user_icon/#{User.find(request_friend).icon}" %>" >-->
-        <% end %>  
-      </div>
+          <% if User.find(request_friend).images.present? %>
+            <%=  image_tag(User.find(request_friend).images[0].url) %>
+          <% else %>  
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(request_friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% end %>      
       <div class = "user-right">
         <%= link_to User.find(request_friend).name, "/users/#{request_friend}" %>
       </div>
@@ -57,14 +79,25 @@
 <% else %>
   <% @friends.each do |friend| %>
     <div class="users-index-item">
-      <div class="user-left">
-        <% if User.find(friend).images.present? %>
-          <%=  image_tag(User.find(friend).images[0].url) %>
-        <% else %>        
-          <img src ="<%= "/user_icon/default_icon.png" %>">
-          <!--<img src="<= "/user_icon/#{User.find(friend).icon}" %>" >-->
-        <% end %>  
-      </div>
+      <% if User.find(friend).user_type == "g" %>
+        <div class="user-left type_g">
+          <% if User.find(friend).images.present? %>
+            <%=  image_tag(User.find(friend).images[0].url) %>
+          <% else %>        
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% else %>
+        <div class="user-left">
+          <% if User.find(friend).images.present? %>
+            <%=  image_tag(User.find(friend).images[0].url) %>
+          <% else %>        
+            <img src ="<%= "/user_icon/default_icon.png" %>">
+            <!--<img src="<= "/user_icon/#{User.find(friend).icon}" %>" >-->
+          <% end %>  
+        </div>
+      <% end %>  
       <div class="user-right">
         <%= link_to User.find(friend).name, "/users/#{friend}" %>
       </div>  
