@@ -76,6 +76,7 @@ class UsersController < ApplicationController
   def index
     @users = User.search(params[:search])
     # @users = User.all
+    @recruitments = Recruitment.expired_between(Date.today, nil)
   end
   
   # def likes

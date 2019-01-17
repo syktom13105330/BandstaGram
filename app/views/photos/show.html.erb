@@ -5,7 +5,7 @@
   　  <% cnt = 0 %>
   　  <% @photo.images.each do |image| %>
       　<div class="photo_item count_good">
-      　   <% ext = image.file.extension.downcase %><br>
+      　   <% ext = image.file.extension.downcase %>
       　   <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
           　 <!--<= link_to "/photos/edit_image/#{@photo.id}/#{cnt}" do %>-->
             <%= link_to "/photos/image_show/#{@photo.id}/#{cnt}" do %>

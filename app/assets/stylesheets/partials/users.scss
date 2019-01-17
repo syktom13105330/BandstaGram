@@ -171,3 +171,18 @@
 .title-btn {
   margin-top: 5px;
 }
+
+.memRQ {
+  animation: blink 0.5s ease infinite alternate;
+  margin-left: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

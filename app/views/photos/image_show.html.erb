@@ -3,7 +3,7 @@
     <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
       <%=  image_tag(@photo.images[@cnt].url, :class => "image_show_pic img-responsive") %>
     <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
-      <%= video_tag(@photo.images[@cnt].url, :autoplay => true, :muted => true, loop: true, :class => "image_show_pic img-responsive") %>
+      <%= video_tag(@photo.images[@cnt].url, :autoplay => true, :muted => true, :controls => true, loop: true, :class => "image_show_pic img-responsive") %>
     <% end %> 
     <h4><small>Posted By: <%= @photo.user.name %> @ <%= @photo.created_at.strftime('%Y /%m/ %d/ %H:%M')%></small></h4>
 

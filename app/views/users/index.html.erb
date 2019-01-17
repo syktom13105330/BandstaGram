@@ -29,7 +29,12 @@
       </div>
     <% end %>    
     <div class = "user-right">
-      <p><a href ="/users/<%= u.id %>"><%= u.name %></a></p>
+      <p>
+        <a href ="/users/<%= u.id %>"><%= u.name %></a>
+          <% if @recruitments.find_by(band_id: u.id) %>
+            <small class="memRQ">募集中！</small>
+          <% end %>
+      </p>    
     </div>
   </div>
 
