@@ -248,10 +248,9 @@
       <% else %>
         <% @recruitments.where(band_id: params[:id]).each do |r| %>
           <div class="users-index-item r_badge_parent">
-            <h4>
             <% if @user.id == current_user.id %>
-              <%= link_to "/recruitments/#{r.id}/" do %>
-                Looking for <%= Part.find(r.part.to_i).part_name %>
+              <h4><%= link_to "/recruitments/#{r.id}/" do %>
+                Looking for <%= Part.find(r.part.to_i).part_name %></h4>
               <% end %>
               <!--AppMessage未読件数-->
                 <i class="far fa-comment-alt"></i>
@@ -264,9 +263,22 @@
                 <% end %>
                 <span class="badge"><%= rmbcounter %></span>
             <% else %>
-                Looking for <%= Part.find(r.part.to_i).part_name %>
+                <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
+                <% if r.band_id != current_user.id %>
+                  <% if AppMessage.where(recruitment_id: r.id).where(user_id: current_user.id).present? %>
+                    <% if @rec_entries.find_by(recruitment_id: r.id).present? %>
+                      <% @abc = RecEntry.find_by(recruitment_id: r.id, user_id: current_user.id) %>
+                      <!--chatroom作成済みなら既存roomへのリンク-->
+                      <%= link_to("Chat Open","/rec_rooms/#{@abc.rec_room_id}",  class: "btn btn-default r_btn") %>
+                    <% else %>
+                      <!--chatroom作成前（募集側がchat開始する前）だったらCancelボタン表示-->
+                      <%= link_to "Cancel", "/app_messages/#{r.id}/destroy", class: "btn btn-warning r_btn", method: :delete %>
+                    <% end %> 
+                  <% else %>
+                    <%= link_to "Apply", "/app_messages/#{r.id}/new", class: "btn btn-success r_btn" %>
+                  <% end %>
+                <% end %>
               <% end %>  
-            </h4>
 
               <div class="row">
                 <div class="col-xs-12 col-sm-10">

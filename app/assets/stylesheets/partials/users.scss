@@ -173,12 +173,13 @@
 }
 
 .memRQ {
-  animation: blink 0.5s ease infinite alternate;
+  animation: blink 2s ease infinite alternate;
   margin-left: 20px;
-  background-color: red;
+  background-color: #008bbb;
   color: white;
-  border-radius: 5px;
-  padding: 2px 5px;
+  border-radius: 10px;
+  padding: 5px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 @keyframes blink {
