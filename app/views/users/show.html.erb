@@ -341,7 +341,7 @@
     <br>
     <% if @band_photo.present? %>
 
-      <div class="slider-box">
+      <div class="bp-slider-box">
         <% cnt = 0 %>
       　<% @band_photo.images.each do |bp| %>
         　<div class="photo_item count_good">
@@ -349,11 +349,11 @@
         　   <% if ext == "jpg" || ext == "jpeg" || ext == "png" %>
             　 <!--<= link_to "/photos/edit_image/#{@photo.id}/#{cnt}" do %>-->
               <%= link_to "/band_photos/#{@band_photo.id}/#{cnt}" do %>
-                <%=  image_tag(bp.url, :class => "show_pics img-responsive") %>
+                <%=  image_tag(bp.url, :class => "bp_pics img-responsive") %>
               <% end %>  
         　   <% elsif ext == "mov" || ext == "mp4" || ext == "webm" %>
               <%= link_to "/band_photos/#{@band_photo.id}/#{cnt}" do %>
-                <%= video_tag(bp.url, :autoplay => true, :muted => true, loop: true, :class => "show_pics img-responsive") %>
+                <%= video_tag(bp.url, :autoplay => true, :muted => true, loop: true, :class => "bp_pics img-responsive") %>
               <% end %>
         　   <% end %>
           </div>
@@ -409,9 +409,9 @@
   <!--      　   <%= link_to "/band_details/#{band_detail.id}/edit" do %>-->
         　   <!--松下さん-->
   <!--            <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>-->
-  <!--              <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>-->
+  <!--              <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "bp_pic img-responsive full-width" %>-->
   <!--            <% else %>-->
-  <!--              <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>-->
+  <!--              <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "bp_pic img-responsive full-width" %>-->
   <!--            <% end %>-->
   <!--          <% end %>-->
             <!--end of link do-->
@@ -419,7 +419,7 @@
   <!--          <% if band_detail.file_type == "mp4" || band_detail.file_type == "webm" || band_detail.file_type == "m4v" %>-->
   <!--            <%= video_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", autoplay: true, muted: true, loop: true, :class => "show_pic img-responsive full-width" %>-->
   <!--          <% else %>-->
-  <!--            <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "show_pic img-responsive full-width" %>-->
+  <!--            <%= image_tag "/bands/#{band_detail.user_id}/#{band_detail.file_name}", :class => "bp_pic img-responsive full-width" %>-->
   <!--          <% end %>-->
   <!--        <% end %>-->
           
