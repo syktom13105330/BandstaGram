@@ -20,7 +20,7 @@
 .good {
   cursor: pointer;
   position: absolute;
-  bottom: -310px;
+  bottom: -320px;
   left: 20px;
   z-index: 2;  
 }
@@ -32,7 +32,7 @@
   background: grey;
   color: white;
   position: absolute;
-  bottom: -310px;
+  bottom: -320px;
   left: 40px;
   z-index: 2;
 }
@@ -41,8 +41,8 @@
   .good {
     cursor: pointer;
     position: absolute;
-    bottom: -250px;
-    left: 20px;
+    bottom: -260px;
+    left: -20px;
     z-index: 2;  
   }
   
@@ -53,8 +53,8 @@
     background: grey;
     color: white;
     position: absolute;
-    bottom: -250px;
-    left: 40px;
+    bottom: -260px;
+    left: 0;
     z-index: 2;
   }
 }  
@@ -63,8 +63,8 @@
   .good {
     cursor: pointer;
     position: absolute;
-    bottom: -200px;
-    left: 20px;
+    bottom: -210px;
+    left: -25px;
     z-index: 2;  
   }
   
@@ -75,8 +75,8 @@
     background: grey;
     color: white;
     position: absolute;
-    bottom: -200px;
-    left: 40px;
+    bottom: -210px;
+    left: -5px;
     z-index: 2;
   }
 }  

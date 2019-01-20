@@ -249,36 +249,52 @@
         <% @recruitments.where(band_id: params[:id]).each do |r| %>
           <div class="users-index-item r_badge_parent">
             <% if @user.id == current_user.id %>
-              <h4><%= link_to "/recruitments/#{r.id}/" do %>
-                Looking for <%= Part.find(r.part.to_i).part_name %></h4>
-              <% end %>
-              <!--AppMessage未読件数-->
-                <i class="far fa-comment-alt"></i>
-                <span class="badge"><%= AppMessage.where(recruitment_id: r.id).where(status: "a").count %></span>
-              <!--RecMessage未読件数-->
-                <i class="far fa-comments"></i>
-                <% rmbcounter = 0 %>
-                <% RecRoom.where(recruitment_id: r.id).each do |rr| %>
-                  <% rmbcounter = rmbcounter + RecMessage.where(rec_room_id: rr.id).where.not(user_id: r.band_id).where(status: "d").count %>
+              <div class="row">
+                <div class="col-xs-12 col-md-8">
+                <h4><%= link_to "/recruitments/#{r.id}/" do %>
+                  Looking for <%= Part.find(r.part.to_i).part_name %></h4>
                 <% end %>
-                <span class="badge"><%= rmbcounter %></span>
-            <% else %>
-                <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
-                <% if r.band_id != current_user.id %>
-                  <% if AppMessage.where(recruitment_id: r.id).where(user_id: current_user.id).present? %>
-                    <% if @rec_entries.find_by(recruitment_id: r.id).present? %>
-                      <% @abc = RecEntry.find_by(recruitment_id: r.id, user_id: current_user.id) %>
-                      <!--chatroom作成済みなら既存roomへのリンク-->
-                      <%= link_to("Chat Open","/rec_rooms/#{@abc.rec_room_id}",  class: "btn btn-default r_btn") %>
-                    <% else %>
-                      <!--chatroom作成前（募集側がchat開始する前）だったらCancelボタン表示-->
-                      <%= link_to "Cancel", "/app_messages/#{r.id}/destroy", class: "btn btn-warning r_btn", method: :delete %>
-                    <% end %> 
-                  <% else %>
-                    <%= link_to "Apply", "/app_messages/#{r.id}/new", class: "btn btn-success r_btn" %>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                <!--AppMessage未読件数-->
+                  <i class="far fa-comment-alt"></i>
+                  <span class="badge"><%= AppMessage.where(recruitment_id: r.id).where(status: "a").count %></span>
+                <!--RecMessage未読件数-->
+                  <i class="far fa-comments"></i>
+                  <% rmbcounter = 0 %>
+                  <% RecRoom.where(recruitment_id: r.id).each do |rr| %>
+                    <% rmbcounter = rmbcounter + RecMessage.where(rec_room_id: rr.id).where.not(user_id: r.band_id).where(status: "d").count %>
                   <% end %>
-                <% end %>
-              <% end %>  
+                  <span class="badge"><%= rmbcounter %></span>
+                </div>  
+              </div>  
+            <% else %>
+              <div class="row">
+                <div class="col-xs-8 col-md-8">
+                  <h4>Looking for <%= Part.find(r.part.to_i).part_name %></h4>
+                </div>  
+                  <% if r.band_id != current_user.id %>
+                    <% if AppMessage.where(recruitment_id: r.id).where(user_id: current_user.id).present? %>
+                      <% if @rec_entries.find_by(recruitment_id: r.id).present? %>
+                        <div class="col-xs-4 col-md-4">
+                          <% @abc = RecEntry.find_by(recruitment_id: r.id, user_id: current_user.id) %>
+                          <!--chatroom作成済みなら既存roomへのリンク-->
+                          <%= link_to("Chat Open","/rec_rooms/#{@abc.rec_room_id}",  class: "btn btn-default r_btn") %>
+                        </div>  
+                      <% else %>
+                        <div class="col-xs-4 col-md-4">
+                          <!--chatroom作成前（募集側がchat開始する前）だったらCancelボタン表示-->
+                          <%= link_to "Cancel", "/app_messages/#{r.id}/destroy", class: "btn btn-warning r_btn", method: :delete %>
+                        </div>  
+                      <% end %> 
+                    <% else %>
+                      <div class="col-xs-4 col-md-4">
+                        <%= link_to "Apply", "/app_messages/#{r.id}/new", class: "btn btn-success r_btn" %>
+                      </div>  
+                    <% end %>
+                  <% end %>
+              </div>  
+            <% end %>  
 
               <div class="row">
                 <div class="col-xs-12 col-sm-10">
